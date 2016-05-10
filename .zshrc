@@ -81,27 +81,13 @@ HOST_HASH=$(printf %s $HOST | md5sum)
 USER_HASH=${USER_HASH_DEBUG:-"$USER_HASH"}
 HOST_HASH=${HOST_HASH_DEBUG:-"$HOST_HASH"}
 
-function chousei {
-    (
-	
-        integer -l int_value
-        #(( int_value = ( $1 - 145 ) * (8.156e-4 * $1 + 0.65) + 145))
-	(( int_value = ( $1 - 128 ) * 0.5 + 128))
-	echo $int_value
-	
-    )
-}
-# ----------------------------->>>>>>>>>>>  skip will be changed <<<<<<-----
-user_r=$(chousei $(( 0x$(echo $USER_HASH | dd bs=1 count=2 skip=0 2>/dev/null))))
-user_g=$(chousei $(( 0x$(echo $USER_HASH | dd bs=1 count=2 skip=2 2>/dev/null))))
-user_b=$(chousei $(( 0x$(echo $USER_HASH | dd bs=1 count=2 skip=4 2>/dev/null))))
 
-host_r=$(chousei $(( 0x$(echo $HOST_HASH | dd bs=1 count=2 skip=0 2>/dev/null))))
-host_g=$(chousei $(( 0x$(echo $HOST_HASH | dd bs=1 count=2 skip=2 2>/dev/null))))
-host_b=$(chousei $(( 0x$(echo $HOST_HASH | dd bs=1 count=2 skip=4 2>/dev/null))))
+USER_COL_NUM=$(( 0x$(echo $USER_HASH | dd bs=1 count=2 2>/dev/null)))
+HOST_COL_NUM=$(( 0x$(echo $HOST_HASH | dd bs=1 count=2 2>/dev/null)))
 
-PROMPT_USERNAME=$(echo -e "%{\e[1;38;2;${user_r};${user_g};${user_b}m%}%n%{\e[0m%}")
-PROMPT_HOSTNAME=$(echo -e "%{\e[1;38;2;${host_r};${host_g};${host_b}m%}%m%{\e[0m%}")
+PROMPT_USERNAME=$(echo -e "%{\e[38;5;${USER_COL_NUM}m%}%n%{\e[0m%}")
+PROMPT_HOSTNAME=$(echo -e "%{\e[38;5;${HOST_COL_NUM}m%}%m%{\e[0m%}")
+
 PROMPT_EXEC_STATUS="%(?.%{$fg[yellow]%}:) .%{$fg_bold[red]%}%? )%{${reset_color}%}"
 PROMPT="$PROMPT_EXEC_STATUS""$PROMPT_USERNAME"@"$PROMPT_HOSTNAME"" %~""%50(l."$'\n'".)"'${vcs_info_msg_0_}'" %# "
 
