@@ -126,6 +126,8 @@ function nohist(){
 
 export EDITOR=emacs
 
+# avoid ^S terminal locking issue
+stty stop undef
 
 ### experimental ###
 fpath=(${HOME}/.zsh/functions/Completion ${fpath})
