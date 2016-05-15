@@ -139,7 +139,7 @@ compinit
 
 function set_term_title () {
     case "${TERM}" in
-	xterm|xterm-color|kterm|kterm-color)
+	xterm*|kterm*)
 	    echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
 	    ;;
 	screen*)
