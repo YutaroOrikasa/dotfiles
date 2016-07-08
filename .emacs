@@ -1,22 +1,3 @@
-(require 'package)
-;; MELPAを追加
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-
-;; MELPA-stableを追加
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
-
-;; Marmaladeを追加
-(add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/") t)
-
-;; Orgを追加
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
-
-;; 初期化
-(package-initialize)
-
-
-(ac-config-default)
-
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)  
 (global-set-key (kbd "M-j") 'jedi:complete)
@@ -96,6 +77,20 @@
 (define-key input-decode-map "\e[1;5C" [C-right])
 (define-key input-decode-map "\e[1;5D" [C-left])
 
+(define-key global-map (kbd "C-h") 'backward-delete-char-untabify)
+;; not work
+;; (global-set-key "C-h" 'backward-delete-char-untabify)
+
+
+;; to mouse wheel scroll in gnu screen (ti@:te@ mode)
+(xterm-mouse-mode t)
+(global-set-key   [mouse-5] 'next-line)
+(global-set-key   [mouse-4] 'previous-line)
+
+(eval-after-load 'tramp '(add-to-list 'tramp-default-proxies-alist
+                                      '("xesla.csg.ci.i.u-tokyo.ac.jp" nil "/ssh:orikasa@www.csg.ci.i.u-tokyo.ac.jp:")))
+
+
 
 (require 'zlc)
 (zlc-mode t)
@@ -111,12 +106,23 @@
   ;;; reset selection
   (define-key map (kbd "C-c") 'zlc-reset))
 
-(define-key global-map (kbd "C-h") 'backward-delete-char-untabify)
-;; not work
-;; (global-set-key "C-h" 'backward-delete-char-untabify)
+
+(require 'package)
+;; MELPAを追加
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+
+;; MELPA-stableを追加
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+
+;; Marmaladeを追加
+(add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/") t)
+
+;; Orgを追加
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+
+;; 初期化
+(package-initialize)
 
 
-;; to mouse wheel scroll in gnu screen (ti@:te@ mode)
-(xterm-mouse-mode t)
-(global-set-key   [mouse-5] 'next-line)
-(global-set-key   [mouse-4] 'previous-line)
+(ac-config-default)
+
