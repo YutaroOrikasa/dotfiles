@@ -119,6 +119,7 @@ alias grep='grep --color=auto'
 export LESS='-r -gj10'
 
 alias open=cygstart
+export CYGWIN="winsymlinks"
 
 function nohist(){
         "$@"
