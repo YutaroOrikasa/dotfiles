@@ -118,6 +118,15 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 export LESS='-r -gj10'
 
+alias g='git'
+alias gcho='git checkout'
+alias gchob='git checkout -b'
+alias gl='git log --oneline --decorate --graph --branches --tags --remotes '
+
+alias lsa='ls -a'
+alias lsl='ls -l'
+alias lsdl='ls -dl'
+
 alias open=cygstart
 export CYGWIN="winsymlinks"
 
