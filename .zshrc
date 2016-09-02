@@ -113,6 +113,11 @@ zstyle ':vcs_info:git:*' unstagedstr "%F{red}+%f"
 zstyle ':vcs_info:*' formats "%%1(l."$'\n'".)""%c%u%F{magenta}(%f%s%F{magenta})%F{yellow}-%F{magenta}[%B%F{blue}%b%%b%F{magenta}]%f%}"
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
 
+
+#### misc ####
+
+alias pd=popd
+
 ##### bash compatible ####
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
