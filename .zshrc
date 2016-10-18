@@ -113,10 +113,24 @@ zstyle ':vcs_info:git:*' unstagedstr "%F{red}+%f"
 zstyle ':vcs_info:*' formats "%%1(l."$'\n'".)""%c%u%F{magenta}(%f%s%F{magenta})%F{yellow}-%F{magenta}[%B%F{blue}%b%%b%F{magenta}]%f%}"
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
 
+
+#### misc ####
+
+alias pd=popd
+
 ##### bash compatible ####
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 export LESS='-r -gj10'
+
+alias g='git'
+alias gcho='git checkout'
+alias gchob='git checkout -b'
+alias gl='git log --oneline --decorate --graph --branches --tags --remotes '
+
+alias lsa='ls -a'
+alias lsl='ls -l'
+alias lsdl='ls -dl'
 
 alias open=cygstart
 export CYGWIN="winsymlinks"
