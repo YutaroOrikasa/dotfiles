@@ -1,3 +1,8 @@
+(setq load-path
+      (append '("~/.emacs.d/mylisp") load-path))
+              
+(load "my")
+
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)  
 (global-set-key (kbd "M-j") 'jedi:complete)
@@ -86,9 +91,6 @@
 (xterm-mouse-mode t)
 (global-set-key   [mouse-5] 'next-line)
 (global-set-key   [mouse-4] 'previous-line)
-
-(eval-after-load 'tramp '(add-to-list 'tramp-default-proxies-alist
-                                      '("xesla.csg.ci.i.u-tokyo.ac.jp" nil "/ssh:orikasa@www.csg.ci.i.u-tokyo.ac.jp:")))
 
 
 
