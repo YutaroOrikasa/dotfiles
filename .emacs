@@ -1,7 +1,23 @@
+(defun mine--try-require-fun (module body)
+  "implementation for try-require"
+  (if (require module nil t)
+      (eval body)
+    (message "Require error: %s" module)))
+
+(defmacro try-require (module body)
+  "If module load successed, body will be evaluated."
+  (mine--try-require-fun (eval module) body))
+
 (setq load-path
       (append '("~/.emacs.d/mylisp") load-path))
               
 (load "my")
+
+(global-hl-line-mode t)                 ;; 現在行をハイライト
+
+(custom-set-faces
+ '(hl-line ((t (:background "#2f2f2f"))))
+ )
 
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)  
@@ -94,19 +110,20 @@
 
 
 
-(require 'zlc)
-(zlc-mode t)
+(try-require 'zlc
+             (
+              (zlc-mode t)
 
-(let
-    ((map minibuffer-local-map))
-  ;;; like menu select
-  (define-key map (kbd "C-<down>")  'zlc-select-next-vertical)
-  (define-key map (kbd "C-<up>")    'zlc-select-previous-vertical)
-  (define-key map (kbd "C-<right>") 'zlc-select-next)
-  (define-key map (kbd "C-<left>")  'zlc-select-previous)
+              (let
+                  ((map minibuffer-local-map))
+                ;; like menu select
+                (define-key map (kbd "C-<down>")  'zlc-select-next-vertical)
+                (define-key map (kbd "C-<up>")    'zlc-select-previous-vertical)
+                (define-key map (kbd "C-<right>") 'zlc-select-next)
+                (define-key map (kbd "C-<left>")  'zlc-select-previous)
 
-  ;;; reset selection
-  (define-key map (kbd "C-c") 'zlc-reset))
+                ;; reset selection
+                (define-key map (kbd "C-c") 'zlc-reset))))
 
 
 (require 'package)
