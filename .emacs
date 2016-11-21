@@ -109,19 +109,20 @@
 
 
 
-(require 'zlc)
-(zlc-mode t)
+(try-require 'zlc
+             (
+              (zlc-mode t)
 
-(let
-    ((map minibuffer-local-map))
-  ;;; like menu select
-  (define-key map (kbd "C-<down>")  'zlc-select-next-vertical)
-  (define-key map (kbd "C-<up>")    'zlc-select-previous-vertical)
-  (define-key map (kbd "C-<right>") 'zlc-select-next)
-  (define-key map (kbd "C-<left>")  'zlc-select-previous)
+              (let
+                  ((map minibuffer-local-map))
+                ;; like menu select
+                (define-key map (kbd "C-<down>")  'zlc-select-next-vertical)
+                (define-key map (kbd "C-<up>")    'zlc-select-previous-vertical)
+                (define-key map (kbd "C-<right>") 'zlc-select-next)
+                (define-key map (kbd "C-<left>")  'zlc-select-previous)
 
-  ;;; reset selection
-  (define-key map (kbd "C-c") 'zlc-reset))
+                ;; reset selection
+                (define-key map (kbd "C-c") 'zlc-reset))))
 
 
 (require 'package)
