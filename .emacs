@@ -1,3 +1,14 @@
+(defun mine--try-require-fun (module body)
+  "implementation for try-require"
+  (if (require module nil t)
+      (eval body)
+    (message "Require error: %s" module)))
+
+(defmacro try-require (module body)
+  "If module load successed, body will be evaluated."
+  (mine--try-require-fun (eval module) body))
+
+
 (global-hl-line-mode t)                 ;; 現在行をハイライト
 
 (custom-set-faces
