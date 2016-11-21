@@ -21,7 +21,7 @@
 (setq load-path
       (append '("~/.emacs.d/mylisp") load-path))
               
-(load "my")
+(try-load "my")
 
 (global-hl-line-mode t)                 ;; 現在行をハイライト
 
