@@ -8,6 +8,10 @@
   "If module load successed, body will be evaluated."
   (mine--try-require-fun (eval module) body))
 
+(setq load-path
+      (append '("~/.emacs.d/mylisp") load-path))
+              
+(load "my")
 
 (global-hl-line-mode t)                 ;; 現在行をハイライト
 
@@ -103,9 +107,6 @@
 (xterm-mouse-mode t)
 (global-set-key   [mouse-5] 'next-line)
 (global-set-key   [mouse-4] 'previous-line)
-
-(eval-after-load 'tramp '(add-to-list 'tramp-default-proxies-alist
-                                      '("xesla.csg.ci.i.u-tokyo.ac.jp" nil "/ssh:orikasa@www.csg.ci.i.u-tokyo.ac.jp:")))
 
 
 
