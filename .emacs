@@ -1,3 +1,9 @@
+(global-hl-line-mode t)                 ;; 現在行をハイライト
+
+(custom-set-faces
+ '(hl-line ((t (:background "#2f2f2f"))))
+ )
+
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)  
 (global-set-key (kbd "M-j") 'jedi:complete)
