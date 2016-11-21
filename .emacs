@@ -8,6 +8,16 @@
   "If module load successed, body will be evaluated."
   (mine--try-require-fun (eval module) body))
 
+(defun mine--try-load-fun (filename &optional  body)
+  "implementation for try-load"
+  (if (load filename t)
+      (eval body)
+    (message "Load error: %s" filename)))
+
+(defmacro try-load (filename &optional body)
+  "If elisp file load successed, body will be evaluated."
+  (mine--try-load-fun filename body))
+
 (setq load-path
       (append '("~/.emacs.d/mylisp") load-path))
               
