@@ -23,6 +23,8 @@
               
 (try-load "my")
 
+(setq dired-listing-switches "-laGh1v")
+
 (global-hl-line-mode t)                 ;; 現在行をハイライト
 
 (custom-set-faces
