@@ -157,19 +157,17 @@
 
 (ac-config-default)
 
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(ansi-color-names-vector
-   ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
  '(custom-enabled-themes (quote (myadwi)))
  '(custom-safe-themes
    (quote
-    ("0b6b364c37c1bfe2781e5447377a80cc0f2422ee3ed39f7c3afd72903f7c09cd" "7009f201dfa0c9a73fe2d0446307c9e29443da8b547d519548ab8c8ad4ceb597" "e1e116712f8e41cc0fc22a46ee7752e1b600c3e3500adb8313341acb2378d752" "899c1c7e5aef9643a1651efcab75cfc1be35b2d9f40969fb4bcfa369fd7e6a2a" "cc9d1ef81d06bf7694f845da93e6d7000339cc963510f6ba92cbb3241cad63c7" "681f3f7effbb8fb0540bd8363a1e1f2ded27fe12c7349ddeda2cef4ad1821698" "d4f0d4ac30b5c1ce0f9a246a168551279fe4a198db8d943043ad4aa7ee7e42a9" "163493e8fe3f991366074f374963e90b4b05471431d84864267c6520c77acd27" "3ea3c3da3d7db2c68d40b339c6ebd5cb65ba40497ce854f1fdbd41282063c5d6" "a0a5339b063dbc17de7a94b006332a74db227be3deb19d0d9ee1a56af1f4fb02" "18048772dabe0c3d8099fd06f40ae68375ed8a297c6fa48a97a9216d04f98514" "0fe8921a5130435eefb4aba382d186f16f5121afffac43b06a52f6940695492d" default))))
+    ("865d548bf2b64f985348d3cdcba8e8fd3eba24abd21b095c2285914803e30bcb" "fe03ab76286b5a496bccee645b27543b724a6149bbd6e009662ab8b09ea66ca2" "fba7eb9099b49afe266682bb5ae1bb1c4bea94f592111a28f524ca64e633268f" "0598b8fe7d82edf48d54ab916306f4afa10d2b64ea4650deb61806e120d55e74" "c6041e4effd30c6013c9f43d986de0236062d1d811495ebff33bf39afa8ff583" default)))
+ '(inhibit-startup-screen t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
