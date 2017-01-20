@@ -139,15 +139,16 @@ function nohist(){
         "$@"
 }
 
-export EDITOR='emacs -nw'
+export EDITOR='emacs'
 
-alias emacs='command emacs -nw'
+alias nwemacs='command emacs -nw'
 
 # emacs on window system
 function wemacs {
     command emacs "$@" >/dev/null 2>&1 &
 }
 
+alias emacs='wemacs'
 
 # avoid ^S terminal locking issue
 stty stop undef
