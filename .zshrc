@@ -145,7 +145,9 @@ alias nwemacs='command emacs -nw'
 
 # emacs on window system
 function wemacs {
-    command emacs "$@" >/dev/null 2>&1 &
+    # I don't want emacs process to be added to background job list.
+    # So I execute background process in sub shell.
+    (command emacs "$@" >/dev/null 2>&1 &)
 }
 
 alias emacs='wemacs'
