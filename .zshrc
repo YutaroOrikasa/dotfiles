@@ -186,6 +186,15 @@ function set_term_title () {
 add-zsh-hook precmd set_term_title
 add-zsh-hook chpwd set_term_title
 
+function notify_pwd_to_emacs_ansi_term () {
+    print -P "\033AnSiTc %d"
+}
+
+if [ -n "$INSIDE_EMACS" ]; then
+    add-zsh-hook chpwd notify_pwd_to_emacs_ansi_term
+    print -P "\033AnSiTu %n"
+    print -P "\033AnSiTc %d"
+fi
 
 alias L='less'
 
