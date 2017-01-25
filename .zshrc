@@ -135,10 +135,6 @@ alias lsdl='ls -dl'
 alias open=cygstart
 export CYGWIN="winsymlinks"
 
-if [ x"$TERM" = x"screen.xterm-256color" ];then
-    export TERM=xterm-256color
-fi
-
 function nohist(){
         "$@"
 }
