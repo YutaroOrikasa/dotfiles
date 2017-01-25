@@ -123,7 +123,7 @@
 
 
 (try-require 'zlc
-             (
+             (lambda()
               (zlc-mode t)
 
               (let
