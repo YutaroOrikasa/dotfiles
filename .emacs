@@ -174,3 +174,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(defun my-delete-other-frames (&optional frame)
+  (interactive)
+  (if (yes-or-no-p "Really delete all other frames?")
+      (delete-other-frames frame)))
+(define-key global-map (kbd "C-x 5 1") 'my-delete-other-frames)
