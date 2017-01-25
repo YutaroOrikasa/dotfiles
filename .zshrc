@@ -118,6 +118,17 @@ zstyle ':vcs_info:*' actionformats '[%b|%a]'
 
 alias pd=popd
 
+# workaround for emacs tramp
+if [[ "$TERM" == "dumb" ]]
+then
+  unsetopt zle
+  unsetopt prompt_cr
+  unsetopt prompt_subst
+  unfunction precmd
+  unfunction preexec
+  PS1='$ '
+fi
+
 ##### bash compatible ####
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
