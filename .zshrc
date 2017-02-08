@@ -181,19 +181,20 @@ function wemacs {
     # I want emacs to launch in console
     # when emacs failed to launch with window system.
     #
-    # But, simply this:
+    # But, simply like this:
     # (
-    #     command emacs "$@" >/dev/null 2>&1 &
+    #     command emacs "$@" </dev/null &
     #     sleep 1
-    #     jobs command && disown command || command emacs -nw "$@"
+    #     jobs command || command emacs -nw "$@"
     # )
-    # does not work because of zsh bug.
+    # does not work because of zsh bug. zsh jobs command report parent shell's jobs in sub shell.
     # workaround:
     echo '
-    command emacs "$@" >/dev/null 2>&1 &
+    command emacs "$@" </dev/null &
     sleep 1
-    jobs command >/dev/null && disown command
-    '  | bash -s "$@" || command emacs -nw "$@"
+    jobs  # This "jobs" reports done jobs and exit with 0.
+    jobs command && disown command
+    ' | bash -s "$@" >/dev/null 2>&1 || command emacs -nw "$@"
 }
 
 alias emacs='wemacs'
