@@ -169,10 +169,27 @@ function wemacs {
             return
         fi
     done
-    
+
+    # 1.
     # I don't want emacs process to be added to background job list.
     # So I execute background process in sub shell.
-    (command emacs "$@" >/dev/null 2>&1 &)
+    # 2.
+    # I want emacs to launch in console
+    # when emacs failed to launch with window system.
+    #
+    # But, simply this:
+    # (
+    #     command emacs "$@" >/dev/null 2>&1 &
+    #     sleep 1
+    #     jobs command && disown command || command emacs -nw "$@"
+    # )
+    # does not work because of zsh bug.
+    # workaround:
+    echo '
+    command emacs "$@" >/dev/null 2>&1 &
+    sleep 1
+    jobs command >/dev/null && disown command
+    '  | bash -s "$@" || command emacs -nw "$@"
 }
 
 alias emacs='wemacs'
