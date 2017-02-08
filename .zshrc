@@ -145,8 +145,12 @@ alias lsdl='ls -dl'
 
 alias sshfs='sshfs -o follow_symlinks -o ServerAliveCountMax=1 -o ServerAliveInterval=1 -o reconnect'
 
-alias open=cygstart
-export CYGWIN="winsymlinks"
+case "$(uname -s | tr '[:upper:]' '[:lower:]')" in
+    cygwin*)
+        alias open=cygstart
+        export CYGWIN="winsymlinks"
+        ;;
+esac
 
 if [ x"$TERM" = x"screen.xterm-256color" ];then
     export TERM=xterm-256color
