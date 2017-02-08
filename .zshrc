@@ -143,6 +143,8 @@ alias lsa='ls -a'
 alias lsl='ls -l'
 alias lsdl='ls -dl'
 
+alias sshfs='sshfs -o follow_symlinks -o ServerAliveCountMax=1 -o ServerAliveInterval=1 -o reconnect'
+
 alias open=cygstart
 export CYGWIN="winsymlinks"
 
