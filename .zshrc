@@ -143,7 +143,7 @@ alias lsa='ls -a'
 alias lsl='ls -l'
 alias lsdl='ls -dl'
 
-alias sshfs='sshfs -o follow_symlinks -o ServerAliveCountMax=1 -o ServerAliveInterval=1 -o reconnect'
+alias sshfs='sshfs -o transform_symlinks -o ServerAliveCountMax=1 -o ServerAliveInterval=1 -o reconnect'
 
 case "$(uname -s | tr '[:upper:]' '[:lower:]')" in
     cygwin*)
