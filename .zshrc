@@ -194,7 +194,7 @@ function wemacs {
     sleep 1
     jobs  # This "jobs" reports done jobs and exit with 0.
     jobs command && disown command
-    ' | bash -s "$@" >/dev/null 2>&1 || command emacs -nw "$@"
+    ' | bash -s -- "$@" >/dev/null 2>&1 || command emacs -nw "$@"
 }
 
 alias emacs='wemacs'
