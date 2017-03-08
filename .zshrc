@@ -242,7 +242,7 @@ function mkcdir {
 }
 alias mkcd=mkcdir
 
-export PATH=/mybin:"$PATH"
+export PATH=/mybin:~/.usr/bin:"$PATH"
 
 [ -e ~/.zshrc.mine ] && . ~/.zshrc.mine || true
 # exit status will always be success.
