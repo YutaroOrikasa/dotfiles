@@ -1,0 +1,10 @@
+#!/bin/bash
+set -v
+
+I="$1"
+
+input="$(basename "$I" .org)"
+# pandoc -V indent=true -N --template=xelatex.template "$input".org -t latex -o "$input".tex &&
+# pandoc --latex-engine=xelatex --standalone "$input".org -t latex -o "$input".tex &&
+
+pandoc -V indent=true -N --latex-engine=xelatex -H ~/.usr/share/pandoc_etc/font-header.tex  "$input".org -o "$input".pdf
