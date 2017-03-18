@@ -238,3 +238,6 @@
 (setq mouse-wheel-progressive-speed nil)
 
 
+;; スクリプトの保存時に実行属性をつける
+(add-hook 'after-save-hook
+          'executable-make-buffer-file-executable-if-script-p)
