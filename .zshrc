@@ -164,39 +164,7 @@ export EDITOR='emacs'
 
 alias nwemacs='command emacs -nw'
 
-# emacs on window system
-function wemacs {
-
-    for arg in "$@";do
-        if [[ "$arg" = -nw ]];then
-            command emacs "$@"
-            return
-        fi
-    done
-
-    # 1.
-    # I don't want emacs process to be added to background job list.
-    # So I execute background process in sub shell.
-    # 2.
-    # I want emacs to launch in console
-    # when emacs failed to launch with window system.
-    #
-    # But, simply like this:
-    # (
-    #     command emacs "$@" </dev/null &
-    #     sleep 1
-    #     jobs command || command emacs -nw "$@"
-    # )
-    # does not work because of zsh bug. zsh jobs command report parent shell's jobs in sub shell.
-    # workaround:
-    echo '
-    command emacs "$@" </dev/null &
-    sleep 1
-    jobs  # This "jobs" reports done jobs and exit with 0.
-    jobs command && disown command
-    ' | bash -s -- "$@" >/dev/null 2>&1 || command emacs -nw "$@"
-}
-
+# wemacs command is in ~/.usr/bin
 alias emacs='wemacs'
 
 # avoid ^S terminal locking issue

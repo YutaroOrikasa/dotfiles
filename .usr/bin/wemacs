@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# license: GNU Free Documentation License 1.3 or later
+# https://www.gnu.org/copyleft/fdl.html
+# this file comtains the contents of https://wiki.archlinuxjp.org/index.php/Emacs#.E3.83.87.E3.83.BC.E3.83.A2.E3.83.B3.E3.81.A8.E3.81.97.E3.81.A6
+
+# emacs on window system
+# when window can not be opened, execute emacs on console
+
+for arg in "$@";do
+    if [[ "$arg" = -nw || "$arg" = --daemon ]];then
+        command emacs "$@"
+        return
+    fi
+done
+
+if [ -z "$DISPLAY" ]; then
+    IS_GRAPHICAL=true
+else
+    IS_GRAPHICAL=$(emacs --batch -Q --eval='(if (fboundp '"'"'tool-bar-mode) (message "true") (message "false"))' 2>&1)
+fi
+
+if $IS_GRAPHICAL; then
+    emacs "$@" &
+    disown emacs
+else
+    emacs "$@"
+fi
