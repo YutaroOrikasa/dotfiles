@@ -24,7 +24,7 @@ if $IS_GRAPHICAL; then
     
     # "</dev/stdin" is workaround for carbon emacs
     # without this, carbon emacs will chdir to $HOME on launth
-    emacs "$@" </dev/stdin &
+    emacs "$@" <&0 &
     disown emacs
 else
     emacs "$@"
