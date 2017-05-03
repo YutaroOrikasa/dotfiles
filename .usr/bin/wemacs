@@ -23,7 +23,7 @@ else
     fi
 fi
 
-if $IS_GRAPHICAL; then
+if [ $IS_GRAPHICAL = true ]; then
     
     # "</dev/stdin" is workaround for carbon emacs
     # without this, carbon emacs will chdir to $HOME on launth
