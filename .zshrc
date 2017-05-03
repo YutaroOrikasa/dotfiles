@@ -209,6 +209,19 @@ function mkcdir {
 }
 alias mkcd=mkcdir
 
+
+# auto emacs server/client command
+export EMACS_SERVER_NAME=$(date +%Y-%m-%d-%H%M%S)
+
+function e {
+    emacsclient -s $EMACS_SERVER_NAME -nc "$@" && return
+
+    command emacs --daemon=$EMACS_SERVER_NAME
+
+    emacsclient -s $EMACS_SERVER_NAME -nc "$@"
+}
+
+
 export PATH=/mybin:~/.usr/bin:"$PATH"
 
 [ -e ~/.zshrc.mine ] && . ~/.zshrc.mine || true
