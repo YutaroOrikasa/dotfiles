@@ -33,7 +33,7 @@ function zshaddhistory(){
         [[ ${cmd} != 'nohist' ]] 
 }
 
-### zle(key bindings) ### 
+### zle(key bindings) ###
 function suspend-or-fg() {
     if [ -n "$jobstates" ]; then
 	zle push-input
@@ -44,6 +44,10 @@ function suspend-or-fg() {
 }
 zle -N suspend-or-fg
 bindkey -M emacs '^z' suspend-or-fg
+
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+bindkey "^[[3~" delete-char
 
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
