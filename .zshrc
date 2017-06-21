@@ -121,6 +121,14 @@ zstyle ':vcs_info:*' actionformats "%%1(l."$'\n'".)""%%b%f%c%u%F{magenta}(%f%s%F
 
 alias pd=popd
 
+# memo
+# usage:
+# % memo XXX # type enter
+# % memo #<-type ctrl-p
+# % memo XXX # you can get memo text from zsh history :)
+alias memo=echo
+
+
 # workaround for emacs tramp
 if [[ "$TERM" == "dumb" ]]
 then
