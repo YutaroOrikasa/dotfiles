@@ -208,3 +208,33 @@
 (global-set-key (kbd "S-M-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "S-M-<down>") 'shrink-window)
 (global-set-key (kbd "S-M-<up>") 'enlarge-window)
+
+(set-face-attribute 'default nil :height 200)
+
+(electric-pair-mode 1)
+
+(savehist-mode 1)
+
+(setq bookmark-save-flag 1) 
+
+(require 'zoom-window)
+(global-set-key (kbd "C-x z") 'zoom-window-zoom)
+(setq zoom-window-mode-line-color "LightBlue")
+
+;; 
+(global-set-key (kbd "C-c t") 'toggle-truncate-lines)
+
+
+;; カーソルのスクロールの設定
+(setq scroll-conservatively 1)
+(setq scroll-margin 2)
+
+;; ホイールのスクロールの設定
+;; 通常: 1 line
+;; shift押しながら: 2 lines
+;; ctrl押しながら: 6 lines
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 2) ((control) . 6)))
+;; 高速にホイールした時に高速にスクロールされるのを防ぐ
+(setq mouse-wheel-progressive-speed nil)
+
+
