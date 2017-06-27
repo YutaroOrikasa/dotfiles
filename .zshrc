@@ -149,7 +149,7 @@ alias g='git'
 alias gcho='git checkout'
 alias gchob='git checkout -b'
 alias gl='git log --oneline --decorate --graph --branches --tags --remotes '
-
+alias gd='git diff'
 alias lsa='ls -a'
 alias lsl='ls -l'
 alias lsdl='ls -dl'
