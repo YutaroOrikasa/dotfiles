@@ -117,6 +117,17 @@ zstyle ':vcs_info:git:*' unstagedstr "%F{red}+%f"
 zstyle ':vcs_info:*' formats "%%1(l."$'\n'".)""%c%u%F{magenta}(%f%s%F{magenta})%F{yellow}-%F{magenta}[%B%F{blue}%b%%b%F{magenta}]%f%}"
 zstyle ':vcs_info:*' actionformats "%%1(l."$'\n'".)""%%b%f%c%u%F{magenta}(%f%s%F{magenta})%F{yellow}-%F{magenta}[%B%F{blue}%b%%b%F{magenta}]%f%}"$'\n'"%B%F{red}%a>>>%%b%f"
 
+# Sometimes zsh vcs plugin make trouble.
+# So these are convinient functions for toggle zsh vcs plugin.
+vcs-disable () {
+    add-zsh-hook -d precmd vcs_info
+    vcs_info_msg_0_=
+}
+vcs-enable () {
+    add-zsh-hook precmd vcs_info
+}
+alias disable-vcs=vcs-disable
+alias enable-vcs=vcs-enable
 #### misc ####
 
 alias pd=popd
