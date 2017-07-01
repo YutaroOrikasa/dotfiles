@@ -174,6 +174,8 @@ case "$(uname -s | tr '[:upper:]' '[:lower:]')" in
         ;;
 esac
 
+alias o='open .'
+
 if [ x"$TERM" = x"screen.xterm-256color" ];then
     export TERM=xterm-256color
 fi
