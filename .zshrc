@@ -159,6 +159,7 @@ export LESS='-r -gj10'
 alias g='git'
 alias gcho='git checkout'
 alias gchob='git checkout -b'
+alias gchop='git checkout -'  # go to previous branch
 alias gl='git log --oneline --decorate --graph --branches --tags --remotes '
 alias gd='git diff'
 alias lsa='ls -a'
