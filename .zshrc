@@ -158,6 +158,7 @@ export LESS='-r -gj10'
 
 alias g='git'
 alias gc='git commit'
+alias gca='git commit -a'
 alias gcho='git checkout'
 alias gchob='git checkout -b'
 alias gchop='git checkout -'  # go to previous branch
