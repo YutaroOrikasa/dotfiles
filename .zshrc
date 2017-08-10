@@ -171,7 +171,7 @@ if [ -z "$HOST_COL_NUM" ];then
 fi
 
 if [ -n "$HOST_COL_NUM" ];then
-        PROMPT_HOSTNAME=$(echo -e "%{\e[38;5;${HOST_COL_NUM}m%}%m")
+        PROMPT_HOSTNAME=$(echo -e "%{\e[38;5;${HOST_COL_NUM}m%}%m%{\e[0m%}")
     else
         PROMPT_HOSTNAME=$(echo -e "%m")
 fi
