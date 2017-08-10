@@ -1,5 +1,7 @@
 #public domain
 
+[ -e ~/.zshrc.mine-pre ] && . ~/.zshrc.mine-pre
+
 #see man zshall for detail
 
 ### setops ###
@@ -88,6 +90,10 @@ case "$(uname)" in
         ;;
 esac
 
+function __col256echo {      
+    echo -e "\e[38;5;$2m$1\e[0m"
+}
+
 USER_HASH=$(printf %s $USER | $__md5)
 HOST_HASH=$(printf %s $HOST | $__md5)
 
@@ -95,11 +101,91 @@ USER_HASH=${USER_HASH_DEBUG:-"$USER_HASH"}
 HOST_HASH=${HOST_HASH_DEBUG:-"$HOST_HASH"}
 
 # using first 2 chars for 256 color number
-USER_COL_NUM=$(( 0x$(echo $USER_HASH | dd bs=1 count=2 2>/dev/null)))
-HOST_COL_NUM=$(( 0x$(echo $HOST_HASH | dd bs=1 count=2 2>/dev/null)))
+__USER_COL_NUM=$(( 0x$(echo $USER_HASH | dd bs=1 count=2 2>/dev/null)))
+__HOST_COL_NUM=$(( 0x$(echo $HOST_HASH | dd bs=1 count=2 2>/dev/null)))
 
-PROMPT_USERNAME=$(echo -e "%{\e[38;5;${USER_COL_NUM}m%}%n%{\e[0m%}")
-PROMPT_HOSTNAME=$(echo -e "%{\e[38;5;${HOST_COL_NUM}m%}%m%{\e[0m%}")
+function __ask-prompt-color {
+    (
+        set -o NO_WARN_CREATE_GLOBAL
+        subject="$1"
+        name="$2"
+        while :;do
+            echo "select a color of $subject of prompt" >&2
+            echo "0-255: 256 color, l: list sample, s: skip, a: auto" >&2
+            read -r input
+            if [[ "$input" =~ '^[0-9]+$' ]] && (( 0<=input && input <= 255 ));then
+                COL_NUM=$input
+            else
+                case "$input" in
+                    l)
+                        for i in $(seq 0 255);do
+                            __col256echo "$name $i" $i >&2
+                        done
+                        ;;
+                    s)
+                        return
+                        ;;
+                    a)
+                        HASH=$(printf %s $name | $__md5)
+                        # using first 2 chars for 256 color number
+                        COL_NUM=$(( 0x$(echo $HASH | dd bs=1 count=2 2>/dev/null)))
+                        
+                        ;;
+                    
+                    *)
+                        echo "bad input $input" >&2
+                        continue
+                        ;;
+                esac
+            fi
+            __col256echo "$name $COL_NUM" $COL_NUM >&2
+            echo "OK? [y/n]" >&2
+                    read -r input
+                    if [ "$input" = y ];then
+                        echo $COL_NUM
+                        return
+                    fi
+        done
+    )
+}
+
+if [ -z "$USER_COL_NUM" ];then
+    USER_COL_NUM=$(__ask-prompt-color "user name" "$USER")
+    if [ -n "$USER_COL_NUM" ];then
+        echo "save $subject color $USER_COL_NUM to .zshrc.mine-pre"
+        echo >> .zshrc.mine-pre
+        echo USER_COL_NUM=$USER_COL_NUM >> .zshrc.mine-pre
+    else
+        echo "skip setting user name color"
+    fi
+fi
+
+if [ -n "$USER_COL_NUM" ];then
+        PROMPT_USERNAME=$(echo -e "%{\e[38;5;${USER_COL_NUM}m%}%n%{\e[0m%}")
+    else
+        PROMPT_USERNAME=$(echo -e "%n")
+fi
+
+
+if [ -z "$HOST_COL_NUM" ];then
+    HOST_COL_NUM=$(__ask-prompt-color "host name" "$HOST")
+    if [ -n "$HOST_COL_NUM" ];then
+        echo "save $subject color $HOST_COL_NUM to .zshrc.mine-pre"
+        echo >> .zshrc.mine-pre
+        echo HOST_COL_NUM=$HOST_COL_NUM >> .zshrc.mine-pre
+    else
+        echo "skip setting host name color"
+    fi
+fi
+
+if [ -n "$HOST_COL_NUM" ];then
+        PROMPT_HOSTNAME=$(echo -e "%{\e[38;5;${HOST_COL_NUM}m%}%m")
+    else
+        PROMPT_HOSTNAME=$(echo -e "%m")
+fi
+    
+
+
 
 PROMPT_EXEC_STATUS="%(?.%{$fg[yellow]%}:) .%{$fg_bold[red]%}%? )%{${reset_color}%}"
 PROMPT="$PROMPT_EXEC_STATUS""$PROMPT_USERNAME"@"$PROMPT_HOSTNAME"" %~""%50(l."$'\n'".)"'${vcs_info_msg_0_}'"%20(l."$'\n'".)"" %# "
