@@ -132,11 +132,11 @@ function __ask-prompt-color {
             fi
             __col256echo "$name $COL_NUM" $COL_NUM >&2
             echo "OK? [y/n]" >&2
-                    read -r input
-                    if [ "$input" = y ];then
-                        echo $COL_NUM
-                        return
-                    fi
+            read -r input
+            if [ "$input" = y ];then
+                echo $COL_NUM
+                return
+            fi
         done
     )
 }
