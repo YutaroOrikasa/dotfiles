@@ -112,6 +112,7 @@ function __ask-prompt-color {
                         for i in $(seq 0 255);do
                             __col256echo "$name $i" $i >&2
                         done
+                        continue
                         ;;
                     s)
                         return
