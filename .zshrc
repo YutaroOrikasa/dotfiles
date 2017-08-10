@@ -79,13 +79,22 @@ colors
 # old prompt
 # PROMPT="%{$fg_bold[red]%}%(?..%? )%{${reset_color}%}%{$fg_bold[cyan]%}%n%{${reset_color}%}@%{$fg_no_bold[yellow]%}%m%{${reset_color}%} %B%40<..<%~%<< %b"'${vcs_info_msg_0_}'"% %# "
 
-USER_HASH=$(printf %s $USER | md5sum)
-HOST_HASH=$(printf %s $HOST | md5sum)
+case "$(uname)" in
+    Darwin)
+        __md5=md5
+        ;;
+    *)
+        __md5=md5sum
+        ;;
+esac
+
+USER_HASH=$(printf %s $USER | $__md5)
+HOST_HASH=$(printf %s $HOST | $__md5)
 
 USER_HASH=${USER_HASH_DEBUG:-"$USER_HASH"}
 HOST_HASH=${HOST_HASH_DEBUG:-"$HOST_HASH"}
 
-
+# using first 2 chars for 256 color number
 USER_COL_NUM=$(( 0x$(echo $USER_HASH | dd bs=1 count=2 2>/dev/null)))
 HOST_COL_NUM=$(( 0x$(echo $HOST_HASH | dd bs=1 count=2 2>/dev/null)))
 
