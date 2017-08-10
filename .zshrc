@@ -152,12 +152,6 @@ if [ -z "$USER_COL_NUM" ];then
     fi
 fi
 
-if [ -n "$USER_COL_NUM" ];then
-        PROMPT_USERNAME=$(echo -e "%{\e[38;5;${USER_COL_NUM}m%}%n%{\e[0m%}")
-    else
-        PROMPT_USERNAME=$(echo -e "%n")
-fi
-
 
 if [ -z "$HOST_COL_NUM" ];then
     HOST_COL_NUM=$(__ask-prompt-color "host name" "$HOST")
@@ -170,13 +164,20 @@ if [ -z "$HOST_COL_NUM" ];then
     fi
 fi
 
-if [ -n "$HOST_COL_NUM" ];then
-        PROMPT_HOSTNAME=$(echo -e "%{\e[38;5;${HOST_COL_NUM}m%}%m%{\e[0m%}")
-    else
-        PROMPT_HOSTNAME=$(echo -e "%m")
-fi
-    
+function __USER_COL_ESC_SEQ {
+    if [ -n "$USER_COL_NUM" ];then
+        echo "%{\e[38;5;${USER_COL_NUM}m%}"
+    fi
+}
 
+function __HOST_COL_ESC_SEQ {
+    if [ -n "$HOST_COL_NUM" ];then
+        echo "%{\e[38;5;${HOST_COL_NUM}m%}"
+    fi
+}
+
+PROMPT_USERNAME=$(echo -e '$(__USER_COL_ESC_SEQ)%n%{\e[0m%}')
+PROMPT_HOSTNAME=$(echo -e '$(__HOST_COL_ESC_SEQ)%m%{\e[0m%}')
 
 
 PROMPT_EXEC_STATUS="%(?.%{$fg[yellow]%}:) .%{$fg_bold[red]%}%? )%{${reset_color}%}"
