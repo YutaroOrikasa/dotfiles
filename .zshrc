@@ -94,15 +94,6 @@ function __col256echo {
     echo -e "\e[38;5;$2m$1\e[0m"
 }
 
-USER_HASH=$(printf %s $USER | $__md5)
-HOST_HASH=$(printf %s $HOST | $__md5)
-
-USER_HASH=${USER_HASH_DEBUG:-"$USER_HASH"}
-HOST_HASH=${HOST_HASH_DEBUG:-"$HOST_HASH"}
-
-# using first 2 chars for 256 color number
-__USER_COL_NUM=$(( 0x$(echo $USER_HASH | dd bs=1 count=2 2>/dev/null)))
-__HOST_COL_NUM=$(( 0x$(echo $HOST_HASH | dd bs=1 count=2 2>/dev/null)))
 
 function __ask-prompt-color {
     (
