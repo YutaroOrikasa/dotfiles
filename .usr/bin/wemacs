@@ -8,7 +8,7 @@
 for arg in "$@";do
     if [[ "$arg" = -nw || "$arg" = --daemon ]];then
         command emacs "$@"
-        return
+        exit
     fi
 done
 
