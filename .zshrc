@@ -220,12 +220,14 @@ alias enable-vcs=vcs-enable
 
 alias pd=popd
 
-# memo
-# usage:
-# % memo XXX # type enter
-# % memo #<-type ctrl-p
-# % memo XXX # you can get memo text from zsh history :)
-alias memo=echo
+
+export MEMOFILE="~/memo.txt"
+
+function memo {
+    echo "$@" >> "$MEMOFILE"
+}
+
+
 
 
 # workaround for emacs tramp
