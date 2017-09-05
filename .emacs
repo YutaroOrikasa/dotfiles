@@ -1,3 +1,8 @@
+;; save customized variables to "custom.el"
+(setq custom-file (locate-user-emacs-file "custom.el"))
+(when (file-exists-p custom-file)
+  (load custom-file))
+
 (defun mine--try-require-fun (module &optional  body)
   "implementation for try-require"
   (if (require module nil t)
@@ -157,23 +162,6 @@
 
 (ac-config-default)
 
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (myadwi)))
- '(custom-safe-themes
-   (quote
-    ("865d548bf2b64f985348d3cdcba8e8fd3eba24abd21b095c2285914803e30bcb" "fe03ab76286b5a496bccee645b27543b724a6149bbd6e009662ab8b09ea66ca2" "fba7eb9099b49afe266682bb5ae1bb1c4bea94f592111a28f524ca64e633268f" "0598b8fe7d82edf48d54ab916306f4afa10d2b64ea4650deb61806e120d55e74" "c6041e4effd30c6013c9f43d986de0236062d1d811495ebff33bf39afa8ff583" default)))
- '(inhibit-startup-screen t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 
 (defun my-delete-other-frames (&optional frame)
   (interactive)
