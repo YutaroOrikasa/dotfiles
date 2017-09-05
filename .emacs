@@ -1,3 +1,6 @@
+;; set default theme
+(load-theme 'myadwi t)
+
 ;; save customized variables to "custom.el"
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (when (file-exists-p custom-file)
