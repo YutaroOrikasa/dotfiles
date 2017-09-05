@@ -73,7 +73,11 @@
 ;; ;;; .#* とかのバックアップファイルを作らない
 ;; (setq auto-save-default nil)
 
-(setq-default truncate-lines t)
+
+;; wrap lines
+(setq truncate-lines nil)
+(setq truncate-partial-width-windows nil)
+
 
 ;; reverse yank-pop
 ;; http://www.emacswiki.org/emacs/KillingAndYanking
