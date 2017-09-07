@@ -225,6 +225,7 @@ export MEMOFILE=~"/memo.txt"
 
 function memo {
     echo "$@" >> "$MEMOFILE"
+    echo  >> "$MEMOFILE"
 }
 
 
