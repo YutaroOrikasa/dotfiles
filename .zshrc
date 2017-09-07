@@ -221,7 +221,7 @@ alias enable-vcs=vcs-enable
 alias pd=popd
 
 
-export MEMOFILE="~/memo.txt"
+export MEMOFILE=~"/memo.txt"
 
 function memo {
     echo "$@" >> "$MEMOFILE"
