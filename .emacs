@@ -1,10 +1,32 @@
 ;; set default theme
 (load-theme 'myadwi t)
 
+
 ;; save customized variables to "custom.el"
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (when (file-exists-p custom-file)
   (load custom-file))
+
+(require 'package)
+;; MELPAを追加
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+
+;; MELPA-stableを追加
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+
+;; Marmaladeを追加
+(add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/") t)
+
+;; Orgを追加
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+
+;; 初期化
+(package-initialize)
+
+;; install el-get automatically
+(unless (package-installed-p 'el-get)
+    (package-install 'el-get))
+
 
 (defun mine--try-require-fun (module &optional  body)
   "implementation for try-require"
@@ -148,24 +170,6 @@
 
                 ;; reset selection
                 (define-key map (kbd "C-c") 'zlc-reset))))
-
-
-(require 'package)
-;; MELPAを追加
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-
-;; MELPA-stableを追加
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
-
-;; Marmaladeを追加
-(add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/") t)
-
-;; Orgを追加
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
-
-;; 初期化
-(package-initialize)
-
 
 (ac-config-default)
 
