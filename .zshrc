@@ -282,6 +282,17 @@ function nohist(){
         "$@"
 }
 
+# automatic undoable mv command
+# ommiting option handling for simpleness for implementation
+function mv() {
+    if [ "$#" = 2 -a ! -e "$1" -a -e "$2" ];then
+        echo undo mv "$1" "$2" >&2
+        command mv "$2" "$1"
+    else
+        command mv "$@"
+    fi
+}
+
 export EDITOR='emacs'
 
 alias nwemacs='command emacs -nw'
