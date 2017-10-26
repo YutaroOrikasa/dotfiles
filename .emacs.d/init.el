@@ -228,7 +228,7 @@
 
 (setq bookmark-save-flag 1) 
 
-(require 'zoom-window)
+(el-get-bundle zoom-window)
 (global-set-key (kbd "C-x z") 'zoom-window-zoom)
 (setq zoom-window-mode-line-color "LightBlue")
 
