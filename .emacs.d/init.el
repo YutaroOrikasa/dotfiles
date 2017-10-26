@@ -75,13 +75,16 @@
 ;;  '(hl-line ((t (:background "#00bf00"))))
 ;;  )
 
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:complete-on-dot t)  
-(global-set-key (kbd "M-j") 'jedi:complete)
+;; jedi
+ (el-get-bundle jedi
+  (add-hook 'python-mode-hook 'jedi:setup)
+  (setq jedi:complete-on-dot t)
+  (global-set-key (kbd "M-j") 'jedi:complete))
 
 ;; ;; python-mode (launchpad)
 ;; (autoload 'python-mode "python-mode" nil t)
 ;; (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+
 ;; rope
 (add-to-list 'load-path "~/.emacs.d/site-lisp/")
 (eval-after-load 'python (lambda()
