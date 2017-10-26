@@ -263,6 +263,9 @@ alias lsa='ls -a'
 alias lsl='ls -l'
 alias lsdl='ls -dl'
 
+# raw vim
+alias rawvim='vim -u NONE -N'
+
 alias sshfs='sshfs -o transform_symlinks -o ServerAliveCountMax=1 -o ServerAliveInterval=1 -o reconnect'
 
 case "$(uname -s | tr '[:upper:]' '[:lower:]')" in
