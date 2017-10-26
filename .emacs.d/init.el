@@ -85,17 +85,18 @@
 ;; (autoload 'python-mode "python-mode" nil t)
 ;; (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
 
-;; rope
-(add-to-list 'load-path "~/.emacs.d/site-lisp/")
-(eval-after-load 'python (lambda()
-                           (autoload 'pymacs-apply "pymacs")
-                           (autoload 'pymacs-call "pymacs")
-                           (autoload 'pymacs-eval "pymacs" nil t)
-                           (autoload 'pymacs-exec "pymacs" nil t)
-                           (autoload 'pymacs-load "pymacs" nil t)
-                           (pymacs-load "ropemacs" "rope-")
-                           (define-key ropemacs-local-keymap "\M-/" 'dabbrev-expand)
-                           ))
+ ;; rope
+(el-get-bundle ropemacs
+  (eval-after-load 'python (lambda()
+                             (autoload 'pymacs-apply "pymacs")
+                             (autoload 'pymacs-call "pymacs")
+                             (autoload 'pymacs-eval "pymacs" nil t)
+                             (autoload 'pymacs-exec "pymacs" nil t)
+                             (autoload 'pymacs-load "pymacs" nil t)
+                             (pymacs-load "ropemacs" "rope-")
+                             (define-key ropemacs-local-keymap "\M-/" 'dabbrev-expand)
+                             )))
+
 (add-hook 'python-mode-hook (lambda()
 			      (message "py hook!")))
 
