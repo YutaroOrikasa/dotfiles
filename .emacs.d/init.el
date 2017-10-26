@@ -33,11 +33,12 @@
     (eval-print-last-sexp)))
 
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-(el-get 'sync)
 
-(el-get-bundle 'auto-complete
-               (progn
-                 (ac-config-default)))
+;; this make error
+;; (el-get 'sync)
+
+(el-get-bundle auto-complete
+  (progn (ac-config-default)))
 
 
 
@@ -228,9 +229,9 @@
 
 (setq bookmark-save-flag 1) 
 
-(el-get-bundle zoom-window)
-(global-set-key (kbd "C-x z") 'zoom-window-zoom)
-(setq zoom-window-mode-line-color "LightBlue")
+(el-get-bundle zoom-window
+  (global-set-key (kbd "C-x z") 'zoom-window-zoom)
+  (setq zoom-window-mode-line-color "LightBlue"))
 
 ;; 
 (global-set-key (kbd "C-c t") 'toggle-truncate-lines)
