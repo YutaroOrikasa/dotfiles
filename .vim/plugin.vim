@@ -37,7 +37,7 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " inoremap <expr><CR>  pumvisible() ? neocomplcache#close_popup() : "<CR>"
 
 
-let g:neosnippet#snippets_directory='/Users/utr/.vim/'
+let g:neosnippet#snippets_directory='~/.vim/snippets/'
 
 call submode#enter_with('undo/redo', 'n', '', 'g-', 'g-') 
 call submode#enter_with('undo/redo', 'n', '', 'g+', 'g+') 
