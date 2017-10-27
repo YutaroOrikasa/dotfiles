@@ -67,15 +67,14 @@ NXnoremap <esc>x :
 NXnoremap <C-j> i
 inoremap <C-j> <Nop>
 
-NXnoremap <C-@> i
-noremap! <C-@> <esc>
-
 " NXnoremap <C-j> :echo "please press CTRL-Space"<CR>
 " noremap! <C-j> <esc>:echo "please press CTRL-C"<CR>i
  
 " insert
 NXnoremap <C-k> i
 NXnoremap ;i i
+NXnoremap <C-@> i
+noremap! <C-@> <nop>
 
 "noremap :: :
 "noremap :; :
