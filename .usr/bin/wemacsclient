@@ -6,8 +6,8 @@
 # when window can not be opened, execute emacs on console
 
 for arg in "$@";do
-    if [[ "$arg" = -nw || "$arg" = --daemon ]];then
-        emacs "$@"
+    if [[ "$arg" = -nw ]];then
+        emacsclient "$@"
         exit
     fi
 done
@@ -16,8 +16,7 @@ if graphical_emacs_ok; then
     
     # "<&0" is workaround for carbon emacs
     # without this, carbon emacs will chdir to $HOME on launth
-    emacs "$@" <&0 &
-    disown emacs
+    emacsclient -nc "$@" #<&0 &
 else
-    emacs "$@"
+    emacsclient "$@"
 fi

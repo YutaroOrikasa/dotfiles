@@ -351,11 +351,11 @@ alias mkcd=mkcdir
 export EMACS_SERVER_NAME=$(date +%Y-%m-%d-%H%M%S)
 
 function e {
-    emacsclient -s $EMACS_SERVER_NAME -nc "$@" && return
+    wemacsclient -s $EMACS_SERVER_NAME "$@" && return
 
     command emacs --daemon=$EMACS_SERVER_NAME
 
-    emacsclient -s $EMACS_SERVER_NAME -nc "$@"
+    wemacsclient -s $EMACS_SERVER_NAME "$@"
 }
 
 
