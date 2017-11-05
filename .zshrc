@@ -37,6 +37,11 @@ function zshaddhistory(){
 }
 
 ### zle(key bindings) ###
+
+# enable tab key complete with no space after cursor
+# https://stackoverflow.com/questions/13341900/zsh-how-do-i-set-autocomplete-so-that-it-inserts-the-completion-when-cursor-is
+bindkey '^i' expand-or-complete-prefix
+
 function suspend-or-fg() {
     if [ -n "$jobstates" ]; then
 	zle push-input
