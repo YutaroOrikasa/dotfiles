@@ -351,13 +351,31 @@ alias mkcd=mkcdir
 export EMACS_SERVER_NAME=$(date +%Y-%m-%d-%H%M%S)
 
 function e {
-    wemacsclient -s $EMACS_SERVER_NAME "$@" && return
 
-    command emacs --daemon=$EMACS_SERVER_NAME
-
-    wemacsclient -s $EMACS_SERVER_NAME "$@"
+    wemacsclient -a "" -s $EMACS_SERVER_NAME "$@"
 }
 
+function dispose_emacs_server_this_session {
+    (
+        set -o NO_WARN_CREATE_GLOBAL
+
+        if wemacsclient -s $EMACS_SERVER_NAME --eval '(delete-frame)'
+        then
+	    echo -n "Delete emacs server $EMACS_SERVER_NAME?(y/N): "
+	    read -r y_or_n
+	    if [ "$y_or_n" = y ];then
+                wemacsclient -s $EMACS_SERVER_NAME \
+                             --eval '(save-buffers-kill-emacs)'
+            else
+                echo "$EMACS_SERVER_NAME leaves."
+                echo "echo $EMACS_SERVER_NAME"' > ~/.zshrc_last_emacs_server_name'
+                echo $EMACS_SERVER_NAME > ~/.zshrc_last_emacs_server_name
+            fi
+        fi
+    )
+}
+
+trap dispose_emacs_server_this_session EXIT
 
 export PATH=/mybin:~/.usr/bin:"$PATH"
 
