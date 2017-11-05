@@ -15,6 +15,7 @@ setopt SHARE_HISTORY
 setopt INTERACTIVE_COMMENTS
 setopt HIST_IGNORE_DUPS  # ignore duplicate of previous command on hisory.
 setopt CORRECT  # spelling correction
+setopt hist_ignore_space  # Do not record history when command line starts with a space
 
 #dircolors
 
