@@ -359,26 +359,7 @@ function e {
 }
 
 function dispose_emacs_server_this_session {
-    (
-        set -o NO_WARN_CREATE_GLOBAL
-
-        if emacsclient -s $EMACS_SERVER_NAME -nw --eval '(delete-frame)'
-        then
-	    echo -n "Delete emacs server $EMACS_SERVER_NAME?(y/N): "
-	    read -r y_or_n
-	    if [ "$y_or_n" = y ];then
-                # have to add -c option even if in console
-                # because if not add it, emacsclient won't create new frame for --eval.
-                # it causes problem on confirmation (eg. yes-or-no-p).
-                wemacsclient -c -s $EMACS_SERVER_NAME \
-                             --eval '(save-buffers-kill-emacs)'
-            else
-                echo "$EMACS_SERVER_NAME leaves."
-                echo "echo $EMACS_SERVER_NAME"' > ~/.zshrc_last_emacs_server_name'
-                echo $EMACS_SERVER_NAME > ~/.zshrc_last_emacs_server_name
-            fi
-        fi
-    )
+    emacsclient -s $EMACS_SERVER_NAME --eval '(progn (if (<= (length (frame-list)) 1) (kill-emacs)))'
 }
 
 trap dispose_emacs_server_this_session EXIT
