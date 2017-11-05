@@ -349,7 +349,7 @@ alias mkcd=mkcdir
 
 # auto emacs server/client command
 # if EMACS_SERVER_NAME already set (eg. by parent shell of screen), ommit setting new server name
-if [ -n "$EMACS_SERVER_NAME" ];then
+if [ -z "$EMACS_SERVER_NAME" ];then
     export EMACS_SERVER_NAME=$(date +%Y-%m-%d-%H%M%S)
 fi
 
