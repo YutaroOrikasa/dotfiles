@@ -32,7 +32,8 @@ function zshaddhistory(){
     
         local cmdline="${1%$'\n'}"
         local cmd="${cmdline%% *}"
-        [[ ${cmd} != 'nohist' ]] 
+        [[ ${cmd} != 'nohist' ||
+         "$cmdline" =~ '(g|git) push (-f|--force)' ]] 
 }
 
 ### zle(key bindings) ###
