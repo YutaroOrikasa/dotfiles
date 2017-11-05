@@ -359,7 +359,7 @@ function dispose_emacs_server_this_session {
     (
         set -o NO_WARN_CREATE_GLOBAL
 
-        if wemacsclient -s $EMACS_SERVER_NAME --eval '(delete-frame)'
+        if emacsclient -s $EMACS_SERVER_NAME -nw --eval '(delete-frame)'
         then
 	    echo -n "Delete emacs server $EMACS_SERVER_NAME?(y/N): "
 	    read -r y_or_n
