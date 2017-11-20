@@ -20,6 +20,7 @@ done
 cat > bootstrap.tmp/bootstrap.sh <<EOF
 cd ~
 git clone 'ssh://dotfiles-git-server/~/dotfiles'
+dotfiles/setup.sh
 
 EOF
 
