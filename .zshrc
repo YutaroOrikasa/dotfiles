@@ -190,7 +190,11 @@ PROMPT_HOSTNAME=$(echo -e '$(__HOST_COL_ESC_SEQ)%m%{\e[0m%}')
 PROMPT_EXEC_STATUS="%(?.%{$fg[yellow]%}:) .%{$fg_bold[red]%}%? )%{${reset_color}%}"
 
 function __prompt_untracked_files {
-    if [ -n "$(git ls-files --others --exclude-standard)" ] ;then
+    if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1;then
+        return
+    fi
+    
+    if [[ -n "$(git ls-files --others --exclude-standard)" ]] ;then
         echo '\n--- untracked files ---'
         echo -n '%B%F{red}'
         git ls-files --others --exclude-standard
