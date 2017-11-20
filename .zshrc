@@ -273,7 +273,16 @@ then
 fi
 
 ##### bash compatible ####
-alias ls='ls --color=auto'
+case "$(uname)" in
+
+    Darwin)
+        alias ls='ls -G'
+        ;;
+    *)
+        alias ls='ls --color=auto'
+        ;;
+esac
+
 alias grep='grep --color=auto'
 export LESS='-r -gj10'
 
