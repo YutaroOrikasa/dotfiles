@@ -205,7 +205,7 @@ function __prompt_untracked_files {
         echo -n '%B%F{red}'
         git ls-files --others --exclude-standard
         echo -n '%b%f'
-        echo '-------- end ----------'
+        echo '--------- end ---------'
         echo '%B%F{red}*%b%f'
         
     else
