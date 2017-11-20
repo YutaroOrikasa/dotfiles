@@ -97,8 +97,12 @@ case "$(uname)" in
         ;;
 esac
 
-function __col256echo {      
-    echo -e "\e[38;5;$2m$1\e[0m"
+function __col256echo {
+    if [ -n "$2" ];then
+        echo -e "\e[38;5;$2m$1\e[0m"
+    else
+        echo "$1"
+    fi
 }
 
 
@@ -109,7 +113,7 @@ function __ask-prompt-color {
         name="$2"
         while :;do
             echo "select a color of $subject of prompt" >&2
-            echo "0-255: 256 color, l: list sample, s: skip, a: auto" >&2
+            echo "0-255: 256 color, l: list sample, s: skip, n: no color, a: auto" >&2
             read -r input
             if [[ "$input" =~ '^[0-9]+$' ]] && (( 0<=input && input <= 255 ));then
                 COL_NUM=$input
@@ -130,7 +134,9 @@ function __ask-prompt-color {
                         COL_NUM=$(( 0x$(echo $HASH | dd bs=1 count=2 2>/dev/null)))
                         
                         ;;
-                    
+                    n)
+                        COL_NUM=
+                        ;;
                     *)
                         echo "bad input $input" >&2
                         continue
