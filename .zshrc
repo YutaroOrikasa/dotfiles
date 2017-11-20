@@ -188,7 +188,22 @@ PROMPT_HOSTNAME=$(echo -e '$(__HOST_COL_ESC_SEQ)%m%{\e[0m%}')
 
 
 PROMPT_EXEC_STATUS="%(?.%{$fg[yellow]%}:) .%{$fg_bold[red]%}%? )%{${reset_color}%}"
-PROMPT="$PROMPT_EXEC_STATUS""$PROMPT_USERNAME"@"$PROMPT_HOSTNAME"" %~""%50(l."$'\n'".)"'${vcs_info_msg_0_}'"%20(l."$'\n'".)"" %# "
+
+function __prompt_untracked_files {
+    if [ -n "$(git ls-files --others --exclude-standard)" ] ;then
+        echo '\n--- untracked files ---'
+        echo -n '%B%F{red}'
+        git ls-files --others --exclude-standard
+        echo -n '%b%f'
+        echo '-------- end ----------'
+        echo '%B%F{red}*%b%f'
+        
+    else
+        echo ''
+    fi
+}
+
+PROMPT="$PROMPT_EXEC_STATUS""$PROMPT_USERNAME"@"$PROMPT_HOSTNAME"" %~""%50(l."$'\n'".)"'${vcs_info_msg_0_}'"%20(l."$'\n'".)"'$(__prompt_untracked_files)'" %# "
 
 # make new line after path when path is too long
 # make new line after path when vcs info appears
