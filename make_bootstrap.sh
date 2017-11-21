@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ./bootstrap.sh [arg]...
-# arg: path to file or dir you want to stuff to bootstrap.tar
+# arg: path to file or dir you want to stuff to bootstrap.tar.gz
 
 set -vx
 
@@ -13,13 +13,18 @@ rm -rf bootstrap.tmp
 mkdir bootstrap.tmp
 cp -a .ssh bootstrap.tmp
 
+mkdir bootstrap.tmp/stuff
 for path in "$@";do
-    cp -a "$path" bootstrap.tmp
+    cp -a "$path" bootstrap.tmp/stuff
 done
 
 cat > bootstrap.tmp/bootstrap.sh <<EOF
+#!/bin/bash
+shopt -s dotglob
 cd ~
-git clone 'ssh://dotfiles-git-server/~/dotfiles-bare'
+mv bootstrap.tmp/.ssh .
+mv bootstrap.tmp/stuff/* ./
+git clone 'ssh://dotfiles-git-server/~/dotfiles-bare' dotfiles
 dotfiles/setup.sh
 
 EOF
@@ -31,8 +36,7 @@ tar -c bootstrap.tmp | gzip - > bootstrap.tar.gz
 cat > bootstrap.sh <<EOF
 cd ~
 tar -xf bootstrap.tar.gz
-mv bootstrap.tmp/.ssh .
-echo 'please execute ./bootstrap.tmp/bootstrap.sh'
+./bootstrap.tmp/bootstrap.sh
 
 EOF
 
