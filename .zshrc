@@ -294,10 +294,11 @@ export LESS='-r -gj10'
 
 alias g='git'
 alias gc='git commit'
-alias gca='git commit -a'
+alias gcv='git commit -v'
 alias gcho='git checkout'
 alias gchob='git checkout -b'
 alias gchop='git checkout -'  # go to previous branch
+alias greset='git reset'
 alias gl='git log --oneline --decorate --graph --branches --tags --remotes '
 alias glh='git log --oneline --decorate --graph HEAD '
 alias gd='git diff'
