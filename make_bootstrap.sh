@@ -26,11 +26,11 @@ EOF
 
 chmod a+x bootstrap.tmp/bootstrap.sh
 
-tar -c bootstrap.tmp > bootstrap.tar
+tar -c bootstrap.tmp | gzip - > bootstrap.tar.gz
 
 cat > bootstrap.sh <<EOF
 cd ~
-tar -x < bootstrap.tar
+tar -xf bootstrap.tar.gz
 mv bootstrap.tmp/.ssh .
 echo 'please execute ./bootstrap.tmp/bootstrap.sh'
 
@@ -38,3 +38,13 @@ EOF
 
 chmod a+x bootstrap.sh
 
+set +xv
+
+cat <<EOF
+
+
+created: 
+    bootstrap.sh
+    bootstrap.tar.gz
+copy them to new home dir and execute bootstrap.sh
+EOF
