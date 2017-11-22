@@ -32,6 +32,7 @@ chmod 700 .ssh
 cp -ai bootstrap.tmp/ssh/* .ssh
 cp -a bootstrap.tmp/dotfiles ./.
 cp -ai bootstrap.tmp/stuff/* ./.
+dotfiles/setup.sh
 if which zsh >/dev/null;then zsh;else bash; fi
 '
 
