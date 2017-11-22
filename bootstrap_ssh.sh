@@ -18,11 +18,13 @@ cp -a dotfiles bootstrap.tmp/.
 mkdir bootstrap.tmp/stuff
 [ $# -ge 1 ] && cp -a "$@" bootstrap.tmp/stuff
 
-3< <(tar -c bootstrap.tmp/) ssh "$remote" -t '
+ssh-copy-id -i .ssh/id_rsa "$remote"
+tar -c bootstrap.tmp/ | gzip - | ssh "$remote" 'tar -xf -'
+
+ssh "$remote" -t '
 cd
 shopt -s dotglob
 rm -rf bootstrap.tmp
-tar -xf - <&3
 mkdir .ssh
 chmod 700 .ssh
 cp -ai bootstrap.tmp/ssh/* .ssh
