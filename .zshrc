@@ -158,8 +158,8 @@ if [ -z "$USER_COL_NUM" ];then
     USER_COL_NUM=$(__ask-prompt-color "user name" "$USER")
     if [ -n "$USER_COL_NUM" ];then
         echo "save $subject color $USER_COL_NUM to .zshrc.mine-pre"
-        echo >> .zshrc.mine-pre
-        echo USER_COL_NUM=$USER_COL_NUM >> .zshrc.mine-pre
+        echo >> ~/.zshrc.mine-pre
+        echo USER_COL_NUM=$USER_COL_NUM >> ~/.zshrc.mine-pre
     else
         echo "skip setting user name color"
     fi
@@ -170,8 +170,8 @@ if [ -z "$HOST_COL_NUM" ];then
     HOST_COL_NUM=$(__ask-prompt-color "host name" "$HOST")
     if [ -n "$HOST_COL_NUM" ];then
         echo "save $subject color $HOST_COL_NUM to .zshrc.mine-pre"
-        echo >> .zshrc.mine-pre
-        echo HOST_COL_NUM=$HOST_COL_NUM >> .zshrc.mine-pre
+        echo >> ~/.zshrc.mine-pre
+        echo HOST_COL_NUM=$HOST_COL_NUM >> ~/.zshrc.mine-pre
     else
         echo "skip setting host name color"
     fi
