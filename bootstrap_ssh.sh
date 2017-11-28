@@ -24,7 +24,6 @@ tar -c bootstrap.tmp/ | gzip - | ssh "$remote" 'tar -xf -'
 ssh "$remote" -t '
 cd
 shopt -s dotglob
-rm -rf bootstrap.tmp
 mkdir .ssh
 chmod 700 .ssh
 cp -ai bootstrap.tmp/ssh/* .ssh
