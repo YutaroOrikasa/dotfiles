@@ -4,7 +4,4 @@
 .vim/.netrwhist
 *~
 *.swp
-.emacs.d/ac-comphist.dat
-.emacs.d/custom.el
-.emacs.d/history
-.emacs.d/.python-environments
+.emacs.d/*
