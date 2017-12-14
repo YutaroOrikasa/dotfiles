@@ -1,9 +1,10 @@
 .emacs.d/auto-save-list/
 .emacs.d/el-get/
 .vim/bundle/
+.vim/.netrwhist
 *~
 *.swp
 .emacs.d/ac-comphist.dat
 .emacs.d/custom.el
 .emacs.d/history
-
+.emacs.d/.python-environments
