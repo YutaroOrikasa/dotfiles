@@ -6,7 +6,7 @@
 "source ~/jkl_.vim
 
 let mapleader = "\<space>"
-map <Leader> <Nop>
+" map <Leader> <Nop>
 
 command! -complete=mapping -nargs=* NXnoremap :nnoremap <args>| :xnoremap <args>
 command! -complete=mapping -nargs=* NXmap :nmap <args>| :xmap <args>
@@ -85,7 +85,7 @@ inoremap <C-k> <Right>
 
 "alt <esc>
 NXmap <C-@> <Leader>
-noremap! <C-@> <esc>
+" noremap! <C-@> <esc>
 
 "noremap :: :
 "noremap :<Leader> :
@@ -119,5 +119,4 @@ let g:tex_conceal = ""
 source ~/.vim/plugin.vim
 set whichwrap=b,s,h,l,<,>,[,]
 " source ~/.vim/jikken.vim
-
 

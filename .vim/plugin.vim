@@ -23,6 +23,7 @@ NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'ymatz/vim-latex-completion'
+NeoBundle 'scrooloose/nerdcommenter'
 " vimrc に記述されたプラグインでインストールされていないものがないかチェックする
 NeoBundleCheck
 call neobundle#end()
@@ -89,4 +90,9 @@ imap <expr><CR>
 " 
 
 imap <expr><C-g> neocomplcache#cancel_popup()
+
+
+" NeoBundle 'scrooloose/nerdcommenter'
+let g:NERDSpaceDelims=1
+let g:NERDDefaultAlign='left'
 
