@@ -201,12 +201,7 @@ function __prompt_untracked_files {
     fi
     
     if [[ -n "$(git ls-files --others --exclude-standard)" ]] ;then
-        echo '\n--- untracked files ---'
-        echo -n '%B%F{red}'
-        git ls-files --others --exclude-standard
-        echo -n '%b%f'
-        echo '--- end ---'
-        echo '%B%F{red}*%b%f'
+        echo '\n%B%F{red}*%b%f'
         
     else
         echo ''
@@ -264,7 +259,21 @@ function memo {
     echo  >> "$MEMOFILE"
 }
 
+function my-accept-line {
+    if [[ -n "$BUFFER" ]];then
+        zle accept-line
+    else
+        if git rev-parse --is-inside-work-tree &> /dev/null;then
+            git status
+        fi
+        zle reset-prompt
+        echo
+    fi
+    
+}
 
+zle -N my-accept-line
+bindkey '^M' my-accept-line
 
 
 # workaround for emacs tramp
