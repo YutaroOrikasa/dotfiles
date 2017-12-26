@@ -266,8 +266,8 @@ function my-accept-line {
         if git rev-parse --is-inside-work-tree &> /dev/null;then
             git status
         fi
-        zle reset-prompt
-        echo
+        # for poping line pushed by alt-q (zle push-line)
+        zle accept-line
     fi
     
 }
