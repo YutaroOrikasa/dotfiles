@@ -6,10 +6,12 @@
 # when window can not be opened, execute emacs on console
 
 for arg in "$@";do
-    if [[ "$arg" = -nw || "$arg" = --daemon ]];then
-        emacs "$@"
-        exit
-    fi
+    case "$arg" in
+        -nw|--no-window-system|--batch|--daemon)
+             emacs "$@"
+             exit
+             ;;
+    esac
 done
 
 if graphical_emacs_ok; then
