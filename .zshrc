@@ -201,7 +201,7 @@ function __prompt_untracked_files {
     fi
     
     if [[ -n "$(git ls-files --others --exclude-standard)" ]] ;then
-        echo '\n%B%F{red}*%b%f'
+        echo "%1(l."$'\n'".)"'%B%F{red}*%b%f'
         
     else
         echo ''
