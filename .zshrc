@@ -287,16 +287,8 @@ then
   PS1='$ '
 fi
 
-##### bash compatible ####
-case "$(uname)" in
+alias ls='ls --color=auto'
 
-    Darwin)
-        alias ls='ls -G'
-        ;;
-    *)
-        alias ls='ls --color=auto'
-        ;;
-esac
 
 alias grep='grep --color=auto'
 export LESS='-r -gj10'

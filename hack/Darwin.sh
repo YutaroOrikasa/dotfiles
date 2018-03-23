@@ -11,3 +11,6 @@ function brew {
     #     zsh compinit: insecure directories, run compaudit for list.
     sudo chown -RL root /usr/local/share/zsh
 }
+
+
+alias ls='ls -G'
