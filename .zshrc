@@ -390,22 +390,11 @@ function mkcdir {
 alias mkcd=mkcdir
 
 
-# auto emacs server/client command
-# if EMACS_SERVER_NAME already set (eg. by parent shell of screen), ommit setting new server name
-if [ -z "$EMACS_SERVER_NAME" ];then
-    export EMACS_SERVER_NAME=$(date +%Y-%m-%d-%H%M%S)
-fi
-
 function e {
 
-    wemacsclient -a "" -s $EMACS_SERVER_NAME "$@"
+    wemacsclient -a "" "$@"
 }
 
-function dispose_emacs_server_this_session {
-    emacsclient -s $EMACS_SERVER_NAME --eval '(progn (if (<= (length (frame-list)) 1) (kill-emacs)))'
-}
-
-trap dispose_emacs_server_this_session EXIT
 
 export PATH=/mybin:~/.usr/bin:"$PATH"
 
