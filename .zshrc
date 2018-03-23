@@ -417,5 +417,10 @@ trap dispose_emacs_server_this_session EXIT
 
 export PATH=/mybin:~/.usr/bin:"$PATH"
 
+# execute hacks for each platform
+__uname=$(uname)
+[ -e ~/dotfiles/hack/"$__uname".sh ] && . ~/dotfiles/hack/"$__uname".sh
+
+
 [ -e ~/.zshrc.mine ] && . ~/.zshrc.mine || true
 # exit status will always be success.
