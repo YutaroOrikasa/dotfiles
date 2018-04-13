@@ -403,5 +403,6 @@ __uname=$(uname)
 [ -e ~/dotfiles/hack/"$__uname".sh ] && . ~/dotfiles/hack/"$__uname".sh
 
 
-[ -e ~/.zshrc.mine ] && . ~/.zshrc.mine || true
+[ -e ~/.zshrc.mine ] && . ~/.zshrc.mine
+[ -e ~/.zshrc.mine.zsh ] && . ~/.zshrc.mine.zsh
 # exit status will always be success.
