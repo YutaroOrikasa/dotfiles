@@ -343,8 +343,6 @@ export EDITOR='emacs'
 
 alias nwemacs='command emacs -nw'
 
-# wemacs command is in ~/.usr/bin
-alias emacs='wemacs'
 
 # avoid ^S terminal locking issue
 stty stop undef
