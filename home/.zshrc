@@ -393,6 +393,8 @@ function e {
     wemacsclient -a "" "$@"
 }
 
+# homeshick
+source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 
 export PATH=/mybin:~/.usr/bin:"$PATH"
 
