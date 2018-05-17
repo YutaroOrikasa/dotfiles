@@ -343,6 +343,12 @@ export EDITOR='emacs'
 
 alias nwemacs='command emacs -nw'
 
+function custom-emacs {
+    # usage: custom-emacs custom-emacs.d [args]...
+    local custom="$1"
+    shift
+    emacs -q -l "$custom"/init.el --eval"=(when load-file-name (setq user-emacs-directory (file-name-directory load-file-name)))" "$@"
+}
 
 # avoid ^S terminal locking issue
 stty stop undef
