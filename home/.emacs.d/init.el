@@ -64,8 +64,6 @@
 
 (setq load-path
       (append '("~/.emacs.d/mylisp") load-path))
-              
-(try-load "my")
 
 (setq dired-listing-switches "-lahv")
 
@@ -260,3 +258,6 @@
 
 ;; gdb mode
 (setq gdb-many-windows t)
+
+;; load my el
+(try-load "my")
