@@ -305,6 +305,7 @@ alias gd='git diff'
 alias lsa='ls -a'
 alias lsl='ls -l'
 alias lsdl='ls -dl'
+alias ssh='ssh -A'
 
 # raw vim
 alias rawvim='vim -u NONE -N'
