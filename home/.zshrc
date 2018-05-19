@@ -413,5 +413,5 @@ __uname=$(uname)
 [ -e ~/.zshrc.mine ] && . ~/.zshrc.mine
 [ -e ~/.zshrc.mine.zsh ] && . ~/.zshrc.mine.zsh
 
-# exit status will always be success.
-true
+autoload -U compinit
+compinit
