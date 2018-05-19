@@ -404,7 +404,7 @@ function e {
 source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 fpath=($HOME/.homesick/repos/homeshick/completions/ $fpath)
 
-export PATH=/mybin:~/.usr/bin:"$PATH"
+export PATH=/mybin:~/.usr/bin:~/.local/bin:"$PATH"
 
 # execute hacks for each platform
 __uname=$(uname)
