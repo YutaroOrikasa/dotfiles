@@ -408,7 +408,7 @@ export PATH=/mybin:~/.usr/bin:~/.local/bin:"$PATH"
 
 # execute hacks for each platform
 __uname=$(uname)
-[ -e ~/dotfiles/hack/"$__uname".sh ] && . ~/dotfiles/hack/"$__uname".sh
+[ -e ~/.dotfiles-lib/hack/"$__uname".sh ] && . ~/.dotfiles-lib/hack/"$__uname".sh
 
 
 [ -e ~/.zshrc.mine ] && . ~/.zshrc.mine
