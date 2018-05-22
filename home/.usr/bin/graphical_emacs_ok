@@ -2,19 +2,16 @@
 
 # public domain
 
+# DO NOT use $DISPLAY for determine that emacs will launch with gui or not
+# because there exists emacs built without gui library (cui only emacs).
 
-if [ -n "$DISPLAY" ]; then
+# On graphical mode, exit with success.
+# On terminal mode (not gui available),
+# emacs can't launch (because of ridirect to /dev/null)
+# and exit with error code.
+if emacs -Q --eval='(kill-emacs)' </dev/null 2>/dev/null;then
     exit 0
 else
-
-    # On graphical mode, exit with success.
-    # On terminal mode (not gui available),
-    # emacs can't launch (because of ridirect to /dev/null)
-    # and exit with error code.
-    if emacs -Q --eval='(kill-emacs)' </dev/null 2>/dev/null;then
-        exit 0
-    fi
+    # not gui available
+    exit 1
 fi
-
-# not gui available
-exit 1
