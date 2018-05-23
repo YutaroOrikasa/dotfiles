@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+
+# public domain
+
+import sys
+import os.path
+import requests
+
+repo_name = sys.argv[1]
+
+TOKEN_FILE_PATH = os.path.expanduser("~/.gitlab-token")
+
+with open(TOKEN_FILE_PATH) as token_file:
+    token = token_file.read().rstrip("\n")
+
+response = requests.post(url="https://gitlab.com/api/v4/projects",
+              json={"name": repo_name},
+              headers={"private-token": token})
+
+sys.stderr.write("{}\n".format(response.json()))
+
