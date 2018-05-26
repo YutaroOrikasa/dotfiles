@@ -6,8 +6,8 @@ vbell off
 #hardstatus alwayslastline '%02c:%s %{= .g}%H%{-} %{=u g.}%n %t%{-}%+w '
 hardstatus alwayslastline '%-w%{+ .g}%50>%n %t%{-}%+w%<'
 bind ^g
-# bind r eval 'source $HOME/.screenrc' 'echo "reload .screenrc"'
-bind r eval 'exec sh -c "grep -v [N]OT_EXEC_ON_RELOAD $HOME/.screenrc > $HOME/screenrc$$; screen -X source $HOME/screenrc$$ && rm $HOME/screenrc$$ && screen -X echo reload\ .screenrc || screen -X echo failed\ reloading\ .screenrc"'
+bind r eval 'source $HOME/.screenrc0' 'echo "reload .screenrc0"'
+
  
 # bind h eval 'exec sh -c "screen -X echo hello"' 'echo ok'
 

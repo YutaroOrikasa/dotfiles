@@ -1,2 +1,2 @@
 source .screenrc0
-screen 1  # NOT_EXEC_ON_RELOAD
+screen 1
