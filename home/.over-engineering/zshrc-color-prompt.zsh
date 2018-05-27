@@ -34,6 +34,9 @@ function __ask-prompt-color {
         while :;do
             echo "select a color of $subject of prompt" >&2
             echo "0-255: 256 color, l: list sample, s: skip, n: no color, a: auto" >&2
+            local AUTO_COLNUM=$(__auto_color_echo $name)
+            echo -n "auto sample: " >&2
+            __col256echo "$name $AUTO_COLNUM" $AUTO_COLNUM >&2
             read -r input
             if [[ "$input" =~ '^[0-9]+$' ]] && (( 0<=input && input <= 255 ));then
                 COL_NUM=$input
