@@ -138,7 +138,7 @@ function __ask-prompt-color {
                         
                         ;;
                     n)
-                        COL_NUM=
+                        COL_NUM=no
                         ;;
                     *)
                         echo "bad input $input" >&2
@@ -181,13 +181,13 @@ if [ -z "$HOST_COL_NUM" ];then
 fi
 
 function __USER_COL_ESC_SEQ {
-    if [ -n "$USER_COL_NUM" ];then
+    if [ -n "$USER_COL_NUM" -a "$USER_COL_NUM" != "no" ];then
         echo "%{\e[38;5;${USER_COL_NUM}m%}"
     fi
 }
 
 function __HOST_COL_ESC_SEQ {
-    if [ -n "$HOST_COL_NUM" ];then
+    if [ -n "$HOST_COL_NUM" -a "$HOST_COL_NUM" != "no" ];then
         echo "%{\e[38;5;${HOST_COL_NUM}m%}"
     fi
 }
