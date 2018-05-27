@@ -1,4 +1,7 @@
 
+
+
+
 function cheatsheet {
     less ~/.cheatsheet/"$1"
 }
