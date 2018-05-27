@@ -2,6 +2,9 @@
 
 [ -e ~/.zshrc.mine-pre ] && . ~/.zshrc.mine-pre
 
+export ALLOW_OVER_ENGINEERING=${ALLOW_OVER_ENGINEERING:-y}
+
+
 #see man zshall for detail
 
 ### setops ###
@@ -414,5 +417,11 @@ __uname=$(uname)
 [ -e ~/.zshrc.mine ] && . ~/.zshrc.mine
 [ -e ~/.zshrc.mine.zsh ] && . ~/.zshrc.mine.zsh
 
+
 autoload -U compinit
+
+if [ "$ALLOW_OVER_ENGINEERING" = y ];then
+    source ~/.over-engineering/.zshrc
+fi
+
 compinit
