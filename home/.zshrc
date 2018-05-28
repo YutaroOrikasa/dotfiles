@@ -204,8 +204,9 @@ alias lsl='ls -l'
 alias lsdl='ls -dl'
 alias ssh='ssh -A'
 
-# raw vim
+# vims
 alias rawvim='vim -u NONE -N'
+alias myvim='vim -u .myvimrc -N'
 
 alias sshfs='sshfs -o transform_symlinks -o ServerAliveCountMax=1 -o ServerAliveInterval=1 -o reconnect'
 
