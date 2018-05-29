@@ -1,9 +1,14 @@
-;; set default theme
-(load-theme 'myadwi t)
+;; use my theme on GUI emacs
+;; use underline on current line on CUI emacs
+(if (display-graphic-p)
+    (load-theme 'myadwi t)
+  (custom-set-faces
+   '(highlight ((t (:underline "Brown"))))))
 
 
 ;; save customized variables to "custom.el"
 (setq custom-file (locate-user-emacs-file "custom.el"))
+
 (when (file-exists-p custom-file)
   (load custom-file))
 
