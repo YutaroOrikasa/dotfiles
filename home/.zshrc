@@ -314,9 +314,10 @@ __uname=$(uname)
 
 
 autoload -U compinit
+compinit
 
 if [ "$ALLOW_OVER_ENGINEERING" = y ];then
     source ~/.over-engineering/.zshrc
 fi
 
-compinit
+
