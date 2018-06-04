@@ -18,7 +18,7 @@
 (global-set-key   [mouse-5] 'next-line)
 (global-set-key   [mouse-4] 'previous-line)
 
-;; スクリプトの保存時に実行属性をつける
+;; Set executable on saving shell script
 (add-hook 'after-save-hook
           'executable-make-buffer-file-executable-if-script-p)
 
