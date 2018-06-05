@@ -220,7 +220,7 @@ esac
 alias o='open .'
 
 if [ x"$TERM" = x"screen.xterm-256color" ];then
-    export TERM=xterm-256color
+    export TERM=screen-256color
 fi
 
 function nohist(){
