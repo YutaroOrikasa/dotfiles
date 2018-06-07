@@ -3,6 +3,18 @@
 ZZ
 ```
 
+### increment a number
+on normal mode
+```
+Ctrl-a
+```
+
+### decrement a number
+on normal mode
+```
+Ctrl-x
+```
+
 ### search manual
 ```
 :help ${word}
