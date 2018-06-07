@@ -15,6 +15,20 @@ on normal mode
 Ctrl-x
 ```
 
+### visual block (rectangle)
+```
+C-v
+```
+
+### rectangle insert
+```
+C-v
+<move cursor>
+I
+<input chars>
+ESC
+```
+
 ### search manual
 ```
 :help ${word}
