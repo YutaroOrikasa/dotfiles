@@ -1,10 +1,22 @@
 ;; use my theme on GUI emacs
 ;; use underline on current line on CUI emacs
-(if (display-graphic-p)
-    (load-theme 'myadwi t)
-  (custom-set-faces
-   '(highlight ((t (:underline "Brown"))))))
+;; Dispaching will occur on launch and arter creating a frame
+(defun mytheme (&optional frame)
+  (if (display-graphic-p frame)
+      (progn
+        (custom-set-faces '(highlight ((t (:underline nil)))))
+        (load-theme 'myadwi t))
+    (progn
+      (custom-set-faces '(highlight ((t (:underline "Brown")))))
+      (disable-theme 'myadwi))))
 
+;; arter creating a frame we change theme to suitable one
+(add-hook 'after-make-frame-functions
+          (lambda (frame)
+            (mytheme frame)))
+
+;; on launch we change theme to suitable one
+(mytheme)
 
 ;; save customized variables to "custom.el"
 (setq custom-file (locate-user-emacs-file "custom.el"))
