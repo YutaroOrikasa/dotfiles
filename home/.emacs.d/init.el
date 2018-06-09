@@ -235,7 +235,7 @@
 (global-set-key (kbd "S-M-<down>") 'shrink-window)
 (global-set-key (kbd "S-M-<up>") 'enlarge-window)
 
-(set-face-attribute 'default nil :height 200)
+(set-face-attribute 'default nil :height 150)
 
 (electric-pair-mode 1)
 
