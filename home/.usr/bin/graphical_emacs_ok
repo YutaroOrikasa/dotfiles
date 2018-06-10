@@ -2,6 +2,13 @@
 
 # public domain
 
+# check whether emacs build without gui toolkit or not
+emacs_configure_option="$(emacs -Q --batch --eval '(princ system-configuration-options)')"
+if ( echo "$emacs_configure_option" |
+           grep without-x &>/dev/null );then
+    exit 1
+fi
+
 # DO NOT use $DISPLAY for determine that emacs will launch with gui or not
 # because there exists emacs built without gui library (cui only emacs).
 
