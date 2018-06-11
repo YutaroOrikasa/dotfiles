@@ -15,7 +15,10 @@ for arg in "$@";do
 done
 
 if graphical_emacs_ok; then
-    emacsclient -nc "$@"
+    # run emacsclient as background instead of -n (no wait) option
+    # so that we can close a buffer opend by wemacsclient with C-x C-c
+    emacsclient -c "$@" &>/dev/null &
+    disown %1
 else
     emacsclient "$@"
 fi
