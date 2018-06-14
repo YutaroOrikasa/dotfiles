@@ -4,10 +4,10 @@
 (defun mytheme (&optional frame)
   (if (display-graphic-p frame)
       (progn
-        (custom-set-faces '(highlight ((t (:underline nil)))))
+        (global-hl-line-mode 1)
         (load-theme 'myadwi t))
     (progn
-      (custom-set-faces '(highlight ((t (:underline "Brown")))))
+      (global-hl-line-mode 0)
       (disable-theme 'myadwi))))
 
 ;; arter creating a frame we change theme to suitable one
@@ -88,8 +88,6 @@
 (setq default-input-method "japanese-mozc")
 
 (setq dired-listing-switches "-lahv")
-
-(global-hl-line-mode t)                 ;; 現在行をハイライト
 
 ;; (custom-set-faces
 ;;  '(hl-line ((t (:background "#00bf00"))))
