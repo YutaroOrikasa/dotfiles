@@ -82,6 +82,11 @@
 (setq load-path
       (append '("~/.emacs.d/mylisp") load-path))
 
+;; mozc setting
+(require 'mozc)
+(set-language-environment "Japanese")
+(setq default-input-method "japanese-mozc")
+
 (setq dired-listing-switches "-lahv")
 
 (global-hl-line-mode t)                 ;; 現在行をハイライト
