@@ -61,3 +61,34 @@ Q
 ctrl + u
 ctrl + d
 ```
+
+### buffer operations
+#### open a file in a new buffer
+```
+:e path/to/file
+```
+
+#### list buffers
+```
+:ls
+```
+
+#### go to next buffer
+```
+:bn
+```
+
+#### go to previous buffer
+```
+:bp
+```
+
+#### delete current buffer
+```
+:bd
+```
+
+#### go to a specified buffer (with completion)
+```
+:b xxx[tab]
+```
