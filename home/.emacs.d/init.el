@@ -87,8 +87,9 @@
 	     (progn
 	       (setq default-input-method "japanese-mozc")))
 
-
+;; dired
 (setq dired-listing-switches "-lahv")
+(setq dired-auto-revert-buffer t)
 
 ;; (custom-set-faces
 ;;  '(hl-line ((t (:background "#00bf00"))))
