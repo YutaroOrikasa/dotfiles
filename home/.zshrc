@@ -92,7 +92,13 @@ source ~/.over-engineering/zshrc-color-prompt.zsh
 
 PROMPT_EXEC_STATUS="%(?.%{$fg[yellow]%}:) .%{$fg_bold[red]%}%? )%{${reset_color}%}"
 
+__enable_prompt_untracked_files=y
+
 function __prompt_untracked_files {
+    if [ "$__enable_prompt_untracked_files" != y ];then
+        return
+    fi
+
     if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1;then
         return
     fi
@@ -132,10 +138,12 @@ zstyle ':vcs_info:*' actionformats "%%1(l."$'\n'".)""%%b%f%c%u%F{magenta}(%f%s%F
 # Sometimes zsh vcs plugin make trouble.
 # So these are convinient functions for toggle zsh vcs plugin.
 vcs-disable () {
+    __enable_prompt_untracked_files=n
     add-zsh-hook -d precmd vcs_info
     vcs_info_msg_0_=
 }
 vcs-enable () {
+    __enable_prompt_untracked_files=y
     add-zsh-hook precmd vcs_info
 }
 alias disable-vcs=vcs-disable
