@@ -246,7 +246,7 @@ function mv() {
     fi
 }
 
-export EDITOR='emacs'
+export EDITOR='emacsclient-ac'
 
 alias nwemacs='command emacs -nw'
 

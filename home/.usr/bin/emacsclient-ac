@@ -2,4 +2,4 @@
 
 # public domain
 
-emacsclient -a "" "$@"
+emacsclient -a "" -c "$@"
