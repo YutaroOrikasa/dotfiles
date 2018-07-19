@@ -2,3 +2,8 @@
 ```
 history -E 1
 ```
+
+### without loding .zshrc
+```
+zsh --no-rcs
+```
