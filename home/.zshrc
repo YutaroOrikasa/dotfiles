@@ -265,11 +265,6 @@ function custom-emacs {
 # avoid ^S terminal locking issue
 stty stop undef
 
-### experimental ###
-fpath=(${HOME}/.zsh/functions/Completion ${fpath})
-autoload -U compinit
-compinit
-
 #. ~/.otokono_zsh
 #. ~/.zsh_grml_comp
 
@@ -326,12 +321,14 @@ __uname=$(uname)
 [ -e ~/.zshrc.mine.zsh ] && . ~/.zshrc.mine.zsh
 
 
-autoload -U compinit
-compinit
-
 if [ "$ALLOW_OVER_ENGINEERING" = y ];then
     source ~/.over-engineering/.zshrc
 fi
+
+# set up completion
+fpath=(${HOME}/.zsh/functions/Completion ${fpath})
+autoload -U compinit
+compinit
 
 # for zshrc profiling
 if [ "$DOTFILES_ENABLE_ZPROF" = y ];then
