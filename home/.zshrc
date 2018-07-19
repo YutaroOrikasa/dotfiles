@@ -1,5 +1,10 @@
 #public domain
 
+# export DOTFILES_ENABLE_ZPROF=y for zshrc profiling
+if [ "$DOTFILES_ENABLE_ZPROF" = y ];then
+    zmodload zsh/zprof && zprof
+fi
+
 [ -e ~/.zshrc.mine-pre ] && . ~/.zshrc.mine-pre
 
 export ALLOW_OVER_ENGINEERING=${ALLOW_OVER_ENGINEERING:-y}
@@ -328,4 +333,10 @@ if [ "$ALLOW_OVER_ENGINEERING" = y ];then
     source ~/.over-engineering/.zshrc
 fi
 
-
+# for zshrc profiling
+if [ "$DOTFILES_ENABLE_ZPROF" = y ];then
+    if (which zprof > /dev/null) ;then
+        zprof > ~/zprof.txt
+        echo 'export zprof result into ~/zprof.txt'
+    fi
+fi
