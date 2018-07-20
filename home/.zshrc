@@ -9,6 +9,10 @@ fi
 
 export ALLOW_OVER_ENGINEERING=${ALLOW_OVER_ENGINEERING:-y}
 
+# set up completion
+fpath=(${HOME}/.zsh/functions/Completion ${fpath})
+autoload -U compinit
+compinit
 
 #see man zshall for detail
 
@@ -324,11 +328,6 @@ __uname=$(uname)
 if [ "$ALLOW_OVER_ENGINEERING" = y ];then
     source ~/.over-engineering/.zshrc
 fi
-
-# set up completion
-fpath=(${HOME}/.zsh/functions/Completion ${fpath})
-autoload -U compinit
-compinit
 
 # for zshrc profiling
 if [ "$DOTFILES_ENABLE_ZPROF" = y ];then
