@@ -1,0 +1,7 @@
+#compdef cheatsheet
+
+function _cheatsheet {
+    _files -W ~/.cheatsheet -g "*[^~]"
+}
+
+_cheatsheet "$@"
