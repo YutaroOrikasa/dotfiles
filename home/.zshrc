@@ -153,6 +153,13 @@ vcs-enable () {
 }
 alias disable-vcs=vcs-disable
 alias enable-vcs=vcs-enable
+
+#### fixing ssh socket path when screen ####
+# see .ssh/rc too.
+if [[ -n "$SSH_TTY" && "$TERM" =~ ^screen ]];then
+    export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+fi
+
 #### misc ####
 
 alias pd=popd
