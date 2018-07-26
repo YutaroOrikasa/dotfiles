@@ -6,16 +6,41 @@ import sys
 import os.path
 import requests
 
-repo_name = sys.argv[1]
 
-TOKEN_FILE_PATH = os.path.expanduser("~/.gitlab-token")
+def message(msg):
+    sys.stderr.write(str(msg))
+    sys.stderr.write("\n")
 
-with open(TOKEN_FILE_PATH) as token_file:
-    token = token_file.read().rstrip("\n")
 
-response = requests.post(url="https://gitlab.com/api/v4/projects",
-              json={"name": repo_name},
-              headers={"private-token": token})
+def main():
+    repo_name = sys.argv[1]
 
-sys.stderr.write("{}\n".format(response.json()))
+    TOKEN_FILE_PATH = os.path.expanduser("~/.gitlab-token")
 
+    with open(TOKEN_FILE_PATH) as token_file:
+        token = token_file.read().rstrip("\n")
+
+    response = requests.post(url="https://gitlab.com/api/v4/projects",
+                             json={"name": repo_name},
+                             headers={"private-token": token})
+
+    res_json = response.json()
+
+    if not response.ok:
+        message("error returned from gitlab")
+        message(res_json)
+        exit(1)
+
+    ssh_url_to_repo = res_json["ssh_url_to_repo"]
+    http_url_to_repo = res_json["http_url_to_repo"]
+    message("repository was successfully created!")
+    msg = f"""\
+ssh:
+    git clone {ssh_url_to_repo}
+http:
+    git clone {http_url_to_repo}"""
+    message(msg)
+
+
+if __name__ == '__main__':
+    main()
