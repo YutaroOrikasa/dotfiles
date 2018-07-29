@@ -224,7 +224,12 @@ alias gd='git diff'
 
 alias lsa='ls -a'
 alias lsl='ls -l'
+alias lsla='ls -la'
 alias lsdl='ls -dl'
+
+alias ll='ls -l'
+alias lla='ls -la'
+alias lld='ls -ld'
 
 alias ssh='ssh -A'
 
