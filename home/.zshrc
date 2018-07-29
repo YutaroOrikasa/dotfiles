@@ -209,7 +209,8 @@ alias ls='ls --color=auto'
 
 alias grep='grep --color=auto'
 export LESS='-r -gj10'
-
+alias L='less'
+alias le='less'
 alias g='git'
 alias gc='git commit -v'
 alias gcho='git checkout'
@@ -300,7 +301,6 @@ if [ -n "$INSIDE_EMACS" ]; then
     print -P "\033AnSiTc %d"
 fi
 
-alias L='less'
 
 function mkcdir {
     mkdir "$@" && cd $_
