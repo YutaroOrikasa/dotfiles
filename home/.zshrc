@@ -206,11 +206,12 @@ fi
 
 alias ls='ls --color=auto'
 
-
 alias grep='grep --color=auto'
+
 export LESS='-r -gj10'
 alias L='less'
 alias le='less'
+
 alias g='git'
 alias gc='git commit -v'
 alias gcho='git checkout'
@@ -220,9 +221,11 @@ alias greset='git reset'
 alias gl='git log --color --decorate --graph --branches --tags --remotes'
 alias glh='git log --color --decorate --graph HEAD'
 alias gd='git diff'
+
 alias lsa='ls -a'
 alias lsl='ls -l'
 alias lsdl='ls -dl'
+
 alias ssh='ssh -A'
 
 # vims
