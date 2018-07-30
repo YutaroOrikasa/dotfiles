@@ -212,6 +212,12 @@ export LESS='-r -gj10'
 alias L='less'
 alias le='less'
 
+if [ -z "$LESSOPEN" ];then
+    if which lesspipe.sh > /dev/null;then
+        export LESSOPEN="|lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
+    fi
+fi
+
 alias g='git'
 alias gc='git commit -v'
 alias gcho='git checkout'
