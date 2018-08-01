@@ -7,3 +7,8 @@ gpg --output gpg-public.key --armor --export ${user-id}
 ```
 gpg --import gpg-public.key
 ```
+
+### trust public key
+```
+gpg --edit-key ${user-id} trust
+```
