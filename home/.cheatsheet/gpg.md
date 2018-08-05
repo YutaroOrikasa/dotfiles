@@ -16,9 +16,19 @@ gpg --edit-key ${user-id} trust
 ```
 
 
-## backup secret keys
+## backup private keys
 
-### export public key
+### export private key
 ```
 gpg --output gpg-private.key --armor --export-secret-keys ${user-id}
+```
+
+### import private key
+```
+gpg --import gpg-private.key
+```
+
+### trust private key
+```
+gpg --edit-key ${user-id} trust
 ```
