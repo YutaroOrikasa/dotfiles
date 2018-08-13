@@ -252,7 +252,13 @@ case "$(uname -s | tr '[:upper:]' '[:lower:]')" in
         ;;
 esac
 
-alias o='open .'
+o () {
+    if [[ -z "$1" ]];then
+        open .
+    else
+        open "$1"
+    fi
+}
 
 if [ x"$TERM" = x"screen.xterm-256color" ];then
     export TERM=screen-256color
