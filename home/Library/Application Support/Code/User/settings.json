@@ -4,4 +4,8 @@
         "editor.formatOnSave": true
     },
     "terminal.integrated.macOptionIsMeta": true,
+
+    // Open a file with new tab on click
+    // https://qiita.com/kgoto/items/265e3eb8a82778e33cfe
+    "workbench.editor.enablePreview": false,
 }
