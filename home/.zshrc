@@ -36,6 +36,9 @@ alias zsh-glob-help='man -P "less +/\"   Glob Qualifiers\""  zshexpn'
 
 autoload -U add-zsh-hook
 
+# WORDCHARS is chars ingored from word separator.
+# It affects M-b and ^w, etc.
+export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>"'
 
 function zshaddhistory(){
     
