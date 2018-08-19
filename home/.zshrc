@@ -116,21 +116,25 @@ function __prompt_untracked_files {
     fi
 }
 
-PROMPT="$PROMPT_EXEC_STATUS""$PROMPT_USERNAME"@"$PROMPT_HOSTNAME"" %~""%50(l."$'\n'".)"'${vcs_info_msg_0_}'"%20(l."$'\n'".)"'$(__prompt_untracked_files)'" %# "
-
 # make new line after path when path is too long
 # make new line after path when vcs info appears
 # avoid double new line
 # see also vcs info section
+PROMPT="$PROMPT_EXEC_STATUS""$PROMPT_USERNAME"@"$PROMPT_HOSTNAME"" %~""%50(l."$'\n'".)"'${vcs_info_msg_0_}'"%20(l."$'\n'".)"'$(__prompt_untracked_files)'" %# "
 
 
 ### completion ###
-zstyle ':completion:*:default' menu select=2  # highlight and select with arrow key
-bindkey "^[[Z" reverse-menu-complete # reverse at [shift + tab]
+
+# highlight and select with arrow key
+zstyle ':completion:*:default' menu select=2
+
+# reverse at [shift + tab]
+bindkey "^[[Z" reverse-menu-complete
 
 # grouping candidates
 zstyle ':completion:*' format '%B%F{blue}%d%f%b'
 zstyle ':completion:*' group-name ''
+
 
 ### vcs info ###
 # see http://qiita.com/mollifier/items/8d5a627d773758dd8078
