@@ -128,6 +128,10 @@ PROMPT="$PROMPT_EXEC_STATUS""$PROMPT_USERNAME"@"$PROMPT_HOSTNAME"" %~""%50(l."$'
 zstyle ':completion:*:default' menu select=2  # highlight and select with arrow key
 bindkey "^[[Z" reverse-menu-complete # reverse at [shift + tab]
 
+# grouping candidates
+zstyle ':completion:*' format '%B%F{blue}%d%f%b'
+zstyle ':completion:*' group-name ''
+
 ### vcs info ###
 # see http://qiita.com/mollifier/items/8d5a627d773758dd8078
 # or
