@@ -344,6 +344,11 @@ function e {
     wemacsclient -a "" "$@"
 }
 
+# ssh-add
+if ! ssh-add -L >/dev/null;then
+    ssh-add -K
+fi
+
 # homeshick
 source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 fpath=($HOME/.homesick/repos/homeshick/completions/ $fpath)
