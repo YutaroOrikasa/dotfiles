@@ -13,6 +13,8 @@ Wants=
 After=
 
 [Service]
+# Type=oneshot
+
 WorkingDirectory=
 Environment=
 ExecStartPre=/full/path/to/command args
