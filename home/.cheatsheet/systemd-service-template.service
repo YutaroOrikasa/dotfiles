@@ -1,0 +1,28 @@
+# See man systemd.unit for systemd unit.
+# See man systemd.service for systemd service file.
+# See man systemd.exec
+# See man systemd.kill
+[Unit]
+Description=
+
+# dependency
+Requires=
+Wants=
+
+# launch order
+After=
+
+[Service]
+WorkingDirectory=
+Environment=
+ExecStartPre=/full/path/to/command args
+ExecStartPre=/full/path/to/command args
+
+ExecStart=/full/path/to/command args
+ExecReload=/bin/kill -s HUP $MAINPID
+KillSignal=SIGQUIT
+TimeoutStopSec=5
+
+
+[Install]
+WantedBy=multi-user.target
