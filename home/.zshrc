@@ -276,7 +276,8 @@ o () {
 }
 
 if [ x"$TERM" = x"screen.xterm-256color" ];then
-    export TERM=screen-256color
+    export TERM=xterm-256color
+    export DOTFILES_TERM_MULTIPLEXER=screen
 fi
 
 function nohist(){
@@ -320,7 +321,12 @@ function set_term_title () {
 	    echo -ne "\033P\033]0;${USER}@${HOST%%.*}:${PWD}\007\033\\"
 	    ;;
     esac
-    
+
+    case "${DOTFILES_TERM_MULTIPLEXER}" in
+        screen)
+            echo -ne "\033P\033]0;${USER}@${HOST%%.*}:${PWD}\007\033\\"
+	    ;;
+    esac
 }
 
 add-zsh-hook precmd set_term_title
