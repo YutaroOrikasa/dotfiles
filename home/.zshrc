@@ -258,7 +258,7 @@ alias ssh='ssh -A'
 alias rawvim='vim -u NONE -N'
 alias myvim='vim -u .myvimrc -N'
 
-alias sshfs='sshfs -o transform_symlinks -o ServerAliveCountMax=1 -o ServerAliveInterval=1 -o reconnect'
+alias sshfs='sshfs -o transform_symlinks -o ServerAliveCountMax=10 -o ServerAliveInterval=10 -o reconnect'
 
 case "$(uname -s | tr '[:upper:]' '[:lower:]')" in
     cygwin*)
