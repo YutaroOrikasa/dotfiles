@@ -204,6 +204,16 @@ zle -N my-accept-line
 bindkey '^M' my-accept-line
 
 
+# rehash on showing prompt.
+# I don't need command PATH caching because installed new commands (eg. installed by brew, apt) are not come in the completion.
+function precmd_rehash {
+    hash -r
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd precmd_rehash
+
+
 # workaround for emacs tramp
 if [[ "$TERM" == "dumb" ]]
 then
