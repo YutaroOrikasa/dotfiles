@@ -241,6 +241,7 @@ fi
 
 alias g='git'
 alias gc='git commit -v'
+alias gcame='gc --amend --no-edit'
 alias gcho='git checkout'
 alias gchob='git checkout -b'
 alias gchop='git checkout -'  # go to previous branch
