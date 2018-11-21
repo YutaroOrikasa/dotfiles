@@ -37,8 +37,12 @@ def main():
     msg = f"""\
 ssh:
     git clone {ssh_url_to_repo}
+        or
+    git remote add origin {ssh_url_to_repo}
 http:
-    git clone {http_url_to_repo}"""
+    git clone {http_url_to_repo}
+        or
+    git remote add origin {http_url_to_repo}"""
     message(msg)
 
 
