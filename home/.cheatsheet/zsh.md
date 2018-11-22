@@ -10,7 +10,7 @@ zsh --no-rcs
 
 ### benchmark .zshrc
 ```
-time zsh -x -i -c exit
+time zsh -i -c exit
 ```
 
 ### count compinit
