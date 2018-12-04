@@ -389,6 +389,8 @@ if [ "$ALLOW_OVER_ENGINEERING" = y ];then
     source ~/.over-engineering/.zshrc
 fi
 
+[ -f ~/.usr/lib/z/z.sh ] && source ~/.usr/lib/z/z.sh
+
 # set up completion
 fpath=(${HOME}/.zsh/functions/Completion ${fpath})
 autoload -U compinit
