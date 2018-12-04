@@ -403,3 +403,9 @@ if [ "$DOTFILES_ENABLE_ZPROF" = y ];then
         echo 'export zprof result into ~/zprof.txt'
     fi
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_ALT_C_COMMAND='find . -maxdepth 1 -type d | cut -b3-'
+export FZF_CTRL_T_COMMAND='find . -maxdepth 1 | cut -b3-'
+export FZF_COMPLETION_TRIGGER=@@
+export FZF_DEFAULT_OPTS='--bind btab:up,tab:down,ctrl-space:toggle'
