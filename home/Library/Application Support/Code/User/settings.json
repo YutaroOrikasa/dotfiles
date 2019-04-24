@@ -13,5 +13,11 @@
         "posix"
     ],
     "files.autoGuessEncoding": true,
+    "files.insertFinalNewline": true,
     "java.errors.incompleteClasspath.severity": "ignore",
+    "python.pythonPath": "/usr/local/opt/python/bin/python3.7",
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
 }
