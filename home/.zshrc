@@ -2,7 +2,7 @@
 
 # export DOTFILES_ENABLE_ZPROF=y for zshrc profiling
 if [ "$DOTFILES_ENABLE_ZPROF" = y ];then
-    zmodload zsh/zprof && zprof
+    zmodload zsh/zprof
 fi
 
 [ -e ~/.zshrc.mine-pre ] && . ~/.zshrc.mine-pre
