@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# homebrew wrapper for hacks!
+# This wrapper improve speed of `brew --prefix gnu-getopt'.
+#
+# Some programs (e.g. pass command) execute `brew --prefix gnu-getopt'.
+# `brew --prefix gnu-getopt' simply  prints "/usr/local/opt/gnu-getopt",
+# but it takes 2, 3 seconds maybe because of running ruby.
+
+if [[ "$*" = '--prefix gnu-getopt' ]];then
+    echo /usr/local/opt/gnu-getopt
+else
+    /usr/local/bin/brew "$@"
+fi
