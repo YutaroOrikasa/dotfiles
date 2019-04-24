@@ -380,7 +380,26 @@ export PATH=/mybin:~/.usr/bin:~/.local/bin:"$PATH"
 __uname=$(uname)
 [ -e ~/.dotfiles-lib/hack/"$__uname".sh ] && . ~/.dotfiles-lib/hack/"$__uname".sh
 
+# gpg-agent
+function launch-gpg-agent {
+    case "$__uname" in
+        Darwin)
+            if which pinentry-mac >/dev/null 2>&1;then
+                gpg-agent --daemon --pinentry-program $(which pinentry-mac)
+            else
+                gpg-agent --daemon --pinentry-program $(which pinentry-tty)
+            fi
+            ;;
+        *)
+            gpg-agent --daemon
+            ;;
+    esac
+}
 
+(launch-gpg-agent >/dev/null 2>&1 &)
+
+
+# .zshrc.mine
 [ -e ~/.zshrc.mine ] && . ~/.zshrc.mine
 [ -e ~/.zshrc.mine.zsh ] && . ~/.zshrc.mine.zsh
 
