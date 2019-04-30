@@ -95,6 +95,14 @@
 ;;  '(hl-line ((t (:background "#00bf00"))))
 ;;  )
 
+;; highlight-quoted-vars.el
+;; "$var" is highlighted in shell script mode.
+;; https://github.com/czipperz/highlight-quoted-vars.el
+(el-get-bundle! czipperz/highlight-quoted-vars.el
+  :name highlight-quoted-vars
+  (add-hook 'sh-mode-hook 'sh-script-extra-font-lock-activate))
+
+
 ;; jedi
  (el-get-bundle jedi
   (add-hook 'python-mode-hook 'jedi:setup)
