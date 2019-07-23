@@ -20,4 +20,10 @@
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     "explorer.confirmDragAndDrop": false,
     "explorer.confirmDelete": false,
+    "[cpp]": {},
+    "[c]": {},
+    "C_Cpp.updateChannel": "Insiders",
+    "terminal.integrated.shell.osx": "/bin/zsh",
+    "python.jediEnabled": false,
+    "terminal.integrated.rendererType": "dom"
 }
