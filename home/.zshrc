@@ -313,8 +313,9 @@ alias nwemacs='command emacs -nw'
 function custom-emacs {
     # usage: custom-emacs custom-emacs.d [args]...
     local custom="$1"
+    local custom_fullpath="$(cd "$custom" >/dev/null; pwd)"
     shift
-    emacs -q -l "$custom"/init.el --eval"=(when load-file-name (setq user-emacs-directory (file-name-directory load-file-name)))" "$@"
+    emacs -q --eval="(setq user-emacs-directory \"$custom_fullpath\")" -l "$custom"/init.el "$@"
 }
 
 # avoid ^S terminal locking issue
