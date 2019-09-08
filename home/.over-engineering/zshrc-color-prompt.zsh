@@ -111,7 +111,7 @@ function __setup-prompt-color {
     local subject="$2"
     local name="$3"
 
-    local col_num=$(eval echo "$col_num_var_name")
+    local col_num=$(eval echo $"$col_num_var_name")
     if [ -z "$col_num" ];then
         col_num=$(__ask-prompt-color "$subject" "$name") \
             || echo "skip setting $subject color"
