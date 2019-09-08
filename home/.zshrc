@@ -165,11 +165,72 @@ vcs-enable () {
 alias disable-vcs=vcs-disable
 alias enable-vcs=vcs-enable
 
-#### fixing ssh socket path when screen ####
+
+
+#### gpg and ssh ####
+# gpg-agent
+function launch-gpg-agent {
+    case "$(uname)" in
+        Darwin)
+            if which pinentry-mac >/dev/null 2>&1;then
+                gpg-agent --daemon --pinentry-program $(which pinentry-mac)
+            else
+                gpg-agent --daemon --pinentry-program $(which pinentry-tty)
+            fi
+            ;;
+        *)
+            gpg-agent --daemon
+            ;;
+    esac
+}
+
+
+# Please call this function at .zshrc.mine.
+# Usage: (add-ssh-keys path/to/ssh-key-password.gpg .ssh/id_ed25519 >/dev/null 2>&1 &)
+# $1: password gpg file path
+# $2...: ssh key passes
+function add-ssh-keys {
+    launch-gpg-agent
+    local passwd_path="$1"
+    shift
+    if tty >/dev/null 2>&1;then
+        local tty=$(tty)
+    fi
+    local key
+    local ret=0
+    for key in "$@" ;do
+        DISPLAY=dummy \
+               SSH_ASKPASS="$HOME"/.dotfiles-lib/bin/gpg-ssh-askpass \
+               PASSWORD_GPG_PATH="$passwd_path" \
+               TTY="$tty" \
+               ssh-add "$key" </dev/null
+        ((ret |= $?))
+    done
+
+    return $ret
+}
+
+
+# fixing ssh socket path when screen
 # see .ssh/rc too.
 if [[ -n "$SSH_TTY" && "$TERM" =~ ^screen ]];then
     export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
 fi
+
+
+function launch-ssh-agent {
+    setopt local_options NO_WARN_CREATE_GLOBAL
+    eval $(ssh-agent -s "$@")
+}
+
+# launch ssh-agent if not launched
+export SSH_AUTH_SOCK="${SSH_AUTH_SOCK:-$HOME/.ssh/ssh_auth_sock_local}"
+if [ ! -S "$SSH_AUTH_SOCK" ];then
+    echo "launch ssh-agent"
+    launch-ssh-agent
+    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock_local
+fi
+
 
 #### misc ####
 
@@ -366,10 +427,6 @@ function e {
     wemacsclient -a "" "$@"
 }
 
-# ssh-add
-if ! ssh-add -L >/dev/null;then
-    ssh-add -K
-fi
 
 # homeshick
 source "$HOME/.homesick/repos/homeshick/homeshick.sh"
@@ -380,25 +437,6 @@ export PATH=/mybin:~/.usr/bin:~/.local/bin:"$PATH"
 # execute hacks for each platform
 __uname=$(uname)
 [ -e ~/.dotfiles-lib/hack/"$__uname".sh ] && . ~/.dotfiles-lib/hack/"$__uname".sh
-
-# gpg-agent
-function launch-gpg-agent {
-    case "$__uname" in
-        Darwin)
-            if which pinentry-mac >/dev/null 2>&1;then
-                gpg-agent --daemon --pinentry-program $(which pinentry-mac)
-            else
-                gpg-agent --daemon --pinentry-program $(which pinentry-tty)
-            fi
-            ;;
-        *)
-            gpg-agent --daemon
-            ;;
-    esac
-}
-
-(launch-gpg-agent >/dev/null 2>&1 &)
-
 
 # .zshrc.mine
 [ -e ~/.zshrc.mine ] && . ~/.zshrc.mine
