@@ -72,8 +72,8 @@ function __ask-prompt-color {
                     l)
                         for i in $(seq 0 255);do
                             __col256echo "$name $i" $i >&2
-                            msg
                         done
+                        msg
                         continue
                         ;;
                     s)
