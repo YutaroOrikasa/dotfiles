@@ -25,5 +25,7 @@
     "C_Cpp.updateChannel": "Insiders",
     "terminal.integrated.shell.osx": "/bin/zsh",
     "python.jediEnabled": false,
-    "terminal.integrated.rendererType": "dom"
+    "java.configuration.checkProjectSettingsExclusions": false,
+    "editor.multiCursorModifier": "alt",
+    "workbench.editor.showTabs": true
 }
