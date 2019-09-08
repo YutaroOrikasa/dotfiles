@@ -111,6 +111,7 @@ function __setup-prompt-color {
     local subject="$2"
     local name="$3"
 
+    eval "typeset -g $col_num_var_name"
     local col_num=$(eval echo $"$col_num_var_name")
     if [ -z "$col_num" ];then
         col_num=$(__ask-prompt-color "$subject" "$name") \
@@ -119,6 +120,7 @@ function __setup-prompt-color {
         echo "save $subject color $col_num_var_name to .zshrc.mine-pre"
         echo >> ~/.zshrc.mine-pre
         echo "$col_num_var_name"="$col_num" >> ~/.zshrc.mine-pre
+        eval "$col_num_var_name"="$col_num"
     fi
 }
 
