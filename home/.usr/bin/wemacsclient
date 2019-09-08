@@ -20,5 +20,5 @@ if graphical_emacs_ok; then
     emacsclient -c "$@" &>/dev/null &
     disown %1
 else
-    emacsclient "$@"
+    emacsclient -t "$@"
 fi
