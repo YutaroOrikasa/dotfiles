@@ -76,9 +76,10 @@ bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
 
 function backward-kill-word-or-kill-region {
-    if [ x$LASTWIDGET = x"backward-kill-word-or-kill-region" ];then
-        local CUTBUF_BACKUP=$CUTBUFFER
-    fi
+
+    # `zle backward-kill-word' will appropriately set $CUTBUFFER
+    # with this.
+    zle -f kill
     
     if [ $REGION_ACTIVE = 1 ];then
         zle kill-region
@@ -86,7 +87,6 @@ function backward-kill-word-or-kill-region {
         zle backward-kill-word
     fi
 
-    CUTBUFFER="$CUTBUFFER""$CUTBUF_BACKUP"
 }
 zle -N backward-kill-word-or-kill-region
 bindkey '^W' backward-kill-word-or-kill-region
