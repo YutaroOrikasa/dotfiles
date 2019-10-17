@@ -38,7 +38,7 @@ autoload -U add-zsh-hook
 
 # WORDCHARS is chars ingored from word separator.
 # It affects M-b and ^w, etc.
-export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>"'
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>"'
 
 function zshaddhistory(){
     
@@ -90,6 +90,22 @@ function backward-kill-word-or-kill-region {
 }
 zle -N backward-kill-word-or-kill-region
 bindkey '^W' backward-kill-word-or-kill-region
+
+function backward-kill-word-with-default-separator {
+    zle -f kill
+
+    local WORDCHARS_BAK=$WORDCHARS
+    unset WORDCHARS
+
+    zle backward-kill-word
+
+    WORDCHARS=$WORDCHARS_BAK
+}
+
+zle -N backward-kill-word-with-default-separator
+
+bindkey '^X^W' backward-kill-word-with-default-separator
+bindkey '^[w' backward-kill-word-with-default-separator
 
 ### prompt ###
 setopt prompt_subst
