@@ -10,7 +10,8 @@
     "workbench.editor.enablePreview": false,
     "cSpell.userWords": [
         "fnmatch",
-        "posix"
+        "posix",
+        "rsync"
     ],
     "files.autoGuessEncoding": true,
     "files.insertFinalNewline": true,
