@@ -1,0 +1,5 @@
+#!/bin/sh
+
+DOTFILES_ENABLE_ZPROF=y zsh -i -c exit
+less ~/zprof.txt
+
