@@ -342,6 +342,9 @@ alias lld='ls -ld'
 
 alias ssh='ssh -A'
 
+# alias of CUT command whose delimiter is Space
+alias cuts='cut -d" "'
+
 # vims
 alias rawvim='vim -u NONE -N'
 alias myvim='vim -u .myvimrc -N'
