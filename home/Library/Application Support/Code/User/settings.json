@@ -11,7 +11,8 @@
     "cSpell.userWords": [
         "fnmatch",
         "posix",
-        "rsync"
+        "rsync",
+        "sshd"
     ],
     "files.autoGuessEncoding": true,
     "files.insertFinalNewline": true,
