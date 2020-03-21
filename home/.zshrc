@@ -343,6 +343,10 @@ alias lld='ls -ld'
 
 alias ssh='ssh -A'
 
+# aliases for `pass -c`
+alias passc='pass -c'
+alias pasc='pass -c'
+
 # alias of CUT command whose delimiter is Space
 alias cuts='cut -d" "'
 
