@@ -331,6 +331,8 @@ alias greset='git reset'
 alias gl='git log --color --decorate --graph --branches --tags --remotes'
 alias glh='git log --color --decorate --graph HEAD'
 alias gd='git diff'
+alias greset-hard-HEAD='git reset --hard HEAD'
+alias greset-HEAD^='git reset HEAD^'
 
 alias lsa='ls -a'
 alias lsl='ls -l'
