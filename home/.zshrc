@@ -318,6 +318,7 @@ if [ -z "$LESSOPEN" ];then
 fi
 
 alias g='git'
+alias gadd='git add'
 alias gc='git commit -v'
 alias gcame='gc --amend --no-edit'
 alias gcho='git checkout'
