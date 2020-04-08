@@ -354,6 +354,11 @@ alias cuts='cut -d" "'
 alias rawvim='vim -u NONE -N'
 alias myvim='vim -u .myvimrc -N'
 
+# homeshick
+alias ho='homeshick cd'
+alias hod='homeshick cd'
+
+
 alias sshfs='sshfs -o transform_symlinks -o ServerAliveCountMax=10 -o ServerAliveInterval=10 -o reconnect'
 
 case "$(uname -s | tr '[:upper:]' '[:lower:]')" in
