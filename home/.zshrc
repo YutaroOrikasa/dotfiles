@@ -317,25 +317,40 @@ if [ -z "$LESSOPEN" ];then
     fi
 fi
 
+# git aliases
 alias g='git'
+
+## git add
 alias gadd='git add'
 alias ga='git add'
+
+## git commit
 alias gc='git commit -v'
 alias gcame='gc --amend --no-edit'
+
+## git checkout
 alias gcho='git checkout'
 alias gchob='git checkout -b'
 alias gchop='git checkout -'  # go to previous branch
+
+## git push/pull
 alias gpush='git push -u'
 alias gps=gpush
 alias gpull='git pull'
 alias gpullr='git pull --rebase'
+
+## git reset
 alias greset='git reset'
+alias greset-hard-HEAD='git reset --hard HEAD'
+alias greset-HEAD^='git reset HEAD^'
+### Before git reset, check whether working tree is dirty or not.
+alias greset-hard-HEAD^='git diff --cached --quiet || (echo "Working tree is dirty. Abort."; exit 1) && git reset --hard HEAD^'
+
+## git etc
+alias gd='git diff'
 alias gl='git log --color --decorate --graph --branches --tags --remotes'
 alias glh='git log --color --decorate --graph HEAD'
-alias gd='git diff'
-alias greset-hard-HEAD='git reset --hard HEAD'
-alias greset-hard-HEAD^='git diff --cached --quiet || (echo "Working tree is dirty. Abort."; exit 1) && git reset --hard HEAD^'
-alias greset-HEAD^='git reset HEAD^'
+
 
 alias lsa='ls -a'
 alias lsl='ls -l'
