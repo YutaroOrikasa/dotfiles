@@ -1,7 +1,0 @@
-.emacs.d/auto-save-list/
-.emacs.d/el-get/
-.vim/bundle/
-.vim/.netrwhist
-*~
-*.swp
-.emacs.d/*
