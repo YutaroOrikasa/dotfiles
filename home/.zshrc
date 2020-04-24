@@ -335,7 +335,6 @@ alias gchop='git checkout -'  # go to previous branch
 
 ## git push/pull
 alias gpush='git push -u'
-alias gps=gpush
 alias gpull='git pull'
 alias gpullr='git pull --rebase'
 
