@@ -348,8 +348,7 @@ alias greset-hard-HEAD^='git diff --cached --quiet || (echo "Working tree is dir
 
 ## git etc
 alias gd='git diff'
-alias gl='git log --color --decorate --graph --branches --tags --remotes'
-alias glh='git log --color --decorate --graph HEAD'
+alias gl='git log --color --decorate --graph'
 
 
 alias lsa='ls -a'
