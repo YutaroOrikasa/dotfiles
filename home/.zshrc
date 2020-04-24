@@ -319,6 +319,7 @@ fi
 
 alias g='git'
 alias gadd='git add'
+alias ga='git add'
 alias gc='git commit -v'
 alias gcame='gc --amend --no-edit'
 alias gcho='git checkout'
@@ -333,6 +334,7 @@ alias gl='git log --color --decorate --graph --branches --tags --remotes'
 alias glh='git log --color --decorate --graph HEAD'
 alias gd='git diff'
 alias greset-hard-HEAD='git reset --hard HEAD'
+alias greset-hard-HEAD^='git diff --cached --quiet || (echo "Working tree is dirty. Abort."; exit 1) && git reset --hard HEAD^'
 alias greset-HEAD^='git reset HEAD^'
 
 alias lsa='ls -a'
