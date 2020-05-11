@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# usage: PASSWORD=<passwd> git -c core.askPass=git_askpass_envvar -c credential.https://gitserver.com.username=myusername <git-command> [args...]
+
+# $@: prompt
+
+echo "$@"'<read from env var $PASSWORD>' >&2
+
+printf '%s\n' "$PASSWORD"
+
