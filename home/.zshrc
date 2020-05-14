@@ -307,6 +307,7 @@ alias ls='ls --color=auto'
 
 alias grep='grep --color=auto'
 
+# less
 export LESS='-r -gj10'
 alias L='less'
 alias le='less'
@@ -316,6 +317,9 @@ if [ -z "$LESSOPEN" ];then
         export LESSOPEN="|lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
     fi
 fi
+
+## compile .lesskey
+(lesskey &)
 
 # git aliases
 alias g='git'
