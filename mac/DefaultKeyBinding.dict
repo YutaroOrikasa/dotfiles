@@ -1,0 +1,12 @@
+// see: https://gist.github.com/trusktr/1e5e516df4e8032cbc3d
+// see: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/EventOverview/TextDefaultsBindings/TextDefaultsBindings.html
+{
+    "~f" = "moveWordForward:";
+    "~b" = "moveWordBackward:";
+
+    "~F" = "moveWordForwardAndModifySelection:";
+    "~B" = "moveWordBackwardAndModifySelection:";
+
+    "^m" = "setMark:";
+    "^s" = "selectToMark:";
+}
