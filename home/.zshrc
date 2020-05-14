@@ -205,7 +205,7 @@ function launch-gpg-agent {
 # Please call this function at .zshrc.mine.
 # Usage: (add-ssh-keys path/to/ssh-key-password.gpg .ssh/id_ed25519 >/dev/null 2>&1 &)
 # $1: password gpg file path
-# $2...: ssh key passes
+# $2...: ssh key file pathes
 function add-ssh-keys {
     launch-gpg-agent
     local passwd_path="$1"
