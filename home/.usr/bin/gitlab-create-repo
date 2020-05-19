@@ -2,6 +2,11 @@
 
 # public domain
 
+# Why isn't this script written in shell script?
+# Because
+#       - It's hard to pass token securely. We have to pass token to curl via argument.
+#       - It's hard to parse returned json.
+
 import sys
 import os.path
 import requests
