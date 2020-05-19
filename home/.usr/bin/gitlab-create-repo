@@ -20,7 +20,7 @@ def message(msg):
 def main():
     repo_name = sys.argv[1]
 
-    TOKEN_FILE_PATH = os.path.expanduser("~/.gitlab-token")
+    TOKEN_FILE_PATH = os.path.expanduser("~/.secrets/mnt-crypt/.gitlab-token")
 
     with open(TOKEN_FILE_PATH) as token_file:
         token = token_file.read().rstrip("\n")
