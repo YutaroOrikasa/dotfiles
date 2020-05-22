@@ -29,3 +29,6 @@ function check-homeshick-git-status {
 
     )
 }
+
+
+eval "$(direnv hook zsh)"
