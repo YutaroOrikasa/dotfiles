@@ -483,6 +483,11 @@ function e {
     wemacsclient -a "" "$@"
 }
 
+# vscode
+if which code >/dev/null ;then
+    export EDITOR='code --wait -n'
+fi
+alias c='code -n'
 
 # homeshick
 source "$HOME/.homesick/repos/homeshick/homeshick.sh"
