@@ -32,3 +32,7 @@ function check-homeshick-git-status {
 
 
 eval "$(direnv hook zsh)"
+
+# for archlinux's command-not-found hook
+[ -e /usr/share/doc/pkgfile/command-not-found.zsh ] \
+    && . /usr/share/doc/pkgfile/command-not-found.zsh
