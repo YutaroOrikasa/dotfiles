@@ -366,7 +366,7 @@ alias lsl='ls -l'
 alias lsla='ls -la'
 alias lsdl='ls -dl'
 
-alias ll='ls -l'
+alias ll='ls -la'
 alias lla='ls -la'
 alias lld='ls -ld'
 
