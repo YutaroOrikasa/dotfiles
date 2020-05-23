@@ -488,6 +488,7 @@ if which code >/dev/null ;then
     export EDITOR='code --wait -n'
 fi
 alias c='code -n'
+alias co='code -n --wait'
 
 # homeshick
 source "$HOME/.homesick/repos/homeshick/homeshick.sh"
