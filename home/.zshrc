@@ -331,6 +331,8 @@ alias ga='git add'
 ## git commit
 alias gc='git commit -v'
 alias gcame='gc --amend --no-edit'
+alias gc-c_HEAD='gc -c HEAD'
+alias gcHEAD_msg='gc -c HEAD'
 
 ## git checkout
 alias gcho='git checkout'
