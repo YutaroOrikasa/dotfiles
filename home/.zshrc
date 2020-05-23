@@ -474,10 +474,22 @@ if [ -n "$INSIDE_EMACS" ]; then
 fi
 
 
+# cd tools
+
 function mkcdir {
     mkdir "$@" && cd $_
 }
 alias mkcd=mkcdir
+
+function cdll {
+    cd "$@"
+
+    # This trick delays alias expansion to runtime.
+    # Normally alias is expanded on function definition time
+    # so that ll will be expanded before monkey-patched
+    # (~/.dotfiles-lib/hack/"$__uname".sh).
+    eval "ll"
+}
 
 
 function e {
