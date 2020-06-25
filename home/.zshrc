@@ -342,7 +342,7 @@ alias gchop='git checkout -'  # go to previous branch
 ## git push/pull
 alias gpush='git push -u'
 alias gpull='git pull'
-alias gpullr='git pull --rebase'
+alias gpullr='git pull --rebase --autostash'
 alias gpushr='gpullr && gpush'
 
 ## git reset
