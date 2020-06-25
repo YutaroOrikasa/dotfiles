@@ -515,6 +515,15 @@ export PATH=/mybin:~/.usr/bin:~/.local/bin:~/.cargo/bin:"$PATH"
 __uname=$(uname)
 [ -e ~/.dotfiles-lib/hack/"$__uname".sh ] && . ~/.dotfiles-lib/hack/"$__uname".sh
 
+
+# lazy-eval
+# It is useful for lazy evaluate 'compdef'
+# after 'compinit' at the end of .zshrc.
+__lazy_eval=
+lazy-eval() {
+    __lazy_eval="$__lazy_eval""$*; "
+}
+
 # .zshrc.mine
 [ -e ~/.zshrc.mine ] && . ~/.zshrc.mine
 [ -e ~/.zshrc.mine.zsh ] && . ~/.zshrc.mine.zsh
@@ -530,6 +539,10 @@ fi
 fpath=(${HOME}/.zsh/functions/Completion ${fpath})
 autoload -U compinit
 compinit
+
+eval "$__lazy_eval"
+
+unset -f lazy-eval
 
 # for zshrc profiling
 if [ "$DOTFILES_ENABLE_ZPROF" = y ];then
