@@ -319,7 +319,7 @@ if [ -z "$LESSOPEN" ];then
 fi
 
 ## compile .lesskey
-(lesskey &)
+which lesskey >/dev/null && (lesskey &)
 
 # git aliases
 alias g='git'
