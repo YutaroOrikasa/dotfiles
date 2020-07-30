@@ -8,7 +8,7 @@ hardstatus alwayslastline '%-w%{+ .g}%50>%n %t%{-}%+w%<'
 bind ^g
 bind r eval 'source $HOME/.screenrc0' 'echo "reload .screenrc0"'
 
- 
+
 # bind h eval 'exec sh -c "screen -X echo hello"' 'echo ok'
 
 bind ^b prev
@@ -27,4 +27,4 @@ msgwait 2
 # start window number 1
 bind c screen 1
 bind ^c screen 1
-bind 0 select 10
+bind 0 number 1
