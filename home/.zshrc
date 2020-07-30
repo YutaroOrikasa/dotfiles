@@ -358,6 +358,7 @@ alias gstashpop='git stash pop'
 
 ## git etc
 alias gd='git diff'
+alias gdca='gd --cached'
 alias gl='git log --color --decorate --graph'
 
 
