@@ -42,11 +42,11 @@ autoload -U add-zsh-hook
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>"'
 
 function zshaddhistory(){
-    
+
         local cmdline="${1%$'\n'}"
         local cmd="${cmdline%% *}"
         [[ ${cmd} != 'nohist' ||
-         "$cmdline" =~ '(g|git) push (-f|--force)' ]] 
+         "$cmdline" =~ '(g|git) push (-f|--force)' ]]
 }
 
 ### zle(key bindings) ###
@@ -81,7 +81,7 @@ function backward-kill-word-or-kill-region {
     # `zle backward-kill-word' will appropriately set $CUTBUFFER
     # with this.
     zle -f kill
-    
+
     if [ $REGION_ACTIVE = 1 ];then
         zle kill-region
     else
@@ -127,10 +127,10 @@ function __prompt_untracked_files {
     if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1;then
         return
     fi
-    
+
     if [[ -n "$(git ls-files --others --exclude-standard)" ]] ;then
         echo "%1(l."$'\n'".)"'%B%F{red}*%b%f'
-        
+
     else
         echo ''
     fi
@@ -275,7 +275,7 @@ function my-accept-line {
         # for poping line pushed by alt-q (zle push-line)
         zle accept-line
     fi
-    
+
 }
 
 zle -N my-accept-line
