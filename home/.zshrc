@@ -128,7 +128,7 @@ function __prompt_untracked_files {
         return
     fi
 
-    if [[ -n "$(git ls-files --others --exclude-standard)" ]] ;then
+    if git status --porcelain | grep '^??' >/dev/null ;then
         echo "%1(l."$'\n'".)"'%B%F{red}*%b%f'
 
     else
