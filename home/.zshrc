@@ -497,6 +497,28 @@ function e {
     wemacsclient -a "" "$@"
 }
 
+
+# screen window number fixing
+# Adjusting that window number starts at 1.
+if [ -n "$STY" ];then
+    case "$WINDOW" in
+        0)
+            screen -X number 1
+            export WINDOW=1
+            ;;
+        1)
+            sh <<'EOF' && screen -X eval 'number 0' 'number 2'
+trap 'exit 0' USR1
+trap 'exit 1' USR2
+screen -p 0 -X exec kill -usr1 $$
+screen -p 2 -X exec kill -usr2 $$
+sleep 1 &
+wait
+exit 2
+EOF
+    esac
+fi
+
 # vscode
 if which code >/dev/null ;then
     export EDITOR='code --wait -n'
