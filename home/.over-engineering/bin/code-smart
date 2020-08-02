@@ -6,6 +6,11 @@ case $# in
     0)
         exec code
         ;;
+    1)
+        if [ -L "$1" ];then
+            set -- "$(readlink "$1")"
+        fi
+        ;;
 esac
 
 sleep 10 &
