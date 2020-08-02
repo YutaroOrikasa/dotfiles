@@ -19,7 +19,7 @@ code_smart_body() {
 
     # Workaround for bash bug
     jobs >/dev/null 2>&1
-    command true
+    sh -c ''
 
     # if code tab closed in 10 seconds
     if kill %sleep >/dev/null 2>&1 ;then
