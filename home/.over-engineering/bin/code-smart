@@ -2,26 +2,37 @@
 
 # open a document by a tab or a new window smartly for vscode.
 
-case $# in
-    0)
-        exec code
+code_smart_body() {
+    case $# in
+        0)
+            exec code
+            ;;
+        1)
+            if [ -L "$1" ];then
+                set -- "$(readlink "$1")"
+            fi
+            ;;
+    esac
+
+    sleep 10 &
+    code --wait "$@"
+
+    # Workaround for bash bug
+    jobs >/dev/null 2>&1
+    command true
+
+    # if code tab closed in 10 seconds
+    if kill %sleep >/dev/null 2>&1 ;then
+        sleep 4
+        code -n --wait "$@"
+    fi
+}
+
+case "$1" in
+    -w|--wait)
+        code_smart_body "$@"
         ;;
-    1)
-        if [ -L "$1" ];then
-            set -- "$(readlink "$1")"
-        fi
+    *)
+        code_smart_body "$@" >/dev/null 2>&1 &
         ;;
 esac
-
-sleep 10 &
-code --wait "$@"
-
-# Workaround for bash bug
-jobs >/dev/null 2>&1
-command true
-
-# if code tab closed in 10 seconds
-if kill %sleep >/dev/null 2>&1 ;then
-    sleep 4
-    code -n --wait "$@"
-fi
