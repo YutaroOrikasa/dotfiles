@@ -9,7 +9,7 @@ code_smart_body() {
             ;;
         1)
             if [ -L "$1" ];then
-                set -- "$(readlink "$1")"
+                set -- "$(dirname "$1")"/"$(readlink "$1")"
             fi
             ;;
     esac
