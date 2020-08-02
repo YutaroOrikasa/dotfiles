@@ -3,6 +3,8 @@
 
 fpath=(~/.over-engineering/zsh/completion $fpath)
 
+export PATH="$HOME"/.over-engineering/bin:"$PATH"
+
 function cheatsheet {
     less ~/.cheatsheet/"$1"
 }
