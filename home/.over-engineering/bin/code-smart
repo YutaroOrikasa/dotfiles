@@ -2,6 +2,12 @@
 
 # open a document by a tab or a new window smartly for vscode.
 
+case $# in
+    0)
+        exec code
+        ;;
+esac
+
 sleep 10 &
 code --wait "$@"
 
