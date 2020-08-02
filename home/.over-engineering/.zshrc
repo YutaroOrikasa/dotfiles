@@ -9,6 +9,8 @@ if which code >/dev/null ;then
     export EDITOR='code-smart --wait'
 fi
 
+alias C=code-smart
+
 function cheatsheet {
     less ~/.cheatsheet/"$1"
 }
