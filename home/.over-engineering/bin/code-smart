@@ -1,6 +1,11 @@
 #!/bin/sh
 
 # open a document by a tab or a new window smartly for vscode.
+# envvar $CODE_SMART_WAIT (seconds): If you close the opened document tab within this second,
+#                                    this script will open the document in a new code window.
+#                                    Default: 10.
+
+CODE_SMART_WAIT="${CODE_SMART_WAIT:-10}"
 
 list_child_pids() {
     IFS= read -r ppid
@@ -32,10 +37,10 @@ code_smart_body() {
             ;;
     esac
 
-    sleep 10 &
+    sleep "${CODE_SMART_WAIT}" &
     code --wait "$@" &
     code_pid=$(jobs -p %code)
-    [ -z "$WAIT" ] && (sleep 11; kill_vscode_app_instance $code_pid) &
+    [ -z "$WAIT" ] && (sleep $((CODE_SMART_WAIT + 1)); kill_vscode_app_instance $code_pid) &
     wait %code
 
     # Workaround for bash bug
