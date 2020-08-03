@@ -37,6 +37,8 @@ code_smart_body() {
             ;;
     esac
 
+    code "$@"
+
     sleep "${CODE_SMART_WAIT}" &
     code --wait "$@" &
     code_pid=$(jobs -p %code)
