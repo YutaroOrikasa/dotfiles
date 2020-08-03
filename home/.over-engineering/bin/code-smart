@@ -2,6 +2,17 @@
 
 # open a document by a tab or a new window smartly for vscode.
 
+list_child_pids() {
+    IFS= read -r ppid
+    ps -eo ppid,pid,comm | \
+        awk -v ppid=$ppid '$1 == ppid { print $0 > "/dev/stderr"; print $2 }'
+}
+
+# $1: code command pid
+kill_vscode_app_instance() {
+    kill "$(echo $1 | list_child_pids | list_child_pids)" >/dev/null 2>&1
+}
+
 code_smart_body() {
     case $# in
         0)
@@ -14,18 +25,34 @@ code_smart_body() {
             ;;
     esac
 
+    case "$1" in
+        -w|--wait)
+            WAIT=1
+            shift
+            ;;
+    esac
+
     sleep 10 &
-    code --wait "$@"
+    code --wait "$@" &
+    code_pid=$(jobs -p %code)
+    [ -z "$WAIT" ] && (sleep 11; kill_vscode_app_instance $code_pid) &
+    wait %code
 
     # Workaround for bash bug
     jobs >/dev/null 2>&1
     sh -c ''
 
     # if code tab closed in 10 seconds
-    if kill %sleep >/dev/null 2>&1 ;then
+    if kill %'sleep' >/dev/null 2>&1 ;then
         sleep 4
-        code -n --wait "$@"
+        if [ "$WAIT" = 1 ] ;then
+            code -n --wait "$@"
+        else
+            code -n "$@"
+        fi
     fi
+
+
 }
 
 case "$1" in
@@ -33,6 +60,6 @@ case "$1" in
         code_smart_body "$@"
         ;;
     *)
-        code_smart_body "$@" >/dev/null 2>&1 &
+        code_smart_body "$@"
         ;;
 esac
