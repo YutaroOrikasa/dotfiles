@@ -37,7 +37,15 @@ code_smart_body() {
             ;;
     esac
 
-    code "$@"
+    if [ "$WAIT" = 1 ];then
+        code_wait_opt=--wait
+    fi
+    # First vscode instance created when vscode not launched.
+    # And
+    # When code-smart called with --wait option,
+    # by code --wait option a window will be closed when a tab is closed.
+    # code-smart --wait emulates code --wait behavior
+    (code $code_wait_opt "$@" &)
 
     sleep "${CODE_SMART_WAIT}" &
     code --wait "$@" &
