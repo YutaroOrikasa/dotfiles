@@ -321,6 +321,8 @@ fi
 ## compile .lesskey
 which lesskey >/dev/null && (lesskey &)
 
+export GIT_EDITOR='code-git-editor'
+
 # git aliases
 alias g='git'
 
