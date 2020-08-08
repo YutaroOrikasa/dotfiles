@@ -1,0 +1,10 @@
+#!/bin/sh
+
+case "$TERM_PROGRAM" in
+    vscode)
+        code -r --wait "$@"
+        ;;
+    *)
+        code -n --wait "$@"
+        ;;
+esac
