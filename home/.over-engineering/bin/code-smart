@@ -50,7 +50,7 @@ code_smart_body() {
     sleep "${CODE_SMART_WAIT}" &
     code --wait "$@" &
     code_pid=$(jobs -p %code)
-    [ -z "$WAIT" ] && (sleep $((CODE_SMART_WAIT + 1)); kill_vscode_app_instance $code_pid) &
+    (sleep $((CODE_SMART_WAIT + 1)); kill_vscode_app_instance $code_pid) &
     wait %code
 
     # Workaround for bash bug
