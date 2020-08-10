@@ -10,7 +10,7 @@ CODE_SMART_WAIT="${CODE_SMART_WAIT:-10}"
 list_child_pids() {
     IFS= read -r ppid
     ps -eo ppid,pid,comm | \
-        awk -v ppid=$ppid '$1 == ppid { print $0 > "/dev/stderr"; print $2 }'
+        awk -v ppid=$ppid '$1 == ppid { print $2 }'
 }
 
 # $1: code command pid
