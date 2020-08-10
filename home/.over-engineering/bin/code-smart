@@ -18,83 +18,70 @@ kill_vscode_app_instance() {
     kill "$(echo $1 | list_child_pids | list_child_pids)" >/dev/null 2>&1
 }
 
-code_smart_body() {
-    case $# in
-        0)
-            exec code
-            ;;
-        1)
-            if [ -L "$1" ];then
-                set -- "$(dirname "$1")"/"$(readlink "$1")"
-            fi
-            ;;
-    esac
-
-    case "$1" in
-        -w|--wait)
-            WAIT=1
-            shift
-            ;;
-    esac
-
-    # First vscode instance created when vscode not launched.
-    # It is done only when code-smart called without --wait option
-    # in order that code-smart --wait emulates code --wait behavior.
-    # The behavior is that if code --wait creates a window and a tab,
-    # the window will be closed when the tab is closed.
-    if [ -z "$WAIT" ];then
-        code "$@"
-    fi
-
-    sleep "${CODE_SMART_WAIT}" &
-    code --wait "$@" &
-    code_pid=$(jobs -p %code)
-
-    # Kill extra code --wait instance in dock.
-    # Don't kill when code-smart called with --wait option.
-    # because code-smart --wait will quit before the opened
-    # document tab closed, it is not 'wait' in spite of '--wait'.
-    if [ -z "$WAIT" ];then
-        (sleep $((CODE_SMART_WAIT + 1)); kill_vscode_app_instance $code_pid) &
-    fi
-
-    wait %code
-
-    # Workaround for bash bug
-    jobs >/dev/null 2>&1
-    sh -c ''
-
-    # if code tab closed in 10 seconds
-    if kill %'sleep' >/dev/null 2>&1 ;then
-        {
-            echo 'You have closed the document quite immediately.'
-            printf 'Do you want to open it with new vscode window? [Y/n] '
-        } >&2
-        IFS= read -r answer
-        case "$answer" in
-            Y|y|"")
-                : # continue
-                ;;
-            *)
-                return 0
-                ;;
-        esac
-
-        if [ "$WAIT" = 1 ] ;then
-            code -n --wait "$@"
-        else
-            code -n "$@"
+case $# in
+    0)
+        exec code
+        ;;
+    1)
+        if [ -L "$1" ];then
+            set -- "$(dirname "$1")"/"$(readlink "$1")"
         fi
-    fi
-
-
-}
+        ;;
+esac
 
 case "$1" in
     -w|--wait)
-        code_smart_body "$@"
-        ;;
-    *)
-        code_smart_body "$@"
+        WAIT=1
+        shift
         ;;
 esac
+
+# First vscode instance created when vscode not launched.
+# It is done only when code-smart called without --wait option
+# in order that code-smart --wait emulates code --wait behavior.
+# The behavior is that if code --wait creates a window and a tab,
+# the window will be closed when the tab is closed.
+if [ -z "$WAIT" ];then
+    code "$@"
+fi
+
+sleep "${CODE_SMART_WAIT}" &
+code --wait "$@" &
+code_pid=$(jobs -p %code)
+
+# Kill extra code --wait instance in dock.
+# Don't kill when code-smart called with --wait option.
+# because code-smart --wait will quit before the opened
+# document tab closed, it is not 'wait' in spite of '--wait'.
+if [ -z "$WAIT" ];then
+    (sleep $((CODE_SMART_WAIT + 1)); kill_vscode_app_instance $code_pid) &
+fi
+
+wait %code
+
+# Workaround for bash bug
+jobs >/dev/null 2>&1
+sh -c ''
+
+# if code tab closed in 10 seconds
+if kill %'sleep' >/dev/null 2>&1 ;then
+    {
+        echo 'You have closed the document quite immediately.'
+        printf 'Do you want to open it with new vscode window? [Y/n] '
+    } >&2
+    IFS= read -r answer
+    case "$answer" in
+        Y|y|"")
+            : # continue
+            ;;
+        *)
+            exit 0
+            ;;
+    esac
+
+    if [ "$WAIT" = 1 ] ;then
+        code -n --wait "$@"
+    else
+        code -n "$@"
+    fi
+fi
