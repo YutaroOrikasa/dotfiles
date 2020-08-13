@@ -6,7 +6,7 @@ vbell off
 #hardstatus alwayslastline '%02c:%s %{= .g}%H%{-} %{=u g.}%n %t%{-}%+w '
 hardstatus alwayslastline '%-w%{+ .g}%50>%n %t%{-}%+w%<'
 bind ^g
-bind r eval 'source $HOME/.screenrc0' 'echo "reload .screenrc0"'
+bind r eval 'source $HOME/.screenrc' 'echo "reload .screenrc"'
 
 
 # bind h eval 'exec sh -c "screen -X echo hello"' 'echo ok'
