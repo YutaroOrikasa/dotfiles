@@ -362,7 +362,8 @@ alias gstashpop='git stash pop'
 alias gd='git diff'
 alias gdca='gd --cached'
 alias gl='git log --color --decorate --graph'
-
+alias glall='gl --all'
+alias gshow='g show'
 
 alias lsa='ls -a'
 alias lsl='ls -l'
