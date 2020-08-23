@@ -390,6 +390,7 @@ alias myvim='vim -u .myvimrc -N'
 # homeshick
 alias ho='homeshick cd'
 alias hod='homeshick cd'
+alias homeshick-update='homeshick pull && homeshick link'
 
 
 alias sshfs='sshfs -o transform_symlinks -o ServerAliveCountMax=10 -o ServerAliveInterval=10 -o reconnect'
