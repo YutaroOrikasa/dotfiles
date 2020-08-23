@@ -27,6 +27,6 @@ msgwait 2
 # start window number 1
 bind c screen 1
 bind ^c screen 1
-bind 0 number 1
+bind 0 exec my-screen-fix-number
 
 
