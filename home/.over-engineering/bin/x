@@ -1,0 +1,30 @@
+#!/bin/sh
+
+# Add exec permission to all shell script in ./ of given command line args.
+# usage: x
+# usage: x file.sh
+
+if [ $# != 0 ];then
+    echo chmod a+x "$@"
+    chmod a+x "$@"
+    exit
+fi
+
+for file in * ;do
+    # skip unmatched glob
+    test -e "$file" || continue
+
+    case "$file" in
+        *.sh)
+            echo chmod a+x "$file"
+            chmod a+x "$file"
+            ;;
+        *)
+            if file "$file" | grep -i "shell script" >/dev/null ;then
+                echo chmod a+x "$file"
+                chmod a+x "$file"
+            fi
+            ;;
+    esac
+done
+
