@@ -1,0 +1,46 @@
+#!/bin/sh
+
+set -eu
+
+proj_dir=$1
+x=$proj_dir
+proj_dir_1st_char=${x%${x#?}}
+unset x
+
+project_dir=
+case "$proj_dir_1st_char" in
+        /) project_dir=$proj_dir ;;
+        .) project_dir=/vagrant/$proj_dir ;;
+        *) project_dir=/home/vagrant/vscode-remote/$proj_dir
+esac
+unset proj_dir
+
+current_dirname=$(basename "$(pwd)")
+
+vag_poweroff=
+vagrant status | grep ^default | grep running >/dev/null || vag_poweroff=1
+
+vagrant up && vagrant ssh -- mkdir -p "$project_dir"
+
+# Fix ssh_config
+vagrant ssh-config | sed -e 's/^Host default$/'"Host $current_dirname"'/' >ssh_config
+echo '  ForwardAgent yes' >>ssh_config
+
+# Fix remote.SSH.configFile of "settings.json" to "./ssh_config"
+setting_json_path="$HOME/Library/Application Support/Code/User/settings.json"
+cp -a "$setting_json_path" ./_vscode-settings-orig.json &&
+        < ./_vscode-settings-orig.json \
+                sed -e 's|"remote.SSH.configFile": .*|"remote.SSH.configFile": "'"$(pwd)"'/ssh_config",|g' \
+                        > "$setting_json_path"
+
+# Do not add -w to code because vscode instance may restart for eg. when extension updated.
+echo
+echo code -n --folder-uri vscode-remote://ssh-remote+"$current_dirname"/"$project_dir"
+code -n --folder-uri vscode-remote://ssh-remote+"$current_dirname"/"$project_dir"
+if [ "$vag_poweroff" = 1 ];then
+        printf 'Press enter to halt: ' >&2
+        read
+        vagrant halt
+else
+        echo 'Please `vagrant halt` manually: ' >&2
+fi
