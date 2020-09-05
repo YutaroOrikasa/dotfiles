@@ -3,14 +3,11 @@
 set -eu
 
 proj_dir=$1
-x=$proj_dir
-proj_dir_1st_char=${x%${x#?}}
-unset x
 
 project_dir=
-case "$proj_dir_1st_char" in
-        /) project_dir=$proj_dir ;;
-        .) project_dir=/vagrant/$proj_dir ;;
+case "$proj_dir" in
+        /*) project_dir=$proj_dir ;;
+        .*) project_dir=/vagrant/$proj_dir ;;
         *) project_dir=/home/vagrant/vscode-remote/$proj_dir
 esac
 unset proj_dir
