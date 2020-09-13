@@ -1,8 +1,7 @@
 #!/bin/sh
 
-set -eu
-
 proj_dir=$1
+set -eu
 
 project_dir=
 case "$proj_dir" in
