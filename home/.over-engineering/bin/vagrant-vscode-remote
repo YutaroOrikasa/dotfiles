@@ -29,14 +29,22 @@ cp -a "$setting_json_path" ./_vscode-settings-orig.json &&
                 sed -e 's|"remote.SSH.configFile": .*|"remote.SSH.configFile": "'"$(pwd)"'/ssh_config",|g' \
                         > "$setting_json_path"
 
-# Do not add -w to code because vscode instance may restart for eg. when extension updated.
-echo
-echo code -n --folder-uri vscode-remote://ssh-remote+"$current_dirname"/"$project_dir"
-code -n --folder-uri vscode-remote://ssh-remote+"$current_dirname"/"$project_dir"
 if [ "$vag_poweroff" = 1 ];then
-        printf 'Press enter to halt: ' >&2
-        read
+        echo
+        echo code -nw --folder-uri vscode-remote://ssh-remote+"$current_dirname"/"$project_dir"
+        echo 'Waiting for vscode finished...' >&2
+        code -nw --folder-uri vscode-remote://ssh-remote+"$current_dirname"/"$project_dir"
+        echo 'vscode finished or reloaded...' >&2
+        vagrant ssh <<'EOF'
+                while [ "$(ps -eo user,args | awk '$1 == "vagrant"' | grep [s]sh | wc -l)" != 1 ]; do
+                        sleep 2
+                done
+EOF
+        echo 'vscode finished. vagrant halt' >&2
         vagrant halt
 else
+        echo
+        echo code -n --folder-uri vscode-remote://ssh-remote+"$current_dirname"/"$project_dir"
+        code -n --folder-uri vscode-remote://ssh-remote+"$current_dirname"/"$project_dir"
         echo 'Please `vagrant halt` manually: ' >&2
 fi
