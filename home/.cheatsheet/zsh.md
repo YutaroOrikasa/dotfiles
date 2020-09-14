@@ -12,7 +12,7 @@ history -f -100
 fc -lf -100
 ```
 
-### without loding .zshrc
+### without loading .zshrc
 ```
 zsh --no-rcs
 ```
