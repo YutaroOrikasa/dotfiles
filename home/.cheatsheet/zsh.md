@@ -17,6 +17,12 @@ fc -lf -100
 zsh --no-rcs
 ```
 
+## load another .zshrc
+```
+vi another_zshdir/.zshrc
+ZDOTDIR=another_zsh zsh
+```
+
 ### benchmark .zshrc
 ```
 time zsh -i -c exit
