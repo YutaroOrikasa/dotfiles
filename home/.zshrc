@@ -12,6 +12,16 @@ export ALLOW_OVER_ENGINEERING=${ALLOW_OVER_ENGINEERING:-y}
 
 #see man zshall for detail
 
+### history configurations ###
+setopt EXTENDED_HISTORY  # record timestamp
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_DUPS  # ignore duplicate of previous command on history.
+setopt HIST_IGNORE_SPACE  # Do not record history when command line starts with a space
+setopt HIST_REDUCE_BLANKS # remove duplicated spaces in command line
+HISTFILE=~/.zsh_history
+HISTSIZE=50000
+SAVEHIST=50000
+
 ### setops ###
 # see man zshoptions
 setopt AUTO_CD
@@ -19,20 +29,13 @@ setopt AUTO_PUSHD  # cd -[tab] OR cd +[tab] with comp module
 setopt PUSHD_MINUS  # reverse order cd -[tab]
 setopt PUSHD_SILENT  # you can use "pushd" "popd" command comftably
 setopt WARN_CREATE_GLOBAL  # in function
-setopt SHARE_HISTORY
 setopt INTERACTIVE_COMMENTS
-setopt HIST_IGNORE_DUPS  # ignore duplicate of previous command on hisory.
 setopt CORRECT  # spelling correction
-setopt hist_ignore_space  # Do not record history when command line starts with a space
 setopt GLOB_DOTS  # `*` will match dot files (eg. * => .zshrc .emacs.d ...etc).
-
-#dircolors
 
 ### PARAMETERS USED BY THE SHELL ###
 REPORTTIME=1
-HISTFILE=~/.zsh_history
-HISTSIZE=50000
-SAVEHIST=50000
+
 alias zsh-glob-help='man -P "less +/\"   Glob Qualifiers\""  zshexpn'
 
 autoload -U add-zsh-hook
