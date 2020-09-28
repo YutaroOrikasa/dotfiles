@@ -51,10 +51,9 @@ fi
 sleep "${CODE_SMART_WAIT}" &
 
 if [ "$1" = - ];then
-    # Preserving trailing '\n' technique.
-    STDIN_TEXT=$(cat; printf x)
-    STDIN_TEXT=${STDIN_TEXT%x}
-    printf '%s' "$STDIN_TEXT" | code --wait "$@"
+    (umask 177; : >/tmp/code-smart-$$.txt)
+    trap "rm /tmp/code-smart-$$.txt" EXIT
+    tee /tmp/code-smart-$$.txt | code --wait "$@"
     code_pid=never_use
 else
     code --wait "$@" &
@@ -94,7 +93,7 @@ if kill %'sleep' >/dev/null 2>&1 ;then
 
     if [ "$1" = - ];then
         # Always [ "$WAIT" = 1 ] so add '--wait'
-        printf '%s' "$STDIN_TEXT" | code -n --wait "$@"
+        cat /tmp/code-smart-$$.txt - | code -n --wait "$@"
     elif [ "$WAIT" = 1 ] ;then
         code -n --wait "$@"
     else
