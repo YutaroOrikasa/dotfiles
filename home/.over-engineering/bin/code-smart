@@ -34,6 +34,9 @@ case "$1" in
         WAIT=1
         shift
         ;;
+    -)
+        WAIT=1
+        ;;
 esac
 
 # First vscode instance created when vscode not launched.
@@ -46,9 +49,17 @@ if [ -z "$WAIT" ];then
 fi
 
 sleep "${CODE_SMART_WAIT}" &
-code --wait "$@" &
-code_pid=$(jobs -p %code)
 
+if [ "$1" = - ];then
+    # Preserving trailing '\n' technique.
+    STDIN_TEXT=$(cat; printf x)
+    STDIN_TEXT=${STDIN_TEXT%x}
+    printf '%s' "$STDIN_TEXT" | code --wait "$@"
+    code_pid=never_use
+else
+    code --wait "$@" &
+    code_pid=$(jobs -p %code)
+fi
 # Kill extra code --wait instance in dock.
 # Don't kill when code-smart called with --wait option.
 # because code-smart --wait will quit before the opened
@@ -57,7 +68,9 @@ if [ -z "$WAIT" ];then
     (sleep $((CODE_SMART_WAIT + 1)); kill_vscode_app_instance $code_pid) &
 fi
 
-wait %code
+if [ "$1" != - ];then
+    wait %code
+fi
 
 # Workaround for bash bug
 jobs >/dev/null 2>&1
@@ -69,7 +82,7 @@ if kill %'sleep' >/dev/null 2>&1 ;then
         echo 'You have closed the document quite immediately.'
         printf 'Do you want to open it with new vscode window? [Y/n] '
     } >&2
-    IFS= read -r answer
+    IFS= read -r answer <&2
     case "$answer" in
         Y|y|"")
             # continue
@@ -79,7 +92,10 @@ if kill %'sleep' >/dev/null 2>&1 ;then
             ;;
     esac
 
-    if [ "$WAIT" = 1 ] ;then
+    if [ "$1" = - ];then
+        # Always [ "$WAIT" = 1 ] so add '--wait'
+        printf '%s' "$STDIN_TEXT" | code -n --wait "$@"
+    elif [ "$WAIT" = 1 ] ;then
         code -n --wait "$@"
     else
         code -n "$@"
