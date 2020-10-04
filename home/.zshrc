@@ -352,6 +352,7 @@ alias gpushr='gpullr && gpush'
 
 ## git reset
 alias greset='git reset'
+alias greset-hard='git reset --hard'
 alias greset-hard-HEAD='git reset --hard HEAD'
 alias greset-HEAD^='git reset HEAD^'
 ### Before git reset, check whether working tree is dirty or not.
@@ -366,6 +367,7 @@ alias gd='git diff'
 alias gdca='gd --cached'
 alias gl='git log --color --decorate --graph'
 alias glall='gl --all'
+alias gla=glall
 alias gshow='g show'
 
 alias lsa='ls -a'
