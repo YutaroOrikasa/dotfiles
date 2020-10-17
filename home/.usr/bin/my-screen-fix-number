@@ -30,5 +30,5 @@ while : ;do
     else
         exit
     fi
-    ((i++))
+    : $((i += 1))
 done
