@@ -352,9 +352,10 @@ alias gpushr='gpullr && gpush'
 
 ## git reset
 alias greset='git reset'
+alias greset-HEAD='git reset HEAD'
+alias greset-HEAD^='git reset HEAD^'
 alias greset-hard='git reset --hard'
 alias greset-hard-HEAD='git reset --hard HEAD'
-alias greset-HEAD^='git reset HEAD^'
 ### Before git reset, check whether working tree is dirty or not.
 alias greset-hard-HEAD^='git diff --cached --quiet || (echo "Working tree is dirty. Abort."; exit 1) && git reset --hard HEAD^'
 
