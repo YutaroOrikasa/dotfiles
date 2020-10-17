@@ -13,7 +13,7 @@ sh -s - "${1:-0}" <<'EOF'
 trap 'exit 0' USR1
 trap 'exit 1' USR2
 screen -X screen $1 sh -c \
-"if [ \$WINDOW != $1 ];then
+"if [ \\\$WINDOW != $1 ];then
     kill -USR1 $$
 else
     kill -USR2 $$
