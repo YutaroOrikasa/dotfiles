@@ -479,7 +479,7 @@ function notify_pwd_to_emacs_ansi_term () {
 }
 
 if [ -n "$INSIDE_EMACS" ]; then
-    add-zsh-hook chpwd notify_pwd_to_emacs_ansi_term
+    add-zsh-hook precmd notify_pwd_to_emacs_ansi_term
     print -P "\033AnSiTu %n"
     print -P "\033AnSiTc %d"
 fi
