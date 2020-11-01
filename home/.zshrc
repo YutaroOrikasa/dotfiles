@@ -378,6 +378,7 @@ alias lsdl='ls -dl'
 
 alias ll='ls -la'
 alias lla='ls -la'
+alias llh='ls -lah'
 alias lld='ls -ld'
 
 alias ssh='ssh -A'
