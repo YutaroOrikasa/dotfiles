@@ -22,7 +22,7 @@ bind ^y copy
 
 altscreen on
 
-msgwait 2
+msgwait 5
 
 # start window number 1
 bind c screen 1
