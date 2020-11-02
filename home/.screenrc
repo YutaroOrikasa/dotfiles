@@ -27,6 +27,6 @@ msgwait 5
 # start window number 1
 bind c screen 1
 bind ^c screen 1
-bind 0 exec my-screen-fix-number
+bind 0 exec $HOME/.usr/bin/my-screen-fix-number
 
 
