@@ -235,6 +235,11 @@ function add-ssh-keys {
 # see .ssh/rc too.
 if [[ -n "$SSH_TTY" && "$TERM" =~ ^screen ]];then
     export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+
+    if [ -L "$SSH_AUTH_SOCK" -a ! -S "$SSH_AUTH_SOCK" ]; then
+        echo 'SSH_AUTH_SOCK is dead.'
+        ls -l "$SSH_AUTH_SOCK"
+    fi
 fi
 
 
