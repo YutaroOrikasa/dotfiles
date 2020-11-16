@@ -24,9 +24,13 @@ altscreen on
 
 msgwait 5
 
-bind | eval 'split -v' 'mousetrack on' 'focus'
-bind S eval 'split' 'mousetrack on' 'focus'
-bind Q eval 'only' 'mousetrack off'
+# note: 'defmousetrack' sets flags when reattached.
+bind | eval 'split -v' 'mousetrack on' 'defmousetrack on' 'focus'
+bind S eval 'split' 'mousetrack on' 'defmousetrack on' 'focus'
+bind Q eval 'only' 'mousetrack off' 'defmousetrack off'
+
+# 'layout autosave' will work by this.
+layout new
 
 # start window number 1
 bind c screen 1
