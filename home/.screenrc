@@ -25,11 +25,11 @@ altscreen on
 msgwait 5
 
 # note: 'defmousetrack' sets flags when reattached.
-bind | eval 'split -v' 'mousetrack on' 'defmousetrack on' 'focus'
-bind S eval 'split' 'mousetrack on' 'defmousetrack on' 'focus'
-bind Q eval 'only' 'mousetrack off' 'defmousetrack off'
+bind | eval 'split -v' 'focus' 'mousetrack on'  'defmousetrack on'
+bind S eval 'split'    'focus' 'mousetrack on'  'defmousetrack on'
+bind Q eval 'only'             'mousetrack off' 'defmousetrack off'
 
-bind m eval 'mousetrack on' 'defmousetrack on'
+bind m eval 'mousetrack on'  'defmousetrack on'
 bind M eval 'mousetrack off' 'defmousetrack off'
 
 # 'layout autosave' will work by this.
