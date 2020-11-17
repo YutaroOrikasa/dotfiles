@@ -31,6 +31,7 @@ bind Q eval 'only'                             'mousetrack off' 'defmousetrack o
 
 bind m eval 'mousetrack on'  'defmousetrack on'
 bind M eval 'mousetrack off' 'defmousetrack off'
+bind ^m lastmsg
 
 # 'layout autosave' will work by this.
 layout new
