@@ -18,6 +18,14 @@ defscrollback 10000
 
 termcapinfo * ti=:te=:ti
 
+# PageUp/PageDown for xterm
+bind ^u stuff ^[[5~
+bind ^d stuff ^[[6~
+
+# Home/End for xterm
+bind ^h stuff ^[[1~
+bind ^e stuff ^[[4~
+
 bind ^y copy
 
 altscreen on
