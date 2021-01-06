@@ -18,14 +18,50 @@ kill_vscode_app_instance() {
     kill "$(echo $1 | list_child_pids | list_child_pids)" >/dev/null 2>&1
 }
 
+unset CDPATH
+
 case $# in
     0)
         exec code
         ;;
     1)
-        if [ -L "$1" ];then
-            set -- "$(dirname "$1")"/"$(readlink "$1")"
+    set -x
+        # We have to track (or canonicate) "$1" path
+        # because if "$1" includes symbolic link in its path,
+        # vscode can't handle git statuses well.
+        # Issues:
+        #  https://github.com/microsoft/vscode/issues/5970
+        #  https://github.com/microsoft/vscode/issues/90611
+        #
+        # We try to canonicate "$1" path (but not completely).
+
+        # readlink emulation
+        # Using ideas of https://github.com/ko1nksm/readlinkf
+        # Japanese article: https://qiita.com/ko1nksm/items/873cfb9c6ceb6ef32ec9
+        if [ -L "$1" ]; then
+            set -- "$(
+                ls_out=$(ls -ld "$1")
+                link_dest="${ls_out#*$1 -> }"
+                if [ "${link_dest%%[^/]*}" = "/" ]; then
+                    # link_dest is abs path, starts with '/'.
+                    printf %s "$link_dest"
+                else
+                    # link_dest is rel path.
+                    printf %s "$(dirname -- "$1")"/"$link_dest"
+                fi
+            )"
         fi
+        # NOTE: This code can't handle recursive symlinks.
+        #       We have to loop above process for completely readlink emulation.
+
+        # Canonicate directory paths of $1 (realpath emulation)
+        if [ -d "$1" ]; then
+            set -- "$(cd -- "$1"; pwd -P)"
+        elif [ -f "$1" ]; then
+            set -- "$(cd -- "$(dirname -- "$1")"; pwd -P)"/"$(basename -- "$1")"
+        fi
+
+        set +x
         ;;
 esac
 
