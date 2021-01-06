@@ -415,7 +415,7 @@ case "$(uname -s | tr '[:upper:]' '[:lower:]')" in
 esac
 
 o () {
-    if [[ -z "$1" ]];then
+    if [[ $# -eq 0 ]];then
         open .
     else
         open "$@"
