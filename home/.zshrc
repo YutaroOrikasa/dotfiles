@@ -418,7 +418,7 @@ o () {
     if [[ -z "$1" ]];then
         open .
     else
-        open "$1"
+        open "$@"
     fi
 }
 
