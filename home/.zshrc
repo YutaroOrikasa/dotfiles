@@ -231,16 +231,32 @@ function add-ssh-keys {
 }
 
 
-# fixing ssh socket path when screen
+# {{{ fixing ssh socket path when screen
 # see .ssh/rc too.
+__readlink() {
+    if command -v readlink >/dev/null 2>&1; then
+        readlink "$1"
+    else
+        echo "$1"
+    fi
+}
+
 if [[ -n "$SSH_TTY" && "$TERM" =~ ^screen ]];then
-    export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+    # Prepare ~/.ssh/ssh_auth_sock.screen
+    # because ~/.ssh/ssh_auth_sock will be overwritten on another one shot ssh login.
+    if [[ ! -S ~/.ssh/ssh_auth_sock.screen ]]; then
+        ln -s "$(__readlink ~/.ssh/ssh_auth_sock)" ~/.ssh/ssh_auth_sock.screen
+    fi
+
+    export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock.screen
 
     if [ -L "$SSH_AUTH_SOCK" -a ! -S "$SSH_AUTH_SOCK" ]; then
         echo 'SSH_AUTH_SOCK is dead.'
         ls -l "$SSH_AUTH_SOCK"
     fi
 fi
+
+# }}} fixing ssh socket path when screen
 
 
 function launch-ssh-agent {
