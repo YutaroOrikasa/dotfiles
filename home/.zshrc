@@ -245,7 +245,7 @@ if [[ -n "$SSH_TTY" && "$TERM" =~ ^screen ]];then
     # Prepare ~/.ssh/ssh_auth_sock.screen
     # because ~/.ssh/ssh_auth_sock will be overwritten on another one shot ssh login.
     if [[ ! -S ~/.ssh/ssh_auth_sock.screen ]]; then
-        ln -s "$(__readlink ~/.ssh/ssh_auth_sock)" ~/.ssh/ssh_auth_sock.screen
+        ln -sf "$(__readlink ~/.ssh/ssh_auth_sock)" ~/.ssh/ssh_auth_sock.screen
     fi
 
     export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock.screen
