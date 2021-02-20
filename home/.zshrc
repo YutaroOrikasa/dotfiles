@@ -242,18 +242,22 @@ __readlink() {
 }
 
 if [[ -n "$SSH_TTY" && "$TERM" =~ ^screen ]];then
-    # Prepare ~/.ssh/ssh_auth_sock.screen
-    # because ~/.ssh/ssh_auth_sock will be overwritten on another one shot ssh login.
-    if [[ ! -S ~/.ssh/ssh_auth_sock.screen ]]; then
-        ln -sf "$(__readlink ~/.ssh/ssh_auth_sock)" ~/.ssh/ssh_auth_sock.screen
-    fi
+    fix_ssh_socket_link_on_screen() {
+        # Prepare ~/.ssh/ssh_auth_sock.screen
+        # because ~/.ssh/ssh_auth_sock will be overwritten on another one shot ssh login.
+        if [[ ! -S ~/.ssh/ssh_auth_sock.screen ]]; then
+            ln -sf "$(__readlink ~/.ssh/ssh_auth_sock)" ~/.ssh/ssh_auth_sock.screen
+        fi
 
-    export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock.screen
+        export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock.screen
 
-    if [ -L "$SSH_AUTH_SOCK" -a ! -S "$SSH_AUTH_SOCK" ]; then
-        echo 'SSH_AUTH_SOCK is dead.'
-        ls -l "$SSH_AUTH_SOCK"
-    fi
+        if [ -L "$SSH_AUTH_SOCK" -a ! -S "$SSH_AUTH_SOCK" ]; then
+            echo 'SSH_AUTH_SOCK is dead.'
+            ls -l "$SSH_AUTH_SOCK"
+        fi
+    }
+    add-zsh-hook precmd fix_ssh_socket_link_on_screen
+    fix_ssh_socket_link_on_screen
 fi
 
 # }}} fixing ssh socket path when screen
