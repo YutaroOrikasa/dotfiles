@@ -20,6 +20,12 @@ kill_vscode_app_instance() {
 
 unset CDPATH
 
+case "$1" in
+    -n|--new-window)
+        exec code "$@"
+        ;;
+esac
+
 case $# in
     0)
         exec code
