@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # open a document by a tab or a new window smartly for vscode.
 # envvar $CODE_SMART_WAIT (seconds): If you close the opened document tab within this second,
