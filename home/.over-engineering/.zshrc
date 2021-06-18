@@ -10,7 +10,7 @@ if which code >/dev/null ;then
 fi
 
 alias C=code-smart
-
+alias c='C -n'
 function cheatsheet {
     less ~/.cheatsheet/"$1"
 }
