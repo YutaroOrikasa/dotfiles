@@ -20,9 +20,11 @@ kill_vscode_app_instance() {
 
 unset CDPATH
 
+FLAG_NEW_WINDOW=0
 case "$1" in
     -n|--new-window)
-        exec code "$@"
+        FLAG_NEW_WINDOW=1
+        shift
         ;;
 esac
 
@@ -80,6 +82,10 @@ case "$1" in
         WAIT=1
         ;;
 esac
+
+if [ $FLAG_NEW_WINDOW -eq 1 ]; then
+    exec code --new-window "$@"
+fi
 
 # First vscode instance created when vscode not launched.
 # It is done only when code-smart called without --wait option
