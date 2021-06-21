@@ -241,10 +241,15 @@ __readlink() {
     fi
 }
 
-if [[ -n "$SSH_TTY" && "$TERM" =~ ^screen ]];then
+# Connect ssh auth socket via symlink ~/.ssh/ssh_auth_sock.screen and set it to $SSH_AUTH_SOCK
+# because when reconnect on screen, we reuse ssh auth socket connection with same $SSH_AUTH_SOCK envvar.
+
+__SSH_AUTH_SOCK_ORIG=$SSH_AUTH_SOCK
+
+if [[ -n "$SSH_TTY" && "$TERM" =~ ^screen ]] || [[ "$SSH_AUTH_SOCK" =~ 'vscode-ssh-auth-sock-' ]];then
+    # Prepare ~/.ssh/ssh_auth_sock.screen
+    # because ~/.ssh/ssh_auth_sock will be overwritten on another one shot ssh login.
     fix_ssh_socket_link_on_screen() {
-        # Prepare ~/.ssh/ssh_auth_sock.screen
-        # because ~/.ssh/ssh_auth_sock will be overwritten on another one shot ssh login.
         if [[ ! -S ~/.ssh/ssh_auth_sock.screen ]]; then
             ln -sf "$(__readlink ~/.ssh/ssh_auth_sock)" ~/.ssh/ssh_auth_sock.screen
         fi
