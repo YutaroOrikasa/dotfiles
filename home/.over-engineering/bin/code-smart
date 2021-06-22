@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 # open a document by a tab or a new window smartly for vscode.
 # envvar $CODE_SMART_WAIT (seconds): If you close the opened document tab within this second,
@@ -20,6 +20,10 @@ kill_vscode_app_instance() {
 
 unset CDPATH
 
+case $# in
+    0) exec code;;
+esac
+
 FLAG_NEW_WINDOW=0
 case "$1" in
     -n|--new-window)
@@ -29,11 +33,7 @@ case "$1" in
 esac
 
 case $# in
-    0)
-        exec code
-        ;;
     1)
-    set -x
         # We have to track (or canonicate) "$1" path
         # because if "$1" includes symbolic link in its path,
         # vscode can't handle git statuses well.
@@ -69,7 +69,6 @@ case $# in
             set -- "$(cd -- "$(dirname -- "$1")"; pwd -P)"/"$(basename -- "$1")"
         fi
 
-        set +x
         ;;
 esac
 
