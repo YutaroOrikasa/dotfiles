@@ -1,0 +1,111 @@
+#!/bin/sh
+
+set -ueCx
+
+usage_exit() {
+    cat <<EOF
+Usage:
+    '$0' [-w|--wait] [--ssh-config-path PATH] [user@]hostname [project_dir]
+    '$0' --help|-h
+Arguments:
+    [user@]hostname     ssh destination
+    project_dir         Project directory path to open (remote).
+                        If empty, project_dir is \$HOME of remote.
+Options:
+    -w|--wait                   Wait vscode window to be closed.
+    --ssh-config-path STRING    ssh config path (default: ~/.ssh/config)
+
+EOF
+    # shellcheck disable=SC2086
+    exit ${1-}
+}
+
+# Print usage to stderr and exit 1
+usage_error_exit() {
+    usage_exit 1 >&2
+}
+
+msg() {
+    echo "$@" >&2
+}
+
+# Option values with default
+OPT_ssh_config_path="$HOME/.ssh/config"
+OPT_wait=
+
+_i=0
+while [ $# -ne 0 ]; do
+    : "$1"
+    case "$1" in
+        --)
+            shift
+            break
+            ;;
+        -h|--help)
+            usage_exit
+            ;;
+        --ssh-config-path)
+            shift
+            OPT_ssh_config_path=$1
+            ;;
+        -w|--wait)
+            OPT_wait=$1
+            ;;
+        -*)
+            msg "Invalid option: $1"
+            exit 1
+            ;;
+        *)
+            : $((_i += 1))
+            eval "_ARGS_${_i}='$1'"
+            ;;
+    esac
+    shift
+done
+_eval_str=
+_eval_unset_str=
+_j=1  # `seq` is not posix. I don't like it.
+while [ $_j -le "$_i" ]; do
+    _eval_str=$_eval_str" \"\${_ARGS_$_j}\""
+    _eval_unset_str=$_eval_unset_str" _ARGS_$_j"
+    : $((_j += 1))
+done
+unset _i _j
+eval set -- "$_eval_str" "$@"
+eval unset "$_eval_unset_str"
+unset _eval_str _eval_unset_str
+
+if [ $# -lt 1 ] || [ 2 -lt $# ]; then
+    msg "Invalid argument numbers $#."
+    usage_error_exit
+fi
+
+
+
+##### main script #####
+
+
+ssh_destination=$1
+shift
+
+set -eu
+
+project_dir=${1-""}
+
+# if $project_dir not start with '/':
+if [ "${project_dir%%[^/]*}" != / ]; then
+    # Make project_dir start with $HOME on remote.
+    project_dir=$(ssh -F "$OPT_ssh_config_path" "$ssh_destination" pwd)/"$project_dir"
+fi
+
+# Fix remote.SSH.configFile of "settings.json" to "./ssh_config"
+setting_json_path="$HOME/Library/Application Support/Code/User/settings.json"
+cp -a "$setting_json_path" ~/.ssh/_vscode-settings-orig.json &&
+        < ~/.ssh/_vscode-settings-orig.json \
+                sed -e "s|\"remote.SSH.configFile\": .*|\"remote.SSH.configFile\": \"$OPT_ssh_config_path\",|g" \
+                        >| "$setting_json_path"
+
+# shellcheck disable=SC2086
+echo code $OPT_wait -n --folder-uri vscode-remote://ssh-remote+"$ssh_destination""$project_dir"
+# shellcheck disable=SC2086
+code $OPT_wait -n --folder-uri vscode-remote://ssh-remote+"$ssh_destination""$project_dir"
