@@ -5,3 +5,4 @@ skip_global_compinit=1
 
 # for apple /etc/zshrc_Apple_Terminal
 SHELL_SESSIONS_DISABLE=1
+. "$HOME/.cargo/env"
