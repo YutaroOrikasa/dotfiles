@@ -341,7 +341,7 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 
 # less
-export LESS='-r -gj10'
+export LESS='-R -gj10 --LONG-PROMPT'
 alias L='less'
 alias le='less'
 
