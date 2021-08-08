@@ -4,15 +4,6 @@ set -euC
 
 version=$(find /usr/local/bin -name gcc-\* | grep -E gcc-'\d+' | sed -e 's|/usr/local/bin/gcc-||' | sort -r | head -n 1)
 
-#check
-if [ $(echo "$version" | wc -l) != 1 ]; then
-    {
-        echo "Invalid state"
-        echo "version: $version"
-        echo "abort"
-        exit 1
-    } >&2
-fi
 
 echo ln -sf /usr/local/bin/gcc-$version /usr/local/bin/gcc >&2
 ln -sf /usr/local/bin/gcc-$version /usr/local/bin/gcc
