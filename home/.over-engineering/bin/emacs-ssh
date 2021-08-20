@@ -1,0 +1,129 @@
+#!/bin/sh
+
+set -ueC
+
+usage_exit() {
+    cat <<EOF
+Usage:
+    '$0' [-w|--wait] [--ssh-config-path PATH] [--sudo] [user@]hostname [project_dir]
+    '$0' --help|-h
+Arguments:
+    [user@]hostname     ssh destination
+    project_dir         Project directory path to open (remote).
+                        If empty, project_dir is \$HOME of remote.
+Options:
+    -w|--wait                   Wait vscode window to be closed.
+    --ssh-config-path STRING    ssh config path (default: ~/.ssh/config)
+    --sudo                      Open as sudo.
+
+EOF
+    # shellcheck disable=SC2086
+    exit ${1-}
+}
+
+# Print usage to stderr and exit 1
+usage_error_exit() {
+    usage_exit 1 >&2
+}
+
+msg() {
+    echo "$@" >&2
+}
+
+# Option values with default
+OPT_ssh_config_path=
+OPT_wait=0
+OPT_sudo=0
+
+_i=0
+while [ $# -ne 0 ]; do
+    : "$1"
+    case "$1" in
+        --)
+            shift
+            break
+            ;;
+        -h|--help)
+            usage_exit
+            ;;
+        --ssh-config-path)
+            shift
+            OPT_ssh_config_path=$1
+            ;;
+        -w|--wait)
+            OPT_wait=1
+            ;;
+        --sudo)
+            OPT_sudo=1
+            ;;
+        -*)
+            msg "Invalid option: $1"
+            exit 1
+            ;;
+        *)
+            : $((_i += 1))
+            eval "_ARGS_${_i}='$1'"
+            ;;
+    esac
+    shift
+done
+_eval_str=
+_eval_unset_str=
+_j=1  # `seq` is not posix. I don't like it.
+while [ $_j -le "$_i" ]; do
+    _eval_str=$_eval_str" \"\${_ARGS_$_j}\""
+    _eval_unset_str=$_eval_unset_str" _ARGS_$_j"
+    : $((_j += 1))
+done
+unset _i _j
+eval set -- "$_eval_str" "$@"
+eval unset "$_eval_unset_str"
+unset _eval_str _eval_unset_str
+
+if [ $# -lt 1 ] || [ 2 -lt $# ]; then
+    msg "Invalid argument numbers $#."
+    usage_error_exit
+fi
+
+
+
+##### main script #####
+
+ssh_destination=$1
+shift
+
+set -eu
+
+if [ -n "$OPT_ssh_config_path" ]; then
+    if ! grep '^Include conf.d/editor-ssh-remote.conf' ~/.ssh/config >/dev/null 2>&1; then
+        msg "Line of 'Include conf.d/editor-ssh-remote.conf' does not exist in ~/.ssh/config"
+        msg "'--ssh-config-path' option does not work."
+        msg "Abort."
+        exit 1
+    fi
+
+     cp -p "$OPT_ssh_config_path" ~/.ssh/conf.d/editor-ssh-remote.conf
+
+fi
+
+project_dir=${1-""}
+
+SUDO_OPTION=
+if [ $OPT_sudo -eq 1 ]; then
+    # SUDO_OPTION is "|sudo:remotehost"
+    SUDO_OPTION="|sudo:${ssh_destination#*@}"
+fi
+
+
+# We do not use emacsclient because password prompt will not be shown well.
+
+# shellcheck disable=SC2086
+echo emacs /ssh:"$ssh_destination""$SUDO_OPTION":"$project_dir" 2>&1
+
+if [ "$OPT_wait" -eq 1 ]; then
+    # shellcheck disable=SC2086
+    emacs /ssh:"$ssh_destination""$SUDO_OPTION":"$project_dir"
+else
+    # shellcheck disable=SC2086
+    emacs /ssh:"$ssh_destination""$SUDO_OPTION":"$project_dir" >/dev/null 2>&1 &
+fi

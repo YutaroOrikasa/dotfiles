@@ -1,0 +1,60 @@
+#!/bin/sh
+
+set -ueC
+
+usage_exit() {
+    cat <<EOF
+Usage:
+    '$0' [--sudo] [project_dir]
+    '$0' --help|-h
+Arguments:
+    project_dir         Project directory path to open (remote).
+                        If empty, project_dir is \$HOME of remote.
+Options:
+    -w|--wait                   Wait vscode window to be closed.
+    --sudo                      Open as sudo.
+
+EOF
+    # shellcheck disable=SC2086
+    exit ${1-}
+}
+
+# Print usage to stderr and exit 1
+usage_error_exit() {
+    usage_exit 1 >&2
+}
+
+msg() {
+    echo "$@" >&2
+}
+
+# Option values with default
+OPT_sudo=0
+
+case "${1:-}" in
+    -h|--help)
+        usage_error_exit
+        ;;
+    --sudo)
+        OPT_sudo=1
+        ;;
+esac
+
+current_dirname=$(basename "$(pwd)")
+
+# `vagrant up` is not shell replacement
+# shellcheck disable=SC2016
+vagrant ssh-config >/dev/null 2>&1 || { msg 'please do `vagrant up`'; exit 1; }
+
+# Fix ssh_config
+vagrant ssh-config | sed -e 's/^Host default$/'"Host $current_dirname"'/' >|ssh_config
+echo '  ForwardAgent yes' >>ssh_config
+
+SUDO_OPTION=
+if [ $OPT_sudo -eq 1 ]; then
+    # SUDO_OPTION is "|sudo:remotehost"
+    SUDO_OPTION="--sudo"
+fi
+
+# Optional command line argument must be unquoted
+emacs-ssh $SUDO_OPTION "$current_dirname" --ssh-config-path ssh_config
