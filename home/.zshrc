@@ -1,5 +1,18 @@
 #public domain
 
+# use ~/.zshenv.mine instead of ~/.zshenv
+__zshenv() {
+    cat <<EOF
+. ~/.zshenv.mine
+__ZSHENV_MINE_LOADED=1
+EOF
+}
+
+if [ -z "$__ZSHENV_MINE_LOADED" ];then
+    __zshenv >> ~/.zshenv
+    eval "$(__zshenv)"
+fi
+
 # export DOTFILES_ENABLE_ZPROF=y for zshrc profiling
 if [ "$DOTFILES_ENABLE_ZPROF" = y ];then
     zmodload zsh/zprof
