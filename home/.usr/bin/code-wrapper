@@ -1,0 +1,67 @@
+#!/bin/sh
+
+# Canonicalize argument after '--'.
+
+# We have to canonicalize file path arguments
+# because if they include symbolic link in its path,
+# vscode can't handle git statuses well.
+# Issues:
+#  https://github.com/microsoft/vscode/issues/5970
+#  https://github.com/microsoft/vscode/issues/90611
+
+canonicalize() {
+    realpath --logical --relative-to . -- "$1"
+}
+
+if command -v realpath >/dev/null 2>&1; then
+    :
+elif command -v grealpath >/dev/null 2>&1; then
+
+    realpath() {
+        grealpath "$@"
+    }
+
+else
+    {
+        echo "realpath or grealpath not found"
+        echo "If you want to pass canonicalized path, please install realpath (gnu coreutils)."
+    } >&2
+
+    canonicalize() {
+        printf '%s\n' "$1"
+    }
+fi
+
+ARG_SIZE=$#
+DO_CANONICALIZE=0
+for arg in "$@"; do
+    case "$arg" in
+        --)
+            DO_CANONICALIZE=1
+            set -- "$@" "--"
+            continue
+            ;;
+        -)
+            set -- "$@" "-"
+            continue
+            ;;
+    esac
+
+    if [ "$DO_CANONICALIZE" -eq 0 ]; then
+        set -- "$@" "$arg"
+    else
+        set -- "$@" "$(canonicalize "$arg")"
+    fi
+done
+
+shift "$ARG_SIZE"
+
+if [ "$DO_CANONICALIZE" -eq 0 ]; then
+    {
+        echo "code-wrapper INFO: No argument '--' found."
+        echo "code-wrapper INFO: No arguments have not be canonicalized."
+
+    } >&2
+fi
+
+code "$@"
