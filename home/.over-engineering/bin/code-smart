@@ -7,15 +7,27 @@
 
 CODE_SMART_WAIT="${CODE_SMART_WAIT:-10}"
 
+# $1: pid
+# stdout: child pid list
 list_child_pids() {
-    IFS= read -r ppid
     ps -eo ppid,pid,comm | \
-        awk -v ppid=$ppid '$1 == ppid { print $2 }'
+        awk -v ppid="$1" '$1 == ppid { print $2 }'
+}
+
+# stdin: ppid list
+kill_pids_recursively() {
+    while IFS= read -r pid; do
+        echo "$pid" | list_child_pids | kill_pids_recursively
+        kill "$pid"
+    done
 }
 
 # $1: code command pid
 kill_vscode_app_instance() {
-    kill "$(echo $1 | list_child_pids | list_child_pids)" >/dev/null 2>&1
+    # BEGIN DEBUG
+    pstree $1
+    # END DEBUG
+    echo "$1" | kill_pids_recursively
 }
 
 unset CDPATH
