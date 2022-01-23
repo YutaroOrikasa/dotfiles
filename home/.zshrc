@@ -469,17 +469,6 @@ function nohist(){
         "$@"
 }
 
-# automatic undoable mv command
-# ommiting option handling for simpleness for implementation
-function mv() {
-    if [ "$#" = 2 -a ! -e "$1" -a -e "$2" ];then
-        echo undo mv "$1" "$2" >&2
-        command mv "$2" "$1"
-    else
-        command mv "$@"
-    fi
-}
-
 export EDITOR='emacsclient-ac'
 
 alias nwemacs='command emacs -nw'
@@ -634,3 +623,25 @@ export FZF_CTRL_T_COMMAND='find . -maxdepth 1 | cut -b3-'
 export FZF_COMPLETION_TRIGGER=+
 export FZF_DEFAULT_OPTS='--multi --bind ctrl-space:toggle,ctrl-r:toggle-sort'
 bindkey '^X^R' history-incremental-search-backward
+
+
+# overwriting aliases/functions
+# protection for .zsh.mine loading
+
+# undo mv
+# automatic undoable mv command
+# ommiting option handling for simpleness of implementation
+# TODO: handle this case
+#  mkdir D
+#  mv_or_undo_mv a D/
+#  mv_or_undo_mv a D/  # non intended behavior: mv D a
+function mv_or_undo_mv() {
+    if [ "$#" = 2 ] && [ ! -e "$1" ] && [ -e "$2" ];then
+        echo undo mv "$1" "$2" >&2
+        command mv "$2" "$1"
+    else
+        command mv "$@"
+    fi
+}
+
+alias mv=mv_or_undo_mv
