@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -euC
+
+printf '%s\n' "$(find /usr/local/bin -name gcc-\* | grep -E gcc-'\d+' | sed -e 's|/usr/local/bin/gcc-||' | sort -r | head -n 1)"
