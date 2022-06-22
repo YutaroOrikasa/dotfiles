@@ -100,10 +100,19 @@ fi
 
 # Fix remote.SSH.configFile of "settings.json" to "./ssh_config"
 setting_json_path="$HOME/Library/Application Support/Code/User/settings.json"
-cp -a "$setting_json_path" ~/.ssh/_vscode-settings-orig.json &&
-        < ~/.ssh/_vscode-settings-orig.json \
-                sed -e "s|\"remote.SSH.configFile\": .*|\"remote.SSH.configFile\": \"$OPT_ssh_config_path\",|g" \
-                        >| "$setting_json_path"
+cp -a "$setting_json_path" ~/.ssh/_vscode-settings-orig.json
+
+if ! grep '"remote.SSH.configFile": ' ~/.ssh/_vscode-settings-orig.json >/dev/null 2>&1; then
+    cp -a ~/.ssh/_vscode-settings-orig.json  ~/.ssh/_vscode-settings-orig-orig.json
+    sed -e '$s/}/    "remote.SSH.configFile": ""\n}/' \
+        < ~/.ssh/_vscode-settings-orig-orig.json \
+        >| ~/.ssh/_vscode-settings-orig.json
+    echo 'Add "remote.SSH.configFile" section to json.' >&2
+fi
+
+sed -e "s|\"remote.SSH.configFile\": .*|\"remote.SSH.configFile\": \"$OPT_ssh_config_path\",|g" \
+< ~/.ssh/_vscode-settings-orig.json \
+                >| "$setting_json_path"
 
 # shellcheck disable=SC2086
 echo code $OPT_wait -n --folder-uri vscode-remote://ssh-remote+"$ssh_destination""$project_dir"
