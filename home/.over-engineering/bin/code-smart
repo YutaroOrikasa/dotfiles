@@ -17,7 +17,7 @@ list_child_pids() {
 # stdin: ppid list
 kill_pids_recursively() {
     while IFS= read -r pid; do
-        echo "$pid" | list_child_pids | kill_pids_recursively
+        list_child_pids "$pid" | kill_pids_recursively
         kill "$pid"
     done
 }
