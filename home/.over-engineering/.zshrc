@@ -5,12 +5,6 @@ fpath=(~/.over-engineering/zsh/completion $fpath)
 
 export PATH="$HOME"/.over-engineering/bin:"$PATH"
 
-if which code >/dev/null ;then
-    export EDITOR='code-smart --wait'
-fi
-
-alias C=code-smart
-alias c='C -n'
 function cheatsheet {
     less ~/.cheatsheet/"$1"
 }

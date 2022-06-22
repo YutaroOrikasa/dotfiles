@@ -564,10 +564,11 @@ fi
 
 # vscode
 if which code >/dev/null ;then
-    export EDITOR='code --wait -n'
+    export EDITOR='code-wrapper --wait --'
 fi
-alias c='code -n'
-alias co='code -n --wait'
+alias C='code-wrapper --'
+alias c='code-wrapper -n --'
+alias co='code-wrapper -n --wait --'
 
 # homeshick
 source "$HOME/.homesick/repos/homeshick/homeshick.sh"
