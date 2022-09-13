@@ -1,10 +1,27 @@
 #!/bin/bash
-set -v
+
+usage() {
+    echo "-v    Add pandoc --verbose option"
+}
+
+if [ "$1" = -h ] || [ "$1" = --help ]; then
+    usage
+    exit
+fi
+
+if [ "$1" = -v ]; then
+    set -v
+    PANDOC_VERBOSE=--verbose
+    shift
+fi
+
 
 I="$1"
 
 input="$(basename "$I" .org)"
-# pandoc -V indent=true -N --template=xelatex.template "$input".org -t latex -o "$input".tex &&
-# pandoc --latex-engine=xelatex --standalone "$input".org -t latex -o "$input".tex &&
 
-pandoc -V indent=true -N --latex-engine=xelatex -H ~/.usr/share/pandoc_etc/font-header.tex  "$input".org -o "$input".pdf
+# ref. https://qiita.com/zr_tex8r/items/cdaac1500718eb9fa330
+pandoc $PANDOC_VERBOSE -V indent=true -V documentclass=bxjsarticle -V classoption=pdflatex,ja=standard -N "$input".org -o "$input".pdf
+
+
+
