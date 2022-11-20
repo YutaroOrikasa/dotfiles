@@ -100,7 +100,7 @@ bindkey "^[p" get-line # pop line for ^[q push-line
 
 function backward-kill-word-or-kill-region {
 
-    # `zle backward-kill-word' will appropriately set $CUTBUFFER
+    # zle backward-kill-word' will appropriately set $CUTBUFFER
     # with this.
     zle -f kill
 
@@ -420,6 +420,26 @@ alias glall='gl --all'
 alias gla=glall
 alias gshow='g show'
 
+## git clone and open
+gclone-open-code() {
+    case "$1" in
+        -h|--help)
+            echo "usage: gclone-open-code repo [git clone option]..."
+            echo "    environment: CLONE_BASE_DIR: directory path where clone into"
+            return
+            ;;
+    esac
+    local repo="$1"
+    shift
+    local dir=$(basename "$repo" .git)
+    local clone_dir=${CLONE_BASE_DIR:-.}/$dir
+    git clone --depth=1 "$repo" "$clone_dir" "$@"
+    echo "open $clone_dir ($repo) using code" >&2
+    code -- "$clone_dir"
+
+}
+
+
 alias lsa='ls -a'
 alias lsl='ls -l'
 alias lsla='ls -la'
@@ -432,7 +452,7 @@ alias lld='ls -ld'
 
 alias ssh='ssh -A'
 
-# aliases for `pass -c`
+# aliases for pass -c`
 alias passc='pass -c'
 alias pasc='pass -c'
 
