@@ -91,6 +91,10 @@ zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
+bindkey "^X^P" up-history
+bindkey "^Xp" up-history
+bindkey "^X^N" down-history
+bindkey "^Xn" down-history
 
 bindkey "^[p" get-line # pop line for ^[q push-line
 
