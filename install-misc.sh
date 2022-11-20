@@ -5,9 +5,9 @@ case $(uname) in
 
         # DefaultKeyBinding
         mkdir -p ~/Library/KeyBindings
-        cp -ai ~/.homesick/repos/dotfiles/mac/DefaultKeyBinding.dict ~/Library/KeyBindings/
+        ln -sf ~/.homesick/repos/dotfiles/mac/DefaultKeyBinding.dict ~/Library/KeyBindings/
 
         # Spectacle
         mkdir -p ~/Library/Application\ Support/Spectacle/
-        cp -ai ~/.homesick/repos/dotfiles/mac/Spectacle/Shortcuts.json ~/Library/Application\ Support/Spectacle/
+        ln -sf ~/.homesick/repos/dotfiles/mac/Spectacle/Shortcuts.json ~/Library/Application\ Support/Spectacle/
 esac
