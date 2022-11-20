@@ -471,6 +471,9 @@ alias hod='homeshick cd'
 alias homeshick-update='homeshick pull && homeshick link'
 
 
+alias b=brew
+
+
 alias sshfs='sshfs -o transform_symlinks -o ServerAliveCountMax=10 -o ServerAliveInterval=10 -o reconnect'
 
 case "$(uname -s | tr '[:upper:]' '[:lower:]')" in
