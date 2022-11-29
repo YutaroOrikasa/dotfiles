@@ -2,4 +2,4 @@
 
 set -eu
 
-/usr/local/bin/g++-"$(my-print-brew-gcc-version)"
+/usr/local/bin/g++-"$(my-print-brew-gcc-version)" "$@"
