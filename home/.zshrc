@@ -82,6 +82,8 @@ function suspend-or-fg() {
 zle -N suspend-or-fg
 bindkey -M emacs '^z' suspend-or-fg
 
+bindkey "^X^I" _expand_alias
+
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 bindkey "^[[3~" delete-char
