@@ -389,6 +389,7 @@ alias gc='git commit -v'
 alias gcame='gc --amend --no-edit'
 alias gc-c_HEAD='gc -c HEAD'
 alias gcHEAD_msg='gc -c HEAD'
+alias gcfzf_msg='printf "git commit -m '\''%s'\'' -e" "$(git log --format=%s | fzf)" | sh'
 
 ## git checkout
 alias gcho='git checkout'
