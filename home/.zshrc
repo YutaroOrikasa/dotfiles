@@ -652,8 +652,25 @@ if [ "$DOTFILES_ENABLE_ZPROF" = y ];then
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_ALT_C_COMMAND='find . -maxdepth 1 -type d | cut -b3-'
-export FZF_CTRL_T_COMMAND='find . -maxdepth 1 | cut -b3-'
+if which bfs >/dev/null 2>&1; then
+    export FZF_DEFAULT_COMMAND=bfs
+    # fzf's completion.zsh says:
+    #   To use custom commands instead of find, override _fzf_compgen_{path,dir}
+    _fzf_compgen_path() {
+        # echo "$1"
+        command bfs -L "$1" \
+        -name .git -prune -o -name .hg -prune -o -name .svn -prune -o \( -type d -o -type f -o -type l \) \
+        -a -not -path "$1" -print 2> /dev/null | sed 's@^\./@@'
+    }
+
+    _fzf_compgen_dir() {
+        command bfs -L "$1" \
+        -name .git -prune -o -name .hg -prune -o -name .svn -prune -o -type d \
+        -a -not -path "$1" -print 2> /dev/null | sed 's@^\./@@'
+    }
+
+fi
+
 export FZF_COMPLETION_TRIGGER=+
 export FZF_DEFAULT_OPTS='--multi --bind ctrl-space:toggle,ctrl-r:toggle-sort'
 bindkey '^X^R' history-incremental-search-backward
