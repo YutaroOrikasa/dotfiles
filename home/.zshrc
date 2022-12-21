@@ -388,7 +388,8 @@ alias ga='git add'
 alias gc='git commit -v'
 alias gcame='gc --amend --no-edit'
 alias gc-c_HEAD='gc -c HEAD'
-alias gcHEAD_title='gc -m "$(git log HEAD^..HEAD --format=%s)"'
+alias gcHEAD_title='gc -e -m "$(git log HEAD^..HEAD --format=%s)"'
+# Use bare git command instead of gc alias because commands will be executed by sh.
 alias gcfzf_title='printf "git commit -v -m '\''%s'\'' -e" "$(git log --format=%s | fzf)" | sh'
 
 ## git checkout
