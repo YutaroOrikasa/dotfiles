@@ -308,7 +308,6 @@ fi
 alias pd=popd
 
 
-export MEMOFILE=~"/memo.txt"
 
 function memo {
     if [ x"$1" = x"-e" -o $# = 0 ];then
