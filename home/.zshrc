@@ -308,21 +308,16 @@ fi
 alias pd=popd
 
 
-
-function memo {
-    if [ x"$1" = x"-e" -o $# = 0 ];then
-        emacs "$MEMOFILE"
-        return
-    fi
-    echo "$@" >> "$MEMOFILE"
-    echo  >> "$MEMOFILE"
+__is_inside_git_work_tree() {
+    local ret=$(git rev-parse --is-inside-work-tree 2>/dev/null) || return 1
+    test "$ret" = true
 }
 
 function my-accept-line {
     if [[ -n "$BUFFER" ]];then
         zle accept-line
     else
-        if git rev-parse --is-inside-work-tree &> /dev/null;then
+        if __is_inside_git_work_tree;then
             git status
         fi
         # for poping line pushed by alt-q (zle push-line)
