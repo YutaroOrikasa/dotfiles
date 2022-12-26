@@ -296,7 +296,11 @@ function launch-ssh-agent {
 
 # launch ssh-agent if not launched
 export SSH_AUTH_SOCK="${SSH_AUTH_SOCK:-$HOME/.ssh/ssh_auth_sock_local}"
-if [ ! -S "$SSH_AUTH_SOCK" ];then
+__is_ssh_agent_connection_broken() {
+    ssh-add -l >/dev/null 2>&1
+    test $? -eq 2
+}
+if __is_ssh_agent_connection_broken; then
     echo "launch ssh-agent"
     launch-ssh-agent
     ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock_local
