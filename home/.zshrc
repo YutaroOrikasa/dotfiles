@@ -364,10 +364,8 @@ export LESS='-R -gj10 --LONG-PROMPT'
 alias L='less'
 alias le='less'
 
-if [ -z "$LESSOPEN" ];then
-    if which lesspipe.sh > /dev/null;then
-        export LESSOPEN="|lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
-    fi
+if which lesspipe.sh > /dev/null;then
+    export LESSOPEN="|lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
 fi
 
 ## compile .lesskey
