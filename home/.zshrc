@@ -229,20 +229,17 @@ rm -f ~/.gnupg/gpg-agent.conf
     echo '#     systemctl --user restart gpg-agent.service'
     echo '# or'
     echo '#     gpgconf --kill gpg-agent; gpg-agent --daemon'
-    case "$__os_type" in
-        macos)
-            if which pinentry-mac >/dev/null 2>&1;then
-                echo "pinentry-program $(which pinentry-mac)"
-            else
-                echo "pinentry-program $(which pinentry-tty)"
-            fi
-            ;;
-        wsl)
-            echo '# 9223372036854775807 is 2**63 - 1'
-            echo "max-cache-ttl 9223372036854775807"
-            echo "default-cache-ttl 9223372036854775807"
-            ;;
-    esac
+
+    if which pinentry-mac >/dev/null 2>&1;then
+        echo "pinentry-program $(which pinentry-mac)"
+    elif which pinentry-gnome3 >/dev/null 2>&1;then
+        echo "pinentry-program $(which pinentry-gnome3)"
+    else
+        echo "pinentry-program $(which pinentry-tty)"
+        echo '# 9223372036854775807 is 2**63 - 1'
+        echo "max-cache-ttl 9223372036854775807"
+        echo "default-cache-ttl 9223372036854775807"
+    fi
 } >>~/.gnupg/gpg-agent.conf
 function launch-gpg-agent {
     if which systemctl >/dev/null 2>&1 && systemctl --user list-units | grep gpg-agent-ssh.socket >/dev/null 2>&1; then
