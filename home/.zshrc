@@ -98,6 +98,10 @@ bindkey "^Xp" up-history
 bindkey "^X^N" down-history
 bindkey "^Xn" down-history
 
+# Home/End
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
+
 bindkey "^[p" get-line # pop line for ^[q push-line
 
 function backward-kill-word-or-kill-region {
