@@ -509,14 +509,6 @@ case "$(uname -s | tr '[:upper:]' '[:lower:]')" in
         ;;
 esac
 
-o () {
-    if [[ $# -eq 0 ]];then
-        open .
-    else
-        open "$@"
-    fi
-}
-
 if [ x"$TERM" = x"screen.xterm-256color" ];then
     export TERM=xterm-256color
     export DOTFILES_TERM_MULTIPLEXER=screen
@@ -637,6 +629,16 @@ export PATH=/mybin:~/.usr/bin:~/.local/bin:~/.cargo/bin:"$PATH"
 # execute hacks for each platform
 __uname=$(uname)
 [ -e ~/.dotfiles-lib/hack/"$__uname".sh ] && . ~/.dotfiles-lib/hack/"$__uname".sh
+
+# o() definition must be after platform hack codes
+# because alias is substituted on function definition and open alias is defined in a platform hack script.
+o() {
+    if [[ $# -eq 0 ]];then
+        open .
+    else
+        open "$@"
+    fi
+}
 
 
 # lazy-eval
