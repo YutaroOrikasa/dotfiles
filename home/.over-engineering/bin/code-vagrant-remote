@@ -24,7 +24,7 @@ vagrant ssh-config | sed -e 's/^Host default$/'"Host $current_dirname"'/' >ssh_c
 echo '  ForwardAgent yes' >>ssh_config
 
 # Fix remote.SSH.configFile of "settings.json" to "./ssh_config"
-setting_json_path="$HOME/Library/Application Support/Code/User/settings.json"
+setting_json_path="$(get-code-default-user-data-dir)/User/settings.json"
 cp -a "$setting_json_path" ./_vscode-settings-orig.json &&
         < ./_vscode-settings-orig.json \
                 sed -e 's|"remote.SSH.configFile": .*|"remote.SSH.configFile": "'"$(pwd)"'/ssh_config",|g' \
