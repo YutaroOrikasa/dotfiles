@@ -20,14 +20,25 @@ vagrant status | grep ^default | grep running >/dev/null || vag_poweroff=1
 vagrant up && vagrant ssh -- mkdir -p "$project_dir"
 
 # Fix ssh_config
-vagrant ssh-config | sed -e 's/^Host default$/'"Host $current_dirname"'/' >ssh_config
+# note: Windows vagrant ssh-config's newline code is CRLF.
+vagrant ssh-config | sed -e 's/\r$//' -e 's/^Host default$/'"Host $current_dirname"'/' >ssh_config
 echo '  ForwardAgent yes' >>ssh_config
 
 # Fix remote.SSH.configFile of "settings.json" to "./ssh_config"
 setting_json_path="$(get-code-default-user-data-dir)/User/settings.json"
+
+case "$(dotfiles_os_type)" in
+        wsl)
+                current_work_dir=$(wslpath -m "$(pwd)")
+                ;;
+        *)
+                current_work_dir=$(pwd)
+                ;;
+esac
+
 cp -a "$setting_json_path" ./_vscode-settings-orig.json &&
         < ./_vscode-settings-orig.json \
-                sed -e 's|"remote.SSH.configFile": .*|"remote.SSH.configFile": "'"$(pwd)"'/ssh_config",|g' \
+                sed -e 's|"remote.SSH.configFile": .*|"remote.SSH.configFile": "'"$current_work_dir"'/ssh_config",|g' \
                         > "$setting_json_path"
 
 if [ "$vag_poweroff" = 1 ];then
