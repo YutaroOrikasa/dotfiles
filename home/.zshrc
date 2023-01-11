@@ -629,6 +629,7 @@ export PATH=/mybin:~/.usr/bin:~/.local/bin:~/.cargo/bin:"$PATH"
 # execute hacks for each platform
 __uname=$(uname)
 [ -e ~/.dotfiles-lib/hack/"$__uname".sh ] && . ~/.dotfiles-lib/hack/"$__uname".sh
+[ -e ~/.dotfiles-lib/hack/os_type/"$__os_type".sh ] && . ~/.dotfiles-lib/hack/os_type/"$__os_type".sh
 
 # o() definition must be after platform hack codes
 # because alias is substituted on function definition and open alias is defined in a platform hack script.
