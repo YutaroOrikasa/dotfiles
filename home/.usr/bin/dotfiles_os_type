@@ -1,0 +1,17 @@
+#!/bin/sh
+
+__os_type=unknown
+case "$(uname)" in
+    Darwin)
+        __os_type=macos
+        ;;
+    Linux)
+        if uname -r | grep WSL >/dev/null 2>&1; then
+            __os_type=wsl
+        else
+            __os_type=linux
+        fi
+        ;;
+esac
+
+echo "$__os_type"

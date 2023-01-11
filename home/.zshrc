@@ -210,19 +210,7 @@ vcs-enable () {
 alias disable-vcs=vcs-disable
 alias enable-vcs=vcs-enable
 
-__os_type=unknown
-case "$(uname)" in
-    Darwin)
-        __os_type=macos
-        ;;
-    Linux)
-        if uname -r | grep WSL >/dev/null 2>&1; then
-            __os_type=wsl
-        else
-            __os_type=linux
-        fi
-        ;;
-esac
+__os_type=$(dotfiles_os_type)
 #### gpg and ssh ####
 # gpg-agent
 rm -f ~/.gnupg/gpg-agent.conf
