@@ -22,6 +22,9 @@ fi
 
 export ALLOW_OVER_ENGINEERING=${ALLOW_OVER_ENGINEERING:-y}
 
+# PATH
+export PATH=/mybin:~/.usr/bin:~/.local/bin:~/.cargo/bin:"$PATH"
+
 
 #see man zshall for detail
 
@@ -610,9 +613,6 @@ alias co='code-wrapper -n --wait --'
 # homeshick
 source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 fpath=($HOME/.homesick/repos/homeshick/completions/ $fpath)
-
-# PATH
-export PATH=/mybin:~/.usr/bin:~/.local/bin:~/.cargo/bin:"$PATH"
 
 # execute hacks for each platform
 __uname=$(uname)
