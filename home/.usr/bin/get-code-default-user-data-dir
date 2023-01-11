@@ -1,0 +1,14 @@
+#!/bin/sh
+
+case "$(dotfiles_os_type)" in
+    macos)
+        echo "$HOME/Library/Application Support/Code"
+        ;;
+    wsl)
+        echo "/mnt/c/Users/$USER/AppData/Roaming/Code"
+        ;;
+    *)
+        echo 'get-code-default-user-data-dir: Unknown environment' >&2
+        exit 1
+        ;;
+esac
