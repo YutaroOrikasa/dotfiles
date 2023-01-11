@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec /mnt/c/HashiCorp/Vagrant/bin/vagrant.exe "$@"

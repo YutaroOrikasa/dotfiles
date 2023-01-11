@@ -2,7 +2,7 @@
 
 export LANG=en_US.UTF-8
 
-alias vagrant=/mnt/c/HashiCorp/Vagrant/bin/vagrant.exe
+export PATH="$HOME/.usr/wsl/bin:$PATH"
 
 if ! command -v realpath >/dev/null 2>&1; then
     echo 'Warning: dotfiles: Please install realpath for git to handle file mode correctly.' >&2
