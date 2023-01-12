@@ -12,6 +12,12 @@ case "$(uname)" in
             __os_type=linux
         fi
         ;;
+    *)
+        case "$(uname -o)" in
+            Msys)
+                __os_type=msys
+                ;;
+        esac
 esac
 
 echo "$__os_type"
