@@ -1,3 +1,10 @@
 #!/bin/sh
 
-exec /mnt/c/HashiCorp/Vagrant/bin/vagrant.exe "$@"
+# Use vagrant via msys for ssh agent forwarding.
+# - login script is loaded so that PATH for msys is initialized
+# - ~/.zshrc is loaded so that vagrant is in PATH
+#   and ssh-agent and SSH_AUTH_SOCK is initialized
+# - ~/.zshrc.mine is loaded so that it is expected that ssh keys are loaded in ssh-agent by add-ssh-keys function
+
+dir=$(wslpath -w .)
+exec /mnt/c/msys64/usr/bin/zsh.exe -li -c "cd \"$dir\"; "'vagrant "$@"' - "$@"
