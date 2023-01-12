@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-wsl -e zsh -i -c ~/.dotfiles-lib/bin/gpg-ssh-askpass-local
+# PASSWORD_GPG_PATH: env var
+
+WSLENV=PASSWORD_GPG_PATH wsl --cd '~' -e zsh -i -c '$HOME/.dotfiles-lib/bin/gpg-ssh-askpass-local'
