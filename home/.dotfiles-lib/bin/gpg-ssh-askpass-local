@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# PASSWORD_GPG_PATH: env var
+
+if [ -n "$TTY" ];then
+    gpg -d "$PASSWORD_GPG_PATH" <"$TTY"
+else
+    gpg -d "$PASSWORD_GPG_PATH"
+fi
