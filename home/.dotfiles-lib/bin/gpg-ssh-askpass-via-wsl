@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+wsl -e zsh -i -c ~/.dotfiles-lib/bin/gpg-ssh-askpass-local
