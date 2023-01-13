@@ -37,6 +37,14 @@ cp -a "$setting_json_path" ./_vscode-settings-orig.json &&
         < ./_vscode-settings-orig.json \
                 sed -e 's|"remote.SSH.configFile": .*|"remote.SSH.configFile": "'"$current_work_dir"'/ssh_config",|g' \
                         > "$setting_json_path"
+case "$(dotfiles_os_type)" in
+        wsl)
+                export SSH_AUTH_SOCK="$(/mnt/c/msys64/usr/bin/zsh.exe -li -c 'echo "$SSH_AUTH_SOCK"')"
+                export WSLENV=SSH_AUTH_SOCK:"$WSLENV"
+                echo 'code-vagrant-remote: note: You have to make vscode use C:/msys64/usr/bin/ssh.exe as ssh client  to enable ssh agent forwarding.' >&2
+                ;;
+esac
+
 echo >&2
 echo code -n --folder-uri vscode-remote://ssh-remote+"$current_dirname"/"$project_dir" >&2
 code -n --folder-uri vscode-remote://ssh-remote+"$current_dirname"/"$project_dir"
