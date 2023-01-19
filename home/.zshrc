@@ -26,7 +26,7 @@ export ALLOW_OVER_ENGINEERING=${ALLOW_OVER_ENGINEERING:-y}
 export PATH=/mybin:~/.usr/bin:~/.local/bin:~/.cargo/bin:"$PATH"
 
 if [ "$(dotfiles_os_type)" = msys ];then
-    export PATH='/c/HashiCorp/Vagrant/bin:/c/Users/yutaro/AppData/Local/Programs/Microsoft VS Code/bin':"$PATH"
+    export PATH='/c/HashiCorp/Vagrant/bin':"$PATH"
     export MSYS2_ARG_CONV_EXCL='*'
 fi
 
