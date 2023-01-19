@@ -28,6 +28,9 @@ case "$(dotfiles_os_type)" in
         wsl)
                 current_work_dir=$(wslpath -m "$(pwd)")
                 ;;
+        msys)
+                current_work_dir=$(cygpath -m "$(pwd)")
+                ;;
         *)
                 current_work_dir=$(pwd)
                 ;;
