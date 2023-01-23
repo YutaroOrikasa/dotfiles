@@ -11,6 +11,6 @@ case "$(dotfiles_os_type)" in
         echo "/c/Users/$USER/AppData/Roaming/Code"
         ;;
     *)
-        echo "$HOME/.config/Code/User/settings.json"
+        echo "$HOME/.config/Code"
         ;;
 esac
