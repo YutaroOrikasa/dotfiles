@@ -296,7 +296,14 @@ if [[ -n "$SSH_TTY" && "$TERM" =~ ^screen ]] || [[ "$SSH_AUTH_SOCK" =~ 'vscode-s
     # because ~/.ssh/ssh_auth_sock will be overwritten on another one shot ssh login.
     fix_ssh_socket_link_on_screen() {
         if [[ ! -S ~/.ssh/ssh_auth_sock.screen ]]; then
-            ln -sf "$(__readlink ~/.ssh/ssh_auth_sock)" ~/.ssh/ssh_auth_sock.screen
+            if [ ! -e ~/.ssh/ssh_auth_sock ]; then
+                # This is the case ~/.ssh/ssh_auth_sock is not prepared
+                # mainly when .zshrc is loaded before .ssh/rc is installed
+                # (eg. first login and install dotfiles to remote server).
+                ln -sf "$__SSH_AUTH_SOCK_ORIG" ~/.ssh/ssh_auth_sock.screen
+            else
+                ln -sf "$(__readlink ~/.ssh/ssh_auth_sock)" ~/.ssh/ssh_auth_sock.screen
+            fi
         fi
 
         export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock.screen
