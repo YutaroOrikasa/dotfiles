@@ -11,7 +11,6 @@ case "$(dotfiles_os_type)" in
         echo "/c/Users/$USER/AppData/Roaming/Code"
         ;;
     *)
-        echo 'get-code-default-user-data-dir: Unknown environment' >&2
-        exit 1
+        echo "$HOME/.config/Code/User/settings.json"
         ;;
 esac
