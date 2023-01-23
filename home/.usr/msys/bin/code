@@ -1,0 +1,4 @@
+#!/bin/sh
+
+export MSYS2_ARG_CONV_EXCL=
+"/c/Users/yutaro/AppData/Local/Programs/Microsoft VS Code/bin"/code "$@"
