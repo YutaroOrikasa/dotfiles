@@ -15,3 +15,9 @@ else
         fi
     }
 fi
+
+unalias open
+
+open() {
+    explorer.exe "$(wslpath -w "$1")"
+}
