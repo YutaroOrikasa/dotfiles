@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+zsh -i -c 'socat STDIO unix-connect:.ssh/ssh_auth_sock_local'
