@@ -5,4 +5,4 @@
 # Use zsh through bash login shell.
 # bash is the first class on wsl,
 # so it is less troublesome (eg. environment variable).
-WSLENV=PASSWORD_GPG_PATH wsl --cd '~' -e bash -li -c 'zsh -i -c "$HOME/.dotfiles-lib/bin/gpg-ssh-askpass-local"'
+WSLENV=PASSWORD_GPG_PATH:"$WSLENV" wsl --cd '~' -e bash -li -c 'zsh -i -c "$HOME/.dotfiles-lib/bin/gpg-ssh-askpass-local"'
