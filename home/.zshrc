@@ -325,6 +325,12 @@ function launch-ssh-agent {
     eval $(ssh-agent -s "$@")
 }
 
+__create_ssh_auth_sock_for_msys() {
+    rm -f ~/.ssh/ssh_auth_sock_msys_import_wsl
+    (socat UNIX-LISTEN:"$HOME"/.ssh/ssh_auth_sock_msys_import_wsl,fork 'SYSTEM:wsl --cd ~ -e bash -l -c .dotfiles-lib/bin/socat-ssh-auth-sock,nofork' &)
+    ln -sf ~/.ssh/ssh_auth_sock_msys_import_wsl ~/.ssh/ssh_auth_sock_local
+}
+
 # launch ssh-agent if not launched
 export SSH_AUTH_SOCK="${SSH_AUTH_SOCK:-$HOME/.ssh/ssh_auth_sock_local}"
 __is_ssh_agent_connection_broken() {
@@ -332,9 +338,15 @@ __is_ssh_agent_connection_broken() {
     test $? -eq 2
 }
 if __is_ssh_agent_connection_broken; then
-    echo "launch ssh-agent"
-    launch-ssh-agent
-    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock_local
+    if [ "$(dotfiles_os_type)" = msys ]; then
+        if command -v socat >/dev/null 2>&1; then
+            __create_ssh_auth_sock_for_msys >/dev/null 2>&1
+        fi
+    else
+        echo "launch ssh-agent" >&2
+        launch-ssh-agent
+        ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock_local
+    fi
 fi
 
 
