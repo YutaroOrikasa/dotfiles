@@ -327,7 +327,12 @@ function launch-ssh-agent {
 
 __create_ssh_auth_sock_for_msys() {
     rm -f ~/.ssh/ssh_auth_sock_msys_import_wsl
-    (socat UNIX-LISTEN:"$HOME"/.ssh/ssh_auth_sock_msys_import_wsl,fork 'SYSTEM:wsl --cd ~ -e bash -l -c .dotfiles-lib/bin/socat-ssh-auth-sock,nofork' &)
+    (
+        WSLENV=DOTFILES_SSH_AUTH_SOCK_FORWARD_FOR_MSYS:"$WSLENV" \
+            DOTFILES_SSH_AUTH_SOCK_FORWARD_FOR_MSYS=1 \
+            setsid \
+            socat UNIX-LISTEN:"$HOME"/.ssh/ssh_auth_sock_msys_import_wsl,fork 'SYSTEM:wsl --cd ~ -e bash -l -c .dotfiles-lib/bin/socat-ssh-auth-sock,nofork' &
+    )
     ln -sf ~/.ssh/ssh_auth_sock_msys_import_wsl ~/.ssh/ssh_auth_sock_local
 }
 
