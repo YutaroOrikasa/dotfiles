@@ -1,0 +1,8 @@
+#!/bin/sh
+
+sock="${1-"$HOME"/.ssh/ssh_auth_sock_msys_import_wsl}"
+rm -f "$sock"
+
+WSLENV=DOTFILES_SSH_AUTH_SOCK_FORWARD_FOR_MSYS:"$WSLENV" \
+            DOTFILES_SSH_AUTH_SOCK_FORWARD_FOR_MSYS=1 \
+            socat UNIX-LISTEN:"$sock",fork 'EXEC:wsl --cd ~ -e bash -l -c .dotfiles-lib/bin/socat-ssh-auth-sock,nofork'
