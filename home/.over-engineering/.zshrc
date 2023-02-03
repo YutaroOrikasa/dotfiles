@@ -34,6 +34,7 @@ function check-homeshick-git-status {
 
 if [ "$(dotfiles_os_type)" = wsl ]; then
     if [ "$DOTFILES_SSH_AUTH_SOCK_FORWARD_FOR_MSYS" -eq 0 ]; then
+        # 'setsid socat ...' is run in .zshrc on msys.
         # Wrapping with '(... &)' is necessary because .exe binary execution from wsl blocks.
         # Wrapping with mintty is necessary because 'setsid socat' will be killed when wsl tty is closed.
         # 'sleep 1' is necessary because 'setsid socat' will be killed when mintty finishes before the work of setsid finished.
