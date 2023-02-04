@@ -63,6 +63,7 @@ if [ "$(dotfiles_os_type)" = wsl ]; then
                 _exit_status=$?
                 if __is_inside_git_work_tree ;then
                     # Sometimes msys git fails removing .git/index.lock
+                    # This occurs at git repo in dropbox.
                     rm -f "$(command git rev-parse --git-dir)"/index.lock
                 fi
                 return "$_exit_status"
