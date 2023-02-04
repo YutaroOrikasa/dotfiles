@@ -46,7 +46,7 @@ if [ "$(dotfiles_os_type)" = wsl ]; then
     # so This wrapper use msys64 git if the repo is in win filesystem.
     # But msys is too slow to use comfortably.
     git() {
-
+        local _exit_status
         if [ "${1-}" = rev-parse ]; then
             command git "$@"
             return
@@ -60,6 +60,12 @@ if [ "$(dotfiles_os_type)" = wsl ]; then
             if [ -e /mnt/c/msys64/usr/bin/git.exe ] && [ "$DOTFILES_USE_MSYS_GIT_ON_WSL_ON_WIN_FS" -eq 1 ]; then
                 echo 'msys git: git' "$@" >&2
                 /mnt/c/msys64/usr/bin/bash.exe -c 'export PATH=/usr/bin/:"$PATH" SSH_AUTH_SOCK="$HOME/.ssh/ssh_auth_sock_msys_import_wsl"; exec git "$@";' - "$@"
+                _exit_status=$?
+                if __is_inside_git_work_tree ;then
+                    # Sometimes msys git fails removing .git/index.lock
+                    rm -f "$(command git rev-parse --git-dir)"/index.lock
+                fi
+                return "$_exit_status"
             else
                 command git -c core.filemode=false "$@"
             fi
