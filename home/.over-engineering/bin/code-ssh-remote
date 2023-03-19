@@ -2,7 +2,11 @@
 
 set -ueC
 
+# option parse
+# https://gist.githubusercontent.com/YutaroOrikasa/82708ed2707cd3650998187bd8fc7a6f/raw/581ef8c126d0161aa88adfed2b3fd8cdbaf2b082/template.sh
+
 usage_exit() {
+##### Change here #####
     cat <<EOF
 Usage:
     '$0' [-w|--wait] [--ssh-config-path PATH] [user@]hostname [project_dir]
@@ -16,6 +20,7 @@ Options:
     --ssh-config-path STRING    ssh config path (default: ~/.ssh/config)
 
 EOF
+##### DO NOT change here #####
     # shellcheck disable=SC2086
     exit ${1-}
 }
@@ -29,13 +34,63 @@ msg() {
     echo "$@" >&2
 }
 
+##### Change here #####
+# Flag options
+OPT_wait=0
+
 # Option values with default
 OPT_ssh_config_path="$HOME/.ssh/config"
-OPT_wait=
 
-_i=0
+
+##### DO NOT change here #####
+# variable start with _ is temporary variable, it will be unset.
+_args=
 while [ $# -ne 0 ]; do
+    # For debug
     : "$1"
+    _short_opt_no_args=
+    _short_opt_with_arg=
+    case "$1" in
+##### Change here #####
+##### DO NOT FORGET #####
+##### List short options that take no arguments #####
+        -[w]*) # <<<=== Edit this
+            _short_opt_no_args=1
+            ;;
+##### Change here #####
+##### DO NOT FORGET #####
+        # -[oO]*) # <<<=== Edit this
+        #     _short_opt_with_arg=1
+        #     ;;
+    esac
+
+    if [ "$_short_opt_no_args" = 1 ] || [ "$_short_opt_with_arg" = 1 ]; then
+        # eg. $1 = -a
+        # eg. _opt = -a
+        # eg. _rest = ''
+
+        # eg. $1 = -ab
+        # eg. _opt = -a
+        # eg. _rest = b
+
+        _rest="${1#-?}"
+        _opt=${1%"$_rest"}
+
+        _hyphen_if_option=
+        if [ "$_short_opt_no_args" = 1 ]; then
+            _hyphen_if_option=-
+        fi
+        shift
+        if [ -z "$_rest" ]; then
+            set -- "$_opt" "$@"
+        else
+            set -- "$_opt" "${_hyphen_if_option}$_rest" "$@"
+        fi
+        unset _short_opt_no_args _short_opt_with_arg \
+            _hyphen_if_option \
+            _opt _rest
+    fi
+
     case "$1" in
         --)
             shift
@@ -44,43 +99,43 @@ while [ $# -ne 0 ]; do
         -h|--help)
             usage_exit
             ;;
+##### Change here #####
         --ssh-config-path)
             shift
             OPT_ssh_config_path=$1
+            shift
             ;;
         -w|--wait)
-            OPT_wait=$1
+            OPT_wait=1
+            shift
             ;;
+##### DO NOT change here #####
         -*)
             msg "Invalid option: $1"
             exit 1
             ;;
         *)
-            : $((_i += 1))
-            eval "_ARGS_${_i}='$1'"
+            _escaped=$(printf "%s" "$1" | sed "s/'/'\\\\''/g")
+            _quoted=$(printf "'%s'" "$_escaped")
+            _args="$_args $_quoted"
+            unset _escaped _quoted
+            shift
             ;;
     esac
-    shift
 done
-_eval_str=
-_eval_unset_str=
-_j=1  # `seq` is not posix. I don't like it.
-while [ $_j -le "$_i" ]; do
-    _eval_str=$_eval_str" \"\${_ARGS_$_j}\""
-    _eval_unset_str=$_eval_unset_str" _ARGS_$_j"
-    : $((_j += 1))
-done
-unset _i _j
-eval set -- "$_eval_str" "$@"
-eval unset "$_eval_unset_str"
-unset _eval_str _eval_unset_str
+eval set -- "$_args" '"$@"'
+unset _args
 
-if [ $# -lt 1 ] || [ 2 -lt $# ]; then
-    msg "Invalid argument numbers $#."
-    usage_error_exit
-fi
+##### Change here #####
+
+# # Check argument number
+# if [ $# -ne __ARG_NUM_YOU_SHOULD_GET__ ]; then
+#     msg "Invalid argument numbers $#."
+#     usage_error_exit
+# fi
 
 
+# end option parse
 
 ##### main script #####
 
@@ -89,6 +144,11 @@ ssh_destination=$1
 shift
 
 set -eu
+
+wait_opt=
+if [ "$OPT_wait" -eq 1 ]; then
+    wait_opt=-w
+fi
 
 project_dir=${1-""}
 
@@ -115,6 +175,6 @@ sed -e "s|\"remote.SSH.configFile\": .*|\"remote.SSH.configFile\": \"$OPT_ssh_co
                 >| "$setting_json_path"
 
 # shellcheck disable=SC2086
-echo code $OPT_wait -n --folder-uri vscode-remote://ssh-remote+"$ssh_destination""$project_dir"
+echo code $wait_opt -n --folder-uri vscode-remote://ssh-remote+"$ssh_destination""$project_dir"
 # shellcheck disable=SC2086
-code $OPT_wait -n --folder-uri vscode-remote://ssh-remote+"$ssh_destination""$project_dir"
+code $wait_opt -n --folder-uri vscode-remote://ssh-remote+"$ssh_destination""$project_dir"
