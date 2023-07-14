@@ -16,8 +16,11 @@ canonicalize() {
     realpath --logical -- "$1"
 }
 
-if command -v realpath >/dev/null 2>&1; then
+if command -v realpath >/dev/null 2>&1 \
+    && realpath --help 2>&1 | grep GNU >/dev/null; then
+
     :
+
 elif command -v grealpath >/dev/null 2>&1; then
 
     realpath() {
@@ -26,7 +29,7 @@ elif command -v grealpath >/dev/null 2>&1; then
 
 else
     {
-        echo "realpath or grealpath not found"
+        echo "gnu realpath or grealpath not found"
         echo "If you want to pass canonicalized path, please install realpath (gnu coreutils)."
     } >&2
 
