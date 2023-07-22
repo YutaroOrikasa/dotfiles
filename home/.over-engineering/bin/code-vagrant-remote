@@ -5,24 +5,24 @@ set -eu
 
 project_dir=
 case "$proj_dir" in
-        /*) project_dir=$proj_dir ;;
         .|./*) project_dir=/vagrant/$proj_dir ;;
         "") project_dir=/home/vagrant ;;
-        *) project_dir=/home/vagrant/vscode-remote/$proj_dir;;
 esac
 unset proj_dir
 
-current_dirname=$(basename "$(pwd)")
+# Make ssh remote hostname as basename of current dir.
+remote_hostname=$(basename "$(pwd)")
 
 vagrant up && vagrant ssh -- mkdir -p "$project_dir"
 
 # Fix ssh_config
 # note: Windows vagrant ssh-config's newline code is CRLF.
-vagrant ssh-config | sed -e 's/\r$//' -e 's/^Host default$/'"Host $current_dirname"'/' >ssh_config
+vagrant ssh-config | sed -e 's/\r$//' -e 's/^Host default$/'"Host $remote_hostname"'/' >ssh_config
 echo '  ForwardAgent yes' >>ssh_config
 
-# Fix remote.SSH.configFile of "settings.json" to "./ssh_config"
-setting_json_path="$(get-code-default-user-data-dir)/User/settings.json"
+# ! will be deleted
+# # Fix remote.SSH.configFile of "settings.json" to "./ssh_config"
+# setting_json_path="$(get-code-default-user-data-dir)/User/settings.json"
 
 case "$(dotfiles_os_type)" in
         wsl)
@@ -36,10 +36,11 @@ case "$(dotfiles_os_type)" in
                 ;;
 esac
 
-cp -a "$setting_json_path" ./_vscode-settings-orig.json &&
-        < ./_vscode-settings-orig.json \
-                sed -e 's|"remote.SSH.configFile": .*|"remote.SSH.configFile": "'"$current_work_dir"'/ssh_config",|g' \
-                        > "$setting_json_path"
+# ! will be deleted
+# cp -a "$setting_json_path" ./_vscode-settings-orig.json &&
+#         < ./_vscode-settings-orig.json \
+#                 sed -e 's|"remote.SSH.configFile": .*|"remote.SSH.configFile": "'"$current_work_dir"'/ssh_config",|g' \
+#                         > "$setting_json_path"
 case "$(dotfiles_os_type)" in
         wsl)
                 export SSH_AUTH_SOCK="$(/mnt/c/msys64/usr/bin/zsh.exe -li -c 'echo "$SSH_AUTH_SOCK"')"
@@ -49,6 +50,10 @@ case "$(dotfiles_os_type)" in
 esac
 
 echo >&2
-echo code -n --folder-uri vscode-remote://ssh-remote+"$current_dirname"/"$project_dir" >&2
-code -n --folder-uri vscode-remote://ssh-remote+"$current_dirname"/"$project_dir"
+# ! will be deleted
+# echo code -n --folder-uri vscode-remote://ssh-remote+"$remote_hostname"/"$project_dir" >&2
+# code -n --folder-uri vscode-remote://ssh-remote+"$remote_hostname"/"$project_dir"
+# code-ssh-remote --ssh-config-path "$current_work_dir/ssh_config" "$remote_hostname"/"$project_dir"
+code-ssh-remote --ssh-config-path "$current_work_dir/ssh_config" "$remote_hostname" "$project_dir"
+
 echo 'Please `vagrant halt` manually: ' >&2

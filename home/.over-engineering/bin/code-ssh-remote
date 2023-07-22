@@ -159,7 +159,7 @@ if [ "${project_dir%%[^/]*}" != / ]; then
 fi
 
 # Fix remote.SSH.configFile of "settings.json" to "./ssh_config"
-setting_json_path="$HOME/Library/Application Support/Code/User/settings.json"
+setting_json_path="$(get-code-default-user-data-dir)/User/settings.json"
 cp -a "$setting_json_path" ~/.ssh/_vscode-settings-orig.json
 
 if ! grep '"remote.SSH.configFile": ' ~/.ssh/_vscode-settings-orig.json >/dev/null 2>&1; then
