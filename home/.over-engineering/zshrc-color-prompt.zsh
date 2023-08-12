@@ -117,12 +117,16 @@ function __setup-prompt-color {
         col_num=$(__ask-prompt-color "$subject" "$name") \
             || echo "skip setting $subject color"
 
-        echo "save $subject color $col_num_var_name to .zshrc.mine-pre"
-        echo >> ~/.zshrc.mine-pre
-        echo "$col_num_var_name"="$col_num" >> ~/.zshrc.mine-pre
+        echo "save $subject color $col_num_var_name to .zshrc.prompt-settings"
+        echo >> ~/.zshrc.prompt-settings
+        echo "$col_num_var_name"="$col_num" >> ~/.zshrc.prompt-settings
         eval "$col_num_var_name"="$col_num"
     fi
 }
+
+if [ -e ~/.zshrc.prompt-settings ]; then
+    . ~/.zshrc.prompt-settings
+fi
 
 if tty >/dev/null 2>&1; then
     __setup-prompt-color USER_COL_NUM "user name" $USER
