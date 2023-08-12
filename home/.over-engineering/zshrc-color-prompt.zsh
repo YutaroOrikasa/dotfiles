@@ -124,8 +124,11 @@ function __setup-prompt-color {
     fi
 }
 
-__setup-prompt-color USER_COL_NUM "user name" $USER
-__setup-prompt-color HOST_COL_NUM "host name" $HOST
+if tty >/dev/null 2>&1; then
+    __setup-prompt-color USER_COL_NUM "user name" $USER
+    __setup-prompt-color HOST_COL_NUM "host name" $HOST
+fi
+
 
 
 function __USER_COL_ESC_SEQ {
