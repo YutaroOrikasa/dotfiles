@@ -6,7 +6,8 @@ set -eu
 project_dir=
 case "$proj_dir" in
         .|./*) project_dir=/vagrant/$proj_dir ;;
-        "") project_dir=/home/vagrant ;;
+        /*) project_dir=$proj_dir ;;
+        *) project_dir=/home/vagrant/$proj_dir ;;
 esac
 unset proj_dir
 
