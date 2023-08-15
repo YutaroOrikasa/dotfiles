@@ -6,6 +6,11 @@
 #   and ssh-agent and SSH_AUTH_SOCK is initialized
 # - ~/.zshrc.mine is loaded so that it is expected that ssh keys are loaded in ssh-agent by add-ssh-keys function
 
+if [ -e ~/.vagrant.d/Vagrantfile ]; then
+    mkdir -p /mnt/c/Users/"$USER"/.vagrant.d/
+    cp  ~/.vagrant.d/Vagrantfile /mnt/c/Users/"$USER"/.vagrant.d/Vagrantfile
+fi
+
 export DOTFILES_VAGRANT_CWD=$(wslpath -m .)
 export WSLENV=DOTFILES_VAGRANT_CWD:"$WSLENV"
 exec /mnt/c/msys64/usr/bin/zsh.exe -li -c 'export MSYS2_ARG_CONV_EXCL=*; cd "$DOTFILES_VAGRANT_CWD"; vagrant "$@"' - "$@"
