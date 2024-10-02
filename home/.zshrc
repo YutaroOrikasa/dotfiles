@@ -687,13 +687,6 @@ eval "$__lazy_eval"
 
 unset -f lazy-eval
 
-# for zshrc profiling
-if [ "$DOTFILES_ENABLE_ZPROF" = y ];then
-    if (which zprof > /dev/null) ;then
-        zprof > ~/zprof.txt
-        echo 'export zprof result into ~/zprof.txt'
-    fi
-fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 if which bfs >/dev/null 2>&1; then
