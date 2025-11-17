@@ -230,16 +230,7 @@ mkdir -p ~/.gnupg
     echo '# or'
     echo '#     gpgconf --kill gpg-agent; gpg-agent --daemon'
 
-    if which pinentry-mac >/dev/null 2>&1;then
-        echo "pinentry-program $(which pinentry-mac)"
-    elif which pinentry-gnome3 >/dev/null 2>&1;then
-        echo "pinentry-program $(which pinentry-gnome3)"
-    else
-        echo "pinentry-program $(which pinentry-tty)"
-        echo '# 9223372036854775807 is 2**63 - 1'
-        echo "max-cache-ttl 9223372036854775807"
-        echo "default-cache-ttl 9223372036854775807"
-    fi
+    # gpg-agent.conf generation is reserved for future and zshrc.mine
 } >>~/.gnupg/gpg-agent.conf
 function launch-gpg-agent {
     if which systemctl >/dev/null 2>&1 && systemctl --user list-units | grep gpg-agent-ssh.socket >/dev/null 2>&1; then
@@ -255,24 +246,7 @@ function launch-gpg-agent {
 # $1: password gpg file path
 # $2...: ssh key file pathes
 function add-ssh-keys {
-    launch-gpg-agent
-    local passwd_path="$1"
-    shift
-    if tty >/dev/null 2>&1;then
-        local tty=$(tty)
-    fi
-    local key
-    local ret=0
-    for key in "$@" ;do
-        DISPLAY=dummy \
-               SSH_ASKPASS="$HOME"/.dotfiles-lib/bin/gpg-ssh-askpass \
-               PASSWORD_GPG_PATH="$passwd_path" \
-               TTY="$tty" \
-               ssh-add "$key" </dev/null
-        ((ret |= $?))
-    done
-
-    return $ret
+    echo 'add-ssh-keys() was deprecated.' >&2
 }
 
 
